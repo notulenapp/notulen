@@ -1,0 +1,34 @@
+{
+    "data_user": [
+        {
+            "id": 1,
+            "nip": 1,
+            "nama": "Dummy",
+            "jabatan": "",
+            "role": ["ADMIN", "USER"]
+        },
+        {
+            "id": 2,
+            "nip": 2,
+            "nama": "Dummy",
+            "role": ["USER"]
+        }
+    ],
+    "data_rapat": [
+        {
+            "id": 1,
+            "start_date": "2022-02-10",
+            "end_date": "2022-02-10",
+            "dasar": "",
+            "tempat": "",
+            "nama_rapat": "",
+            "hasil_rapat": "",
+            "tindak_lanjut": "",
+            "partisipan": "",
+            "telah_disosialisasikan_pada": "2022-02-10",
+            "last_editor_name": "",
+            "last_editor_id": 2,
+            "last_edit": "2022-02-10"
+        }
+    ]
+}
