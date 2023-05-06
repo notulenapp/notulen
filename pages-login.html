@@ -15,7 +15,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -67,9 +69,8 @@
                   <form class="row g-3 needs-validation" novalidate>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsername" class="form-label">Email</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
@@ -90,6 +91,13 @@
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
+                    <div class="col-12">
+                      <button class="btn btn-outline-primary w-100" onclick="openGooglePrompt()">
+                        <img src="https://img.icons8.com/color/16/000000/google-logo.png">
+                        Login With Google
+                      </button>
+                    </div>     
+                    <div id="firebaseui-auth-container"></div>               
                     <div class="col-12">
                       <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
                     </div>
@@ -115,7 +123,77 @@
     </div>
   </main><!-- End #main -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.css" />
+  <script>
+    // firebase config
+    
+    var config = {
+      apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+      authDomain: "notulen-app-7112c.firebaseapp.com",
+      projectId: "notulen-app-7112c",
+      storageBucket: "notulen-app-7112c.appspot.com",
+      messagingSenderId: "798198338684",
+      appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9"
+    };
+    firebase.initializeApp(config);
+
+    /////////////////////////////////////
+
+
+    /**********************\
+     * Check login status *
+    \**********************/
+
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) { // if already logged in
+        console.log("success login")
+        console.log(user)
+        window.location.href = 'profile.html';
+      }
+    });
+
+    /*******************\
+     * init Login UI *
+    \*******************/
+
+    // FirebaseUI config.
+    var uiConfig = {
+      'signInSuccessUrl': false,
+      'signInOptions': [
+        // comment unused sign-in method
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        // firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+        //firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+      ],
+      // Terms of service url.
+      'tosUrl': false,
+    };
+
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+
+    ////////////////////////////////////////
+
+
+    function openGooglePrompt(){
+      console.log("called")
+      var provider = new firebase.auth.GoogleAuthProvider();
+      provider.addScope('profile');
+      provider.addScope('email');
+      provider.addScope('https://www.googleapis.com/auth/plus.me');
+      firebase.auth().signInWithPopup(provider); // Opens a popup window and returns a promise to handle errors.
+    }
+
+  </script>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
