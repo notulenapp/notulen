@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Edit Pegawai - NotulenApp</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Mar 09 2023 with Bootstrap v5.2.3
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center">
+                <img src="assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block">NotulenApp</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+
+
+        <!-- End Search Bar -->
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>Kevin Anderson</h6>
+                            <span>Web Designer</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-person"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-gear"></i>
+                                <span>Account Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="index.html">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Data</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="data-pegawai.html">
+                            <i class="bi bi-circle"></i><span>Data Pegawai</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="data-rapat.html">
+                            <i class="bi bi-circle"></i><span>Data Rapat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="data-hasil-rapat.html">
+                            <i class="bi bi-circle"></i><span>Data Hasil Rapat</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Components Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link" href="new-notulen.html">
+                    <i class="bi bi-plus-square"></i>
+                    <span>Buat Notulen Baru</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-heading">Pages</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="users-profile.html">
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="pages-login.html">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Logout</span>
+                </a>
+            </li><!-- End Login Page Nav -->
+
+        </ul>
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Edit Pegawai</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="data-pegawai.html">Data Pegawai</a></li>
+                    <li class="breadcrumb-item active">Edit Pegawai</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Mohon lengkapi formulir berikut:</h5>
+
+                            <!-- General Form Elements -->
+                            <form id="update_entry">
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Nama</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_nama" name="input_nama">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-3 col-form-label">NIP</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" id="input_nip" name="input_nip">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Jabatan</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_jabatan" name="input_jabatan">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <label class="col-sm-3 col-form-label"></label>
+                                    <div class="col-sm-9">
+                                        <button class="btn btn-primary">Simpan</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <!-- End General Form Elements -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <script>
+        // firebase config
+        var config = {
+            apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+            authDomain: "notulen-app-7112c.firebaseapp.com",
+            projectId: "notulen-app-7112c",
+            storageBucket: "notulen-app-7112c.appspot.com",
+            messagingSenderId: "798198338684",
+            appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+            databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        };
+        firebase.initializeApp(config);
+
+        /////////////////////////////////////
+
+
+        /**********************\
+         * login status check *
+        \**********************/
+
+        firebase.auth().onAuthStateChanged(function (user) {
+            if (user) {
+
+                // init CKEditor
+                // CKEDITOR.replace('content');
+
+                /***************************************************\
+                 * Process form data and save to Firebase database *
+                \***************************************************/
+
+                $('#update_entry').submit(function (e) {
+                    e.preventDefault();
+
+                    var entry = {};
+                    entry.nama = $(this).find('[name="input_nama"]').val();
+                    entry.nip = $(this).find('[name="input_nip"]').val();
+                    entry.jabatan = $(this).find('[name="input_jabatan"]').val();
+                    entry.createdAt = new Date().getTime();
+                    entry.updatedAt = entry.createdAt;
+                    entry.views = 0;
+                    entry.author = user.email;
+
+                    var Entry = firebase.database().ref('data_user');
+
+                    Entry.push(entry).then(function (data) {
+                        window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
+                    }).catch(function (error) {
+                        alert(error);
+                        console.error(error);
+                    })
+
+                    return false;
+                });
+
+
+            } else {
+                // if not logged in
+                alert('Please login first')
+                window.location.href = 'pages-login.html';
+
+            }
+        });
+
+    </script> -->
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+    <script type="module">
+        
+        /////////////////////////////////////
+        import { initializeApp } from "firebase/app";
+        import { getAuth, onAuthStateChanged } from "firebase/auth";
+        import { getDatabase, ref, push } from "firebase/database";
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyBqxEP00IKEgI163DnTRluzxIHwesx_QLQ",
+        authDomain: "example-crud-blog-d4912.firebaseapp.com",
+        databaseURL: "https://example-crud-blog-d4912.firebaseio.com",
+        storageBucket: "",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        /**********************\
+         * login status check *
+        \**********************/
+
+        onAuthStateChanged(function (user) {
+            if (user) {
+
+                // init CKEditor
+                // CKEDITOR.replace('content');
+
+                /***************************************************\
+                 * Process form data and save to Firebase database *
+                \***************************************************/
+
+                $('#update_entry').submit(function (e) {
+                    e.preventDefault();
+
+                    var entry = {};
+                    entry.nama = $(this).find('[name="input_nama"]').val();
+                    entry.nip = $(this).find('[name="input_nip"]').val();
+                    entry.jabatan = $(this).find('[name="input_jabatan"]').val();
+                    entry.createdAt = new Date().getTime();
+                    entry.updatedAt = entry.createdAt;
+                    entry.views = 0;
+                    entry.author = user.email;
+
+                    var Entry = ref('data_user');
+
+                    Entry.push(entry).then(function (data) {
+                        window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
+                    }).catch(function (error) {
+                        alert(error);
+                        console.error(error);
+                    })
+
+                    return false;
+                });
+
+
+            } else {
+                // if not logged in
+                alert('Please login first')
+                window.location.href = 'pages-login.html';
+
+            }
+        });
+    </script> -->
+
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js" type="module" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js" type="module" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js" type="module" defer></script>
+
+    <script type="module">
+        import { initializeApp } from "firebase/app";
+        import { getAuth, onAuthStateChanged } from "firebase/auth";
+        import { getDatabase, ref, push } from "firebase/database";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBqxEP00IKEgI163DnTRluzxIHwesx_QLQ",
+            authDomain: "example-crud-blog-d4912.firebaseapp.com",
+            databaseURL: "https://example-crud-blog-d4912.firebaseio.com",
+            storageBucket: "",
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
+
+        /**********************\
+         * login status check *
+        \**********************/
+
+        onAuthStateChanged(auth, function (user) {
+            if (user) {
+
+                // init CKEditor
+                // CKEDITOR.replace('content');
+
+                /***************************************************\
+                 * Process form data and save to Firebase database *
+                \***************************************************/
+
+                $('#update_entry').submit(function (e) {
+                    e.preventDefault();
+
+                    var entry = {};
+                    entry.nama = $(this).find('[name="input_nama"]').val();
+                    entry.nip = $(this).find('[name="input_nip"]').val();
+                    entry.jabatan = $(this).find('[name="input_jabatan"]').val();
+                    entry.createdAt = new Date().getTime();
+                    entry.updatedAt = entry.createdAt;
+                    entry.views = 0;
+                    entry.author = user.email;
+
+                    var Entry = ref(database, 'data_user');
+
+                    push(Entry, entry).then(function (data) {
+                        window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
+                    }).catch(function (error) {
+                        alert(error);
+                        console.error(error);
+                    })
+
+                    return false;
+                });
+
+
+            } else {
+                // if not logged in
+                alert('Please login first')
+                window.location.href = 'pages-login.html';
+
+            }
+        });
+    </script> -->
+
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+        import { getDatabase, set, get, ref, push, runTransaction } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+            authDomain: "notulen-app-7112c.firebaseapp.com",
+            projectId: "notulen-app-7112c",
+            storageBucket: "notulen-app-7112c.appspot.com",
+            messagingSenderId: "798198338684",
+            appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+            databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                console.log("aman")
+                /*********************************\
+                 * Fetch the entry from Firebase *
+                \*********************************/
+                var url = new URL(window.location.href);
+                var entry_id = $_GET('id');
+                if (entry_id) {
+                    var userRef = ref(database, `data_user/${entry_id}`);
+
+                    get(userRef).then((snapshot) => {
+                        if (snapshot.exists()) {
+                            console.log("ada")
+                            var temp = snapshot.val();
+                            console.log(temp);
+                            $('#update_entry [name="input_nama"]').val(temp.nama);
+                            $('#update_entry [name="input_nip"]').val(temp.nip);
+                            $('#update_entry [name="input_jabatan"]').val(temp.jabatan);
+
+                        } else {
+                            console.log("No data available");
+                        }
+                    }).catch((error) => {
+                        console.error(error);
+                    });
+                }
+
+                $('#update_entry').submit(function (e) {
+                    e.preventDefault();
+
+                    var entry = {};
+                    entry.nama = $(this).find('[name="input_nama"]').val();
+                    entry.nip = $(this).find('[name="input_nip"]').val();
+                    entry.jabatan = $(this).find('[name="input_jabatan"]').val();
+                    entry.updatedAt = new Date().getTime();
+                    entry.lastEditedBy = user.email;
+
+                    const tasksRef = ref(database, `data_user/${entry_id}`);
+
+                    runTransaction(tasksRef, (entry) => {
+                        if (!entry) {
+                            return entry;
+                        }
+                        var entry = {};
+                        entry.nama = $(this).find('[name="input_nama"]').val();
+                        entry.nip = $(this).find('[name="input_nip"]').val();
+                        entry.jabatan = $(this).find('[name="input_jabatan"]').val();
+                        entry.updatedAt = new Date().getTime();
+                        entry.lastEditedBy = user.email;
+                        return entry;
+                    }).then((result) => {
+                        window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
+                    }).catch(function (error) {
+                        alert(error);
+                        console.error(error);
+                    })
+
+                    // runTransaction(tasksRef, entry).then(function (data) {
+                    //     window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
+                    // }).catch(function (error) {
+                    //     alert(error);
+                    //     console.error(error);
+                    // })
+
+                });
+            } else {
+                console.log("ga aman")
+            }
+        })
+        function $_GET(key) {
+            var queries = window.location.href.split('?').pop().split('&');
+            var params = {};
+            queries.map(function (query) {
+                var set = query.split('=');
+                params[set[0]] = set[1];
+            });
+
+            if (key) {
+                return params[key] || null;
+            } else {
+                return params;
+            }
+
+        }
+    </script>
+</body>
+
+</html>

@@ -15,7 +15,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +53,7 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    
+
     <!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
@@ -92,7 +94,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            
+
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -149,7 +151,7 @@
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" href="new-notulen.html">
           <i class="bi bi-plus-square"></i>
           <span>Buat Notulen Baru</span>
         </a>
@@ -193,7 +195,22 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Datatables</h5>
+              <div class="row">
+                <div class="col-md-6">
+                  <h5 class="card-title">Datatables</h5>
+                </div>
+                <div class="col-md-6" style="display: flex;
+                justify-content: flex-end;
+                align-items: center;">
+                  <a href="new-pegawai.html">
+                    <button class="btn btn-primary" onclick="download3()">
+
+                      <i class="bi bi-print"></i>
+                      Tambah Pegawai
+                    </button>
+                  </a>
+                </div>
+              </div>
               <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
               <p>Deskripsi table</p>
 
@@ -206,39 +223,65 @@
                     <th scope="col">Name</th>
                     <th scope="col">NIP</th>
                     <th scope="col">Jabatan</th>
+                    <th scope="col">Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
+                <tbody id="entries">
+                  <!-- <tr>
                     <th scope="row">1</th>
                     <td>Ir. Joko Widodo</td>
                     <td>12345</td>
                     <td>Presiden</td>
+                    <td>
+                      <button type="button" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row">2</th>
                     <td>M.H. Yaqut Cholil Qoumas</td>
                     <td>23456</td>
                     <td>Menteri Agama</td>
+                    <td>
+                      <button type="button" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row">3</th>
                     <td>Budi Gunawan</td>
                     <td>34567</td>
                     <td>Kapolri</td>
+                    <td>
+                      <button type="button" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row">4</th>
                     <td>Retno L.P. Marsudi</td>
                     <td>45678</td>
                     <td>Menteri Luar Negeri</td>
+                    <td>
+                      <button type="button" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr>
                     <th scope="row">5</th>
                     <td>Agus Harimurti Yudhoyono</td>
                     <td>56789</td>
                     <td>Menteri Pertahanan</td>
-                  </tr>
+                    <td>
+                      <button type="button" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                    </td>
+                  </tr> -->
                 </tbody>
               </table>
               <!-- End Table with stripped rows -->
@@ -266,7 +309,8 @@
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -281,6 +325,116 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
 
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getDatabase, get, set, child, ref, push } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+      authDomain: "notulen-app-7112c.firebaseapp.com",
+      projectId: "notulen-app-7112c",
+      storageBucket: "notulen-app-7112c.appspot.com",
+      messagingSenderId: "798198338684",
+      appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+      databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        console.log("aman")
+
+        const userRef = ref(database, "data_user");
+        console.log(userRef)
+        
+        get(userRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            console.log("ada")
+            var temp = snapshot.val();
+            console.log(temp);
+
+            const data = snapshot.val();
+            const tableBody = document.getElementById('entries');
+            var arrContent = []
+            var container;
+            var index = 1;
+            for (const [key, value] of Object.entries(data)) {
+              console.log(value)
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <th scope="row">${index}</th>
+                <td>${value.nama}</td>
+                <td>${value.nip}</td>
+                <td>${value.jabatan}</td>
+                <td>
+                  <a href="update-pegawai.html?id=${key}">
+                    <button type="button" class="btn btn-warning btn-sm">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                  </a>                  
+                </td>
+              `;
+              console.log(row)
+              tableBody.appendChild(row);
+              index++
+            }
+          } else {
+            console.log("No data available");
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+
+
+      } else {
+        console.log("ga aman")
+      }
+    })
+
+    function renderTable(data) {
+      const tableBody = document.querySelector('#entries');
+      tableBody.innerHTML = '';
+
+      if (data) {
+        // data exists, render the table rows
+        for (const [key, value] of Object.entries(data)) {
+          console.log(value)
+          const row = document.createElement('tr');
+          const nameCell = document.createElement('td');
+          const nipCell = document.createElement('td');
+          const jabatanCell = document.createElement('td');
+          const actionsCell = document.createElement('td');
+          const editButton = document.createElement('button');
+          const editIcon = document.createElement('i');
+
+          nameCell.textContent = value.nama;
+          nipCell.textContent = value.nip;
+          jabatanCell.textContent = value.jabatan;
+          editIcon.classList.add('bi', 'bi-pencil-square');
+          editButton.classList.add('btn', 'btn-warning', 'btn-sm');
+          editButton.addEventListener('click', () => {
+            editEntry(key, value);
+          });
+          editButton.appendChild(editIcon);
+          actionsCell.appendChild(editButton);
+
+          row.appendChild(nameCell);
+          row.appendChild(nipCell);
+          row.appendChild(jabatanCell);
+          row.appendChild(actionsCell);
+          tableBody.appendChild(row);
+        }
+      } else {
+        // data doesn't exist, display an error message
+        tableBody.innerHTML = '<tr><td colspan="4">No data available.</td></tr>';
+      }
+    }
+
+  </script>
 </body>
 
 </html>
