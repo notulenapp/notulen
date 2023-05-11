@@ -230,7 +230,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label"></label>
                                     <div class="col-sm-9">
-                                        <button class="btn btn-primary">Simpan</button>
+                                        <button id="btn-save" class="btn btn-primary" disabled>Simpan</button>
                                     </div>
                                 </div>
 
@@ -503,7 +503,6 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth();
-
         auth.onAuthStateChanged(function (user) {
             if (user) {
                 console.log("aman")
@@ -520,6 +519,7 @@
                             console.log("ada")
                             var temp = snapshot.val();
                             console.log(temp);
+                            document.getElementById("btn-save").disabled = false;
                             $('#update_entry [name="input_nama"]').val(temp.nama);
                             $('#update_entry [name="input_nip"]').val(temp.nip);
                             $('#update_entry [name="input_jabatan"]').val(temp.jabatan);

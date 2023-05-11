@@ -343,14 +343,14 @@
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
     const auth = getAuth();
-
+    const tableBody = document.getElementById('entries');
+    tableBody.innerHTML = `<tr><td colspan=5 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
     auth.onAuthStateChanged(function (user) {
       if (user) {
         console.log("aman")
 
         const userRef = ref(database, "data_user");
         console.log(userRef)
-        
         get(userRef).then((snapshot) => {
           if (snapshot.exists()) {
             console.log("ada")
@@ -358,7 +358,7 @@
             console.log(temp);
 
             const data = snapshot.val();
-            const tableBody = document.getElementById('entries');
+            tableBody.innerHTML = ""
             var arrContent = []
             var container;
             var index = 1;
