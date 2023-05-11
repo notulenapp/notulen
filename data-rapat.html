@@ -274,7 +274,7 @@
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>  
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -313,13 +313,6 @@
     const tableBody = document.getElementById('entries');
     tableBody.innerHTML = `<tr><td colspan=7 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
 
-    function setDeleteModal(id) {
-      selectedId = id
-      console.log(selectedId)
-      selectedName = name
-      document.getElementById("delete-modal-name").innerHTML = name
-      deleteData()
-    }
     function deleteData() {
       console.log(selectedId)
       const dataRef = ref(database, `data_rapat/${selectedId}`);
@@ -356,7 +349,7 @@
             var index = 1;
             for (const [key, value] of Object.entries(data)) {
               console.log(value)
-              
+
               const tableBody = document.getElementById('entries');
 
               // create table row
@@ -412,7 +405,14 @@
               // deleteButton.setAttribute('title', 'Delete Rapat');
               deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
               deleteButton.addEventListener('click', () => {
-                setDeleteModal(key);
+                selectedId = key;
+                let text = `Anda yakin akan menghapus ${value.nama}?`;
+                if (confirm(text) == true) {
+                  text = "You pressed OK!";
+                } else {
+                  text = "You canceled!";
+                }
+
               });
 
               const actionsCell = document.createElement('td');
