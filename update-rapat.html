@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Tambah Pegawai - NotulenApp</title>
+    <title>Update Rapat - NotulenApp</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -188,12 +188,12 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Tambah Pegawai</h1>
+            <h1>Update Rapat</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="data-pegawai.html">Data Pegawai</a></li>
-                    <li class="breadcrumb-item active">Tambah Pegawai</li>
+                    <li class="breadcrumb-item"><a href="data-rapat.html">Data Rapat</a></li>
+                    <li class="breadcrumb-item active">Update Rapat</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -207,30 +207,67 @@
                             <h5 class="card-title">Mohon lengkapi formulir berikut:</h5>
 
                             <!-- General Form Elements -->
-                            <form id="new_entry">
+                            <form id="update_entry">
                                 <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-3 col-form-label">Nama</label>
+                                    <label for="inputText" class="col-sm-3 col-form-label">Dasar Pelaksanaan</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_dasar" name="input_dasar">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputDate" class="col-sm-3 col-form-label">Tanggal</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" id="input_tanggal" name="input_tanggal">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Tempat Rapat</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_tempat" name="input_tempat">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputTime" class="col-sm-3 col-form-label">Waktu</label>
+                                    <div class="col-sm-2">
+                                        <input type="time" class="form-control" id="input_jam_mulai" name="input_jam_mulai">
+                                    </div>
+                                    <div class="col-sm-1 col-form-label text-center">
+                                        s/d
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="time" class="form-control" id="input_jam_selesai" name="input_jam_selesai">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Nama Rapat</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="input_nama" name="input_nama">
                                     </div>
                                 </div>
-                                <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-3 col-form-label">NIP</label>
+                                <div class="row mb-3 d-none">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Hasil Rapat</label>
                                     <div class="col-sm-9">
-                                        <input type="number" class="form-control" id="input_nip" name="input_nip">
+                                        <input type="text" class="form-control" id="input_hasil" name="input_hasil">
                                     </div>
                                 </div>
-                                <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-3 col-form-label">Jabatan</label>
+                                <div class="row mb-3 d-none">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Rencana Tindak Lanjut</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_jabatan" name="input_jabatan">
+                                        <input type="text" class="form-control" id="input_rencana" name="input_rencana">
                                     </div>
                                 </div>
+                                <div class="row mb-3 d-none">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Telah disosialisasikan pada</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_telah" name="input_telah">
+                                    </div>
+                                </div>
+
 
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label"></label>
                                     <div class="col-sm-9">
-                                        <button class="btn btn-primary">Simpan</button>
+                                        <button class="btn btn-primary" id="btn-save" disabled>Simpan</button>
                                     </div>
                                 </div>
 
@@ -239,7 +276,6 @@
 
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -307,7 +343,7 @@
                  * Process form data and save to Firebase database *
                 \***************************************************/
 
-                $('#new_entry').submit(function (e) {
+                $('#update_entry').submit(function (e) {
                     e.preventDefault();
 
                     var entry = {};
@@ -375,7 +411,7 @@
                  * Process form data and save to Firebase database *
                 \***************************************************/
 
-                $('#new_entry').submit(function (e) {
+                $('#update_entry').submit(function (e) {
                     e.preventDefault();
 
                     var entry = {};
@@ -443,7 +479,7 @@
                  * Process form data and save to Firebase database *
                 \***************************************************/
 
-                $('#new_entry').submit(function (e) {
+                $('#update_entry').submit(function (e) {
                     e.preventDefault();
 
                     var entry = {};
@@ -511,7 +547,7 @@
                  * Process form data and save to Firebase database *
                 \***************************************************/
 
-                $('#new_entry').submit(function (e) {
+                $('#update_entry').submit(function (e) {
                     e.preventDefault();
 
                     var entry = {};
@@ -545,7 +581,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-        import { getDatabase, set, ref, push } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+        import { getDatabase, set, get, ref, push } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -564,24 +600,57 @@
 
         auth.onAuthStateChanged(function (user) {
             if (user) {
-                console.log("aman")
-                $('#new_entry').submit(function (e) {
+                var entry_id = $_GET('id');
+                console.log(entry_id)
+                if (entry_id) {
+                    var userRef = ref(database, `data_rapat/${entry_id}`);
+
+                    get(userRef).then((snapshot) => {
+                        if (snapshot.exists()) {
+                            console.log("ada")
+                            var temp = snapshot.val();
+                            console.log(temp);
+                            document.getElementById("btn-save").disabled = false;
+                            $('#update_entry [name="input_dasar"]').val(temp.dasar);
+                            $('#update_entry [name="input_tanggal"]').val(temp.tanggal);
+                            $('#update_entry [name="input_jam_mulai"]').val(temp.jam_mulai);
+                            $('#update_entry [name="input_jam_selesai"]').val(temp.jam_selesai);
+                            $('#update_entry [name="input_tempat"]').val(temp.tempat);
+                            $('#update_entry [name="input_nama"]').val(temp.nama);
+                            $('#update_entry [name="input_hasil"]').val(temp.input_hasil);
+                            $('#update_entry [name="input_rencana"]').val(temp.input_rencana);
+                            $('#update_entry [name="input_telah"]').val(temp.input_telah);
+
+                        } else {
+                            console.log("No data available");
+                        }
+                    }).catch((error) => {
+                        console.error(error);
+                    });
+                }
+
+                $('#update_entry').submit(function (e) {
                     e.preventDefault();
 
                     var entry = {};
+                    entry.dasar = $(this).find('[name="input_dasar"]').val();
+                    entry.tanggal = $(this).find('[name="input_tanggal"]').val();
+                    entry.tempat = $(this).find('[name="input_tempat"]').val();
+                    entry.jam_mulai = $(this).find('[name="input_jam_mulai"]').val();
+                    entry.jam_selesai = $(this).find('[name="input_jam_selesai"]').val();
                     entry.nama = $(this).find('[name="input_nama"]').val();
-                    entry.nip = $(this).find('[name="input_nip"]').val();
-                    entry.jabatan = $(this).find('[name="input_jabatan"]').val();
+                    entry.hasil = $(this).find('[name="input_hasil"]').val();
+                    entry.rencana = $(this).find('[name="input_rencana"]').val();
+                    entry.telah = $(this).find('[name="input_telah"]').val();
                     entry.createdAt = new Date().getTime();
                     entry.updatedAt = entry.createdAt;
-                    entry.views = 0;
                     entry.author = user.email;
 
-                    const tasksRef = ref(database, "data_user");
+                    const tasksRef = ref(database, "data_rapat");
 
 
                     push(tasksRef, entry).then(function (data) {
-                        window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
+                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
                     }).catch(function (error) {
                         alert(error);
                         console.error(error);
@@ -593,6 +662,23 @@
                 console.log("ga aman")
             }
         })
-    </script>    
+        function $_GET(key) {
+            var queries = window.location.href.split('?').pop().split('&');
+            var params = {};
+            queries.map(function (query) {
+                var set = query.split('=');
+                params[set[0]] = set[1];
+            });
+
+            if (key) {
+                return params[key] || null;
+            } else {
+                return params;
+            }
+
+        }
+    
+    </script>
 </body>
+
 </html>

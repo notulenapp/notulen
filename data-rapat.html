@@ -15,7 +15,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +53,7 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    
+
     <!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
@@ -92,7 +94,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            
+
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -200,102 +202,36 @@
                 <div class="col-md-6" style="display: flex;
                 justify-content: flex-end;
                 align-items: center;">
-                  <button class="btn btn-primary" onclick="download3()">
-                    <i class="bi bi-print"></i>
-                    Tambah Rapat
-                  </button>
+                  <a href="new-rapat.html">
+                    <button class="btn btn-primary">
+                      <i class="bi bi-print"></i>
+                      Tambah Rapat
+                    </button>
+                  </a>
                 </div>
               </div>
               <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
               <p>Deskripsi table</p>
 
               <!-- Table with stripped rows -->
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Dasar Kegiatan</th>
-                    <th scope="col">Hari / Tanggal</th>
-                    <th scope="col">Tempat</th>
-                    <th scope="col">Waktu</th>
-                    <th scope="col">Nama Rapat</th>
-                    <th scope="col">Pelaksana</th>
-                    <th scope="col">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Penting</td>
-                    <td>Jumat, 29 Mei 2023</td>
-                    <td>Ruang Tengah</td>
-                    <td>19:00 WIB</td>
-                    <td>Rapat Anggota</td>
-                    <td>Ahmad Yanto</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-plus"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Penting</td>
-                    <td>Senin, 31 Mei 2023</td>
-                    <td>Ruang Utama</td>
-                    <td>14:00 WIB</td>
-                    <td>Rapat Pembinaan</td>
-                    <td>Budi Santoso</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-plus"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Rutin</td>
-                    <td>Jumat, 4 Juni 2023</td>
-                    <td>Ruang Rapat 1</td>
-                    <td>09:00 WIB</td>
-                    <td>Rapat Koordinasi</td>
-                    <td>Siti Indah</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-plus"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Rutin</td>
-                    <td>Kamis, 10 Juni 2023</td>
-                    <td>Ruang Rapat 2</td>
-                    <td>10:30 WIB</td>
-                    <td>Rapat Evaluasi</td>
-                    <td>Arief Wibowo</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-plus"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Penting</td>
-                    <td>Rabu, 16 Juni 2023</td>
-                    <td>Ruang Rapat 3</td>
-                    <td>15:00 WIB</td>
-                    <td>Rapat Persiapan</td>
-                    <td>Adi Sutomo</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-plus"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Dasar Kegiatan</th>
+                      <th scope="col">Hari / Tanggal</th>
+                      <th scope="col">Tempat</th>
+                      <th scope="col">Waktu</th>
+                      <th scope="col">Nama Rapat</th>
+                      <th scope="col">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="entries">
+
+                  </tbody>
+                </table>
+              </div>
               <!-- End Table with stripped rows -->
 
             </div>
@@ -304,7 +240,23 @@
         </div>
       </div>
     </section>
-
+    <div class="modal fade" id="verticalycentered" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Peringatan</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Anda yakin akan menghapus data <span id="delete-modal-name"></span>?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            <button type="button" class="btn btn-primary" onclick="deleteData()">Hapus</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -321,7 +273,8 @@
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>  
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -335,7 +288,168 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getDatabase, get, set, child, ref, push, remove } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
+    const firebaseConfig = {
+      apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+      authDomain: "notulen-app-7112c.firebaseapp.com",
+      projectId: "notulen-app-7112c",
+      storageBucket: "notulen-app-7112c.appspot.com",
+      messagingSenderId: "798198338684",
+      appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+      databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    var selectedId = "";
+    var selectedName = "";
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    const tableBody = document.getElementById('entries');
+    tableBody.innerHTML = `<tr><td colspan=7 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
+
+    function setDeleteModal(id) {
+      selectedId = id
+      console.log(selectedId)
+      selectedName = name
+      document.getElementById("delete-modal-name").innerHTML = name
+      deleteData()
+    }
+    function deleteData() {
+      console.log(selectedId)
+      const dataRef = ref(database, `data_rapat/${selectedId}`);
+
+      remove(dataRef)
+        .then(() => {
+          console.log('Data successfully deleted!');
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error('Error deleting data:', error);
+        });
+    }
+    $(document).ready(function () {
+
+    })
+
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        console.log("aman")
+
+        const userRef = ref(database, "data_rapat");
+        console.log(userRef)
+        get(userRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            console.log("ada")
+            var temp = snapshot.val();
+            console.log(temp);
+
+            const data = snapshot.val();
+            tableBody.innerHTML = ""
+            var arrContent = []
+            var container;
+            var index = 1;
+            for (const [key, value] of Object.entries(data)) {
+              console.log(value)
+              
+              const tableBody = document.getElementById('entries');
+
+              // create table row
+              const row = document.createElement('tr');
+
+              // create table cells
+              const indexCell = document.createElement('th');
+              indexCell.setAttribute('scope', 'row');
+              indexCell.innerText = index;
+
+              const dasarCell = document.createElement('td');
+              dasarCell.innerText = value.dasar;
+
+              const tanggalCell = document.createElement('td');
+              tanggalCell.innerText = value.tanggal;
+
+              const tempatCell = document.createElement('td');
+              tempatCell.innerText = value.tempat;
+
+              const jamCell = document.createElement('td');
+              jamCell.innerText = `${value.jam_mulai} - ${value.jam_selesai}`;
+
+              const namaCell = document.createElement('td');
+              namaCell.innerText = value.nama;
+
+              const editButton = document.createElement('button');
+              editButton.setAttribute('type', 'button');
+              editButton.setAttribute('class', 'btn btn-warning btn-sm');
+              editButton.setAttribute('data-bs-toggle', 'tooltip');
+              editButton.setAttribute('data-bs-placement', 'top');
+              editButton.setAttribute('title', 'Edit Rapat');
+              editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
+              editButton.addEventListener('click', () => {
+                window.location.href = `update-rapat.html?id=${key}`;
+              });
+
+              const notulenButton = document.createElement('button');
+              notulenButton.setAttribute('type', 'button');
+              notulenButton.setAttribute('class', 'btn btn-info btn-sm');
+              notulenButton.setAttribute('data-bs-toggle', 'tooltip');
+              notulenButton.setAttribute('data-bs-placement', 'top');
+              notulenButton.setAttribute('title', 'Tambah Notulen');
+              notulenButton.innerHTML = '<i class="bi bi-plus-square"></i>';
+              notulenButton.addEventListener('click', () => {
+                window.location.href = `update-rapat.html?id=${key}`;
+              });
+
+              const deleteButton = document.createElement('button');
+              deleteButton.setAttribute('type', 'button');
+              deleteButton.setAttribute('class', 'btn btn-danger btn-sm');
+              // deleteButton.setAttribute('data-bs-toggle', 'modal');
+              // deleteButton.setAttribute('data-bs-target', '#verticalycentered');
+              // deleteButton.setAttribute('title', 'Delete Rapat');
+              deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+              deleteButton.addEventListener('click', () => {
+                setDeleteModal(key);
+              });
+
+              const actionsCell = document.createElement('td');
+              actionsCell.appendChild(editButton);
+              actionsCell.appendChild(notulenButton);
+              actionsCell.appendChild(deleteButton);
+
+              // append table cells to row
+              row.appendChild(indexCell);
+              row.appendChild(dasarCell);
+              row.appendChild(tanggalCell);
+              row.appendChild(tempatCell);
+              row.appendChild(jamCell);
+              row.appendChild(namaCell);
+              row.appendChild(actionsCell);
+
+              // append row to table body
+              tableBody.appendChild(row);
+
+              index++
+            }
+          } else {
+            console.log("No data available");
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+
+
+      } else {
+        console.log("ga aman")
+      }
+    })
+
+  </script>
+  <script>
+  </script>
 </body>
 
 </html>
