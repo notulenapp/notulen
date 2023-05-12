@@ -198,98 +198,100 @@
               <p>Deskripsi table</p>
 
               <!-- Table with stripped rows -->
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Dasar Kegiatan</th>
-                    <th scope="col">Hari / Tanggal</th>
-                    <th scope="col">Tempat</th>
-                    <th scope="col">Waktu</th>
-                    <th scope="col">Nama Rapat</th>
-                    <th scope="col">Pelaksana</th>
-                    <th scope="col">Tanggal Selesai</th>
-                    <th scope="col">Aksi</th>
-                  </tr>
-                </thead>
-                <tbody id="entries">
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Penting</td>
-                    <td>Jumat, 29 Mei 2023</td>
-                    <td>Ruang Tengah</td>
-                    <td>19:00 WIB</td>
-                    <td>Rapat Anggota</td>
-                    <td>Cantika Amelia Lestari</td>
-                    <td>Sabtu, 30 Mei 2023</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-list"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Rutin</td>
-                    <td>Kamis, 2 Juni 2023</td>
-                    <td>Ruang Rapat Utama</td>
-                    <td>08:00 WIB</td>
-                    <td>Rapat Harian</td>
-                    <td>Budi Santoso</td>
-                    <td>Jumat, 3 Juni 2023</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-list"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Penting</td>
-                    <td>Jumat, 10 Juni 2023</td>
-                    <td>Ruang Pertemuan 1</td>
-                    <td>14:00 WIB</td>
-                    <td>Rapat Strategis</td>
-                    <td>Dian Novianti</td>
-                    <td>Sabtu, 11 Juni 2023</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-list"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Rutin</td>
-                    <td>Senin, 13 Juni 2023</td>
-                    <td>Ruang Rapat 2</td>
-                    <td>09:00 WIB</td>
-                    <td>Rapat Mingguan</td>
-                    <td>Andi Susanto</td>
-                    <td>Selasa, 14 Juni 2023</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-list"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Penting</td>
-                    <td>Jumat, 17 Juni 2023</td>
-                    <td>Ruang VIP</td>
-                    <td>15:00 WIB</td>
-                    <td>Rapat Dewan Direksi</td>
-                    <td>Indra Pratama</td>
-                    <td>Sabtu, 18 Juni 2023</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-list"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Dasar Kegiatan</th>
+                      <th scope="col">Hari / Tanggal</th>
+                      <th scope="col">Tempat</th>
+                      <th scope="col">Waktu</th>
+                      <th scope="col">Nama Rapat</th>
+                      <th scope="col">Pelaksana</th>
+                      <th scope="col">Tanggal Selesai</th>
+                      <th scope="col">Aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody id="entries">
+                    <!-- <tr>
+                      <th scope="row">1</th>
+                      <td>Penting</td>
+                      <td>Jumat, 29 Mei 2023</td>
+                      <td>Ruang Tengah</td>
+                      <td>19:00 WIB</td>
+                      <td>Rapat Anggota</td>
+                      <td>Cantika Amelia Lestari</td>
+                      <td>Sabtu, 30 Mei 2023</td>
+                      <td>
+                        <button type="button" class="btn btn-warning btn-sm">
+                          <i class="bi bi-list"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Rutin</td>
+                      <td>Kamis, 2 Juni 2023</td>
+                      <td>Ruang Rapat Utama</td>
+                      <td>08:00 WIB</td>
+                      <td>Rapat Harian</td>
+                      <td>Budi Santoso</td>
+                      <td>Jumat, 3 Juni 2023</td>
+                      <td>
+                        <button type="button" class="btn btn-warning btn-sm">
+                          <i class="bi bi-list"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Penting</td>
+                      <td>Jumat, 10 Juni 2023</td>
+                      <td>Ruang Pertemuan 1</td>
+                      <td>14:00 WIB</td>
+                      <td>Rapat Strategis</td>
+                      <td>Dian Novianti</td>
+                      <td>Sabtu, 11 Juni 2023</td>
+                      <td>
+                        <button type="button" class="btn btn-warning btn-sm">
+                          <i class="bi bi-list"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">4</th>
+                      <td>Rutin</td>
+                      <td>Senin, 13 Juni 2023</td>
+                      <td>Ruang Rapat 2</td>
+                      <td>09:00 WIB</td>
+                      <td>Rapat Mingguan</td>
+                      <td>Andi Susanto</td>
+                      <td>Selasa, 14 Juni 2023</td>
+                      <td>
+                        <button type="button" class="btn btn-warning btn-sm">
+                          <i class="bi bi-list"></i>
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5</th>
+                      <td>Penting</td>
+                      <td>Jumat, 17 Juni 2023</td>
+                      <td>Ruang VIP</td>
+                      <td>15:00 WIB</td>
+                      <td>Rapat Dewan Direksi</td>
+                      <td>Indra Pratama</td>
+                      <td>Sabtu, 18 Juni 2023</td>
+                      <td>
+                        <button type="button" class="btn btn-warning btn-sm">
+                          <i class="bi bi-list"></i>
+                        </button>
+                      </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+              </div>              
               <!-- End Table with stripped rows -->
 
             </div>
