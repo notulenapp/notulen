@@ -327,7 +327,7 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-    import { getDatabase, get, set, child, ref, push } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getDatabase, get, set, child, ref, push, remove } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -365,19 +365,56 @@
             for (const [key, value] of Object.entries(data)) {
               console.log(value)
               const row = document.createElement('tr');
-              row.innerHTML = `
-                <th scope="row">${index}</th>
-                <td>${value.nama}</td>
-                <td>${value.nip}</td>
-                <td>${value.jabatan}</td>
-                <td>
-                  <a href="update-pegawai.html?id=${key}">
-                    <button type="button" class="btn btn-warning btn-sm">
-                      <i class="bi bi-pencil-square"></i>
-                    </button>
-                  </a>                  
-                </td>
-              `;
+
+              const indexCell = document.createElement('th');
+              indexCell.setAttribute('scope', 'row');
+              indexCell.innerText = index;
+              
+              const namaCell = document.createElement('td');
+              namaCell.innerText = value.nama;
+
+              const nipCell = document.createElement('td');
+              nipCell.innerText = value.nip;
+
+              const jabatanCell = document.createElement('td');
+              jabatanCell.innerText = value.jabatan;
+
+              const editButton = document.createElement('button');
+              editButton.setAttribute('type', 'button');
+              editButton.setAttribute('class', 'btn btn-warning btn-sm');
+              editButton.setAttribute('data-bs-toggle', 'tooltip');
+              editButton.setAttribute('data-bs-placement', 'top');
+              editButton.setAttribute('title', 'Edit Pegawai');
+              editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
+              editButton.addEventListener('click', () => {
+                window.location.href = `update-pegawai.html?id=${key}`;
+              });
+
+              const deleteButton = document.createElement('button');
+              deleteButton.setAttribute('type', 'button');
+              deleteButton.setAttribute('class', 'btn btn-danger btn-sm');
+              deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+              deleteButton.addEventListener('click', () => {                
+                let text = `Anda yakin akan menghapus ${value.nama}?`;
+                if (confirm(text) == true) {
+                  text = "You pressed OK!";
+                  deleteData(key)
+                } else {
+                  text = "You canceled!";
+                }
+
+              });
+
+              const actionsCell = document.createElement('td');
+              actionsCell.appendChild(editButton);
+              actionsCell.appendChild(deleteButton);
+
+              row.appendChild(indexCell);
+              row.appendChild(namaCell);
+              row.appendChild(nipCell);
+              row.appendChild(jabatanCell);
+              row.appendChild(actionsCell);
+
               console.log(row)
               tableBody.appendChild(row);
               index++
@@ -394,6 +431,20 @@
         console.log("ga aman")
       }
     })
+
+    function deleteData(selectedId) {
+      console.log(selectedId)
+      const dataRef = ref(database, `data_user/${selectedId}`);
+
+      remove(dataRef)
+        .then(() => {
+          console.log('Data successfully deleted!');
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error('Error deleting data:', error);
+        });
+    }
 
     function renderTable(data) {
       const tableBody = document.querySelector('#entries');

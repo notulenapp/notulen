@@ -400,15 +400,13 @@
               const deleteButton = document.createElement('button');
               deleteButton.setAttribute('type', 'button');
               deleteButton.setAttribute('class', 'btn btn-danger btn-sm');
-              // deleteButton.setAttribute('data-bs-toggle', 'modal');
-              // deleteButton.setAttribute('data-bs-target', '#verticalycentered');
-              // deleteButton.setAttribute('title', 'Delete Rapat');
               deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
               deleteButton.addEventListener('click', () => {
                 selectedId = key;
                 let text = `Anda yakin akan menghapus ${value.nama}?`;
                 if (confirm(text) == true) {
                   text = "You pressed OK!";
+                  deleteData()
                 } else {
                   text = "You canceled!";
                 }
@@ -434,7 +432,8 @@
 
               index++
             }
-          } else {
+          } else {            
+            tableBody.innerHTML = `<tr><td colspan=7 class="text-center"r>Data Kosong</tr>`
             console.log("No data available");
           }
         }).catch((error) => {

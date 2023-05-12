@@ -229,13 +229,15 @@
                                 <div class="row mb-3">
                                     <label for="inputTime" class="col-sm-3 col-form-label">Waktu</label>
                                     <div class="col-sm-2">
-                                        <input type="time" class="form-control" id="input_jam_mulai" name="input_jam_mulai">
+                                        <input type="time" class="form-control" id="input_jam_mulai"
+                                            name="input_jam_mulai">
                                     </div>
                                     <div class="col-sm-1 col-form-label text-center">
                                         s/d
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="time" class="form-control" id="input_jam_selesai" name="input_jam_selesai">
+                                        <input type="time" class="form-control" id="input_jam_selesai"
+                                            name="input_jam_selesai">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -257,7 +259,8 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3 d-none">
-                                    <label for="inputText" class="col-sm-3 col-form-label">Telah disosialisasikan pada</label>
+                                    <label for="inputText" class="col-sm-3 col-form-label">Telah disosialisasikan
+                                        pada</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="input_telah" name="input_telah">
                                     </div>
@@ -581,7 +584,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-        import { getDatabase, set, get, ref, push } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+        import { getDatabase, set, get, ref, push, runTransaction } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -597,6 +600,7 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth();
+        var data = {};
 
         auth.onAuthStateChanged(function (user) {
             if (user) {
@@ -610,6 +614,7 @@
                             console.log("ada")
                             var temp = snapshot.val();
                             console.log(temp);
+                            data = temp;
                             document.getElementById("btn-save").disabled = false;
                             $('#update_entry [name="input_dasar"]').val(temp.dasar);
                             $('#update_entry [name="input_tanggal"]').val(temp.tanggal);
@@ -632,29 +637,43 @@
                 $('#update_entry').submit(function (e) {
                     e.preventDefault();
 
-                    var entry = {};
-                    entry.dasar = $(this).find('[name="input_dasar"]').val();
-                    entry.tanggal = $(this).find('[name="input_tanggal"]').val();
-                    entry.tempat = $(this).find('[name="input_tempat"]').val();
-                    entry.jam_mulai = $(this).find('[name="input_jam_mulai"]').val();
-                    entry.jam_selesai = $(this).find('[name="input_jam_selesai"]').val();
-                    entry.nama = $(this).find('[name="input_nama"]').val();
-                    entry.hasil = $(this).find('[name="input_hasil"]').val();
-                    entry.rencana = $(this).find('[name="input_rencana"]').val();
-                    entry.telah = $(this).find('[name="input_telah"]').val();
-                    entry.createdAt = new Date().getTime();
-                    entry.updatedAt = entry.createdAt;
-                    entry.author = user.email;
-
-                    const tasksRef = ref(database, "data_rapat");
 
 
-                    push(tasksRef, entry).then(function (data) {
-                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                    console.log(entry_id)
+                    const tasksRef = ref(database, `data_rapat/${entry_id}`);
+                    console.log(data)
+                    runTransaction(tasksRef, (entry) => {
+                        if (!entry) {
+                            return entry;
+                        }
+                        var entry = data;
+                        entry.dasar = $(this).find('[name="input_dasar"]').val();
+                        entry.tanggal = $(this).find('[name="input_tanggal"]').val();
+                        entry.tempat = $(this).find('[name="input_tempat"]').val();
+                        entry.jam_mulai = $(this).find('[name="input_jam_mulai"]').val();
+                        entry.jam_selesai = $(this).find('[name="input_jam_selesai"]').val();
+                        entry.nama = $(this).find('[name="input_nama"]').val();
+                        entry.hasil = $(this).find('[name="input_hasil"]').val();
+                        entry.rencana = $(this).find('[name="input_rencana"]').val();
+                        entry.telah = $(this).find('[name="input_telah"]').val();
+                        entry.pelaksana = $(this).find('[name="input_pelaksana"]').val();
+                        entry.tanggal_selesai = $(this).find('[name="input_tanggal_selesai"]').val();
+                        entry.createdAt = new Date().getTime();
+                        entry.updatedAt = entry.createdAt;
+                        entry.author = user.email;
+                        return entry
+                    }).then((result) => {
+                        window.location.href = 'data-rapat.html'
                     }).catch(function (error) {
                         alert(error);
                         console.error(error);
                     })
+                    // runTransaction(tasksRef, entry).then(function (data) {
+                    //     window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                    // }).catch(function (error) {
+                    //     alert(error);
+                    //     console.error(error);
+                    // })
 
                     return false;
                 });
@@ -677,7 +696,7 @@
             }
 
         }
-    
+
     </script>
 </body>
 

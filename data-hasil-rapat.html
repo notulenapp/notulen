@@ -212,7 +212,7 @@
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="entries">
                   <tr>
                     <th scope="row">1</th>
                     <td>Penting</td>
@@ -329,7 +329,173 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getDatabase, get, set, child, ref, push, remove } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
+    const firebaseConfig = {
+      apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+      authDomain: "notulen-app-7112c.firebaseapp.com",
+      projectId: "notulen-app-7112c",
+      storageBucket: "notulen-app-7112c.appspot.com",
+      messagingSenderId: "798198338684",
+      appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+      databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    var selectedId = "";
+    var selectedName = "";
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    const tableBody = document.getElementById('entries');
+    tableBody.innerHTML = `<tr><td colspan=7 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
+
+    function deleteData() {
+      console.log(selectedId)
+      const dataRef = ref(database, `data_rapat/${selectedId}`);
+
+      remove(dataRef)
+        .then(() => {
+          console.log('Data successfully deleted!');
+          window.location.reload();
+        })
+        .catch((error) => {
+          console.error('Error deleting data:', error);
+        });
+    }
+    $(document).ready(function () {
+
+    })
+
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        console.log("aman")
+
+        const userRef = ref(database, "data_rapat");
+        console.log(userRef)
+        get(userRef).then((snapshot) => {
+          if (snapshot.exists()) {
+            console.log("ada")
+            var temp = snapshot.val();
+            console.log(temp);
+
+            const data = snapshot.val();
+            tableBody.innerHTML = ""
+            var arrContent = []
+            var container;
+            var index = 1;
+            for (const [key, value] of Object.entries(data)) {
+              console.log(value)
+
+              const tableBody = document.getElementById('entries');
+
+              // create table row
+              const row = document.createElement('tr');
+
+              // create table cells
+              const indexCell = document.createElement('th');
+              indexCell.setAttribute('scope', 'row');
+              indexCell.innerText = index;
+
+              const dasarCell = document.createElement('td');
+              dasarCell.innerText = value.dasar;
+
+              const tanggalCell = document.createElement('td');
+              tanggalCell.innerText = value.tanggal;
+
+              const tempatCell = document.createElement('td');
+              tempatCell.innerText = value.tempat;
+
+              const jamCell = document.createElement('td');
+              jamCell.innerText = `${value.jam_mulai} - ${value.jam_selesai}`;
+
+              const namaCell = document.createElement('td');
+              namaCell.innerText = value.nama;
+
+              const pelaksanaCell = document.createElement('td');
+              pelaksanaCell.innerText = value.pelaksana;
+
+              const tanggalSelesaiCell = document.createElement('td');
+              tanggalSelesaiCell.innerText = value.tanggal_selesai;
+
+              const editButton = document.createElement('button');
+              editButton.setAttribute('type', 'button');
+              editButton.setAttribute('class', 'btn btn-warning btn-sm');
+              editButton.setAttribute('data-bs-toggle', 'tooltip');
+              editButton.setAttribute('data-bs-placement', 'top');
+              editButton.setAttribute('title', 'Edit Rapat');
+              editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
+              editButton.addEventListener('click', () => {
+                window.location.href = `update-rapat.html?id=${key}`;
+              });
+
+              // const notulenButton = document.createElement('button');
+              // notulenButton.setAttribute('type', 'button');
+              // notulenButton.setAttribute('class', 'btn btn-info btn-sm');
+              // notulenButton.setAttribute('data-bs-toggle', 'tooltip');
+              // notulenButton.setAttribute('data-bs-placement', 'top');
+              // notulenButton.setAttribute('title', 'Tambah Notulen');
+              // notulenButton.innerHTML = '<i class="bi bi-plus-square"></i>';
+              // notulenButton.addEventListener('click', () => {
+              //   window.location.href = `update-rapat.html?id=${key}`;
+              // });
+
+              // const deleteButton = document.createElement('button');
+              // deleteButton.setAttribute('type', 'button');
+              // deleteButton.setAttribute('class', 'btn btn-danger btn-sm');
+              // deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+              // deleteButton.addEventListener('click', () => {
+              //   selectedId = key;
+              //   let text = `Anda yakin akan menghapus ${value.nama}?`;
+              //   if (confirm(text) == true) {
+              //     text = "You pressed OK!";
+              //     deleteData()
+              //   } else {
+              //     text = "You canceled!";
+              //   }
+
+              // });
+
+              const actionsCell = document.createElement('td');
+              actionsCell.appendChild(editButton);
+              // actionsCell.appendChild(notulenButton);
+              // actionsCell.appendChild(deleteButton);
+
+              // append table cells to row
+              row.appendChild(indexCell);
+              row.appendChild(dasarCell);
+              row.appendChild(tanggalCell);
+              row.appendChild(tempatCell);
+              row.appendChild(jamCell);
+              row.appendChild(namaCell);
+              row.appendChild(pelaksanaCell);
+              row.appendChild(tanggalSelesaiCell);
+              row.appendChild(actionsCell);
+
+              // append row to table body
+              tableBody.appendChild(row);
+
+              index++
+            }
+          } else {            
+            tableBody.innerHTML = `<tr><td colspan=7 class="text-center"r>Data Kosong</tr>`
+            console.log("No data available");
+          }
+        }).catch((error) => {
+          console.error(error);
+        });
+
+
+      } else {
+        console.log("ga aman")
+      }
+    })
+
+  </script>
 </body>
 
 </html>

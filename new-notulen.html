@@ -310,7 +310,7 @@
               <h5 class="card-title">Mohon lengkapi formulir berikut:</h5>
 
               <!-- General Form Elements -->
-              <!-- <form> -->
+              <form id="new_entry">
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-3 col-form-label">Dasar Pelaksanaan</label>
                   <div class="col-sm-9">
@@ -368,6 +368,12 @@
                     <input type="text" class="form-control" oninput="preview()" id="input_telah">
                   </div>
                 </div>
+                <div class="row mb-3">
+                  <label for="inputText" class="col-sm-3 col-form-label">Pelaksana</label>
+                  <div class="col-sm-9">
+                    <input type="text" class="form-control" oninput="preview()" id="input_pelaksana">
+                  </div>
+                </div>
 
 
                 <div class="row mb-3">
@@ -377,7 +383,7 @@
                   </div>
                 </div>
 
-              <!-- </form> -->
+              </form>
               <!-- End General Form Elements -->
 
             </div>
@@ -612,9 +618,9 @@
                       </td>
                       <td style="width:198pt">
                         <p style="text-indent: 0pt;text-align: left;"><br /></p>
-                        <p class="s5"
+                        <p class="s5" id="output_pelaksana"
                           style="padding-top: 10pt;padding-left: 40pt;padding-right: 1pt;text-indent: 0pt;line-height: 13pt;text-align: center;">
-                          (......................................)</p>
+                          </p>
                       </td>
                     </tr>
                     <tr style="height:14pt">
@@ -699,6 +705,7 @@
       var input_hasil = document.getElementById("input_hasil").value;
       var input_rencana = document.getElementById("input_rencana").value;
       var input_telah = document.getElementById("input_telah").value;
+      var input_pelaksana = document.getElementById("input_pelaksana").value;
 
       document.getElementById("output_dasar").innerHTML = input_dasar;      
       if (input_tanggal != ""){
@@ -710,6 +717,7 @@
       document.getElementById("output_hasil").innerHTML = input_hasil;
       document.getElementById("output_rencana").innerHTML = input_rencana;
       document.getElementById("output_telah").innerHTML = input_telah;
+      document.getElementById("output_pelaksana").innerHTML = `( ${input_pelaksana} )`;
 
     }
 
@@ -813,6 +821,65 @@
       html2pdf().set(opt).from(element).toImg().save();
     }
   </script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getDatabase, set, ref, push } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+        authDomain: "notulen-app-7112c.firebaseapp.com",
+        projectId: "notulen-app-7112c",
+        storageBucket: "notulen-app-7112c.appspot.com",
+        messagingSenderId: "798198338684",
+        appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+        databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    auth.onAuthStateChanged(function (user) {
+        if (user) {
+            console.log("aman")
+            $('#new_entry').submit(function (e) {
+                e.preventDefault();
+
+                var entry = {};
+                entry.dasar = $(this).find('[id="input_dasar"]').val();
+                entry.tanggal = $(this).find('[id="input_tanggal"]').val();
+                entry.tempat = $(this).find('[id="input_tempat"]').val();
+                entry.jam_mulai = $(this).find('[id="input_jam_mulai"]').val();
+                entry.jam_selesai = $(this).find('[id="input_jam_selesai"]').val();
+                entry.nama = $(this).find('[id="input_nama"]').val();
+                entry.hasil = $(this).find('[id="input_hasil"]').val();
+                entry.rencana = $(this).find('[id="input_rencana"]').val();
+                entry.telah = $(this).find('[id="input_telah"]').val();
+                entry.pelaksana = $(this).find('[id="input_pelaksana"]').val();
+                entry.createdAt = new Date().getTime();
+                entry.updatedAt = entry.createdAt;
+                entry.author = user.email;
+
+                console.log(entry)
+
+                const tasksRef = ref(database, "data_rapat");
+
+
+                push(tasksRef, entry).then(function (data) {
+                    window.location.href = 'data-hasil-rapat.html' // 'entry.html?id=' + data.getKey()
+                }).catch(function (error) {
+                    alert(error);
+                    console.error(error);
+                })
+
+                return false;
+            });
+        } else {
+            console.log("ga aman")
+        }
+    })
+</script>
 </body>
 
 </html>

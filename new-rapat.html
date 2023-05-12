@@ -262,6 +262,18 @@
                                         <input type="text" class="form-control" id="input_telah" name="input_telah">
                                     </div>
                                 </div>
+                                <div class="row mb-3 d-none">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Pelaksana</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_pelaksana" name="input_pelaksana">
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <label for="inputDate" class="col-sm-3 col-form-label">Tanggal Selesai</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" id="input_tanggal_selesai" name="input_tanggal_selesai">
+                                    </div>
+                                </div>
 
 
                                 <div class="row mb-3">
@@ -614,6 +626,8 @@
                     entry.hasil = $(this).find('[name="input_hasil"]').val();
                     entry.rencana = $(this).find('[name="input_rencana"]').val();
                     entry.telah = $(this).find('[name="input_telah"]').val();
+                    entry.pelaksana = $(this).find('[name="input_pelaksana"]').val();
+                    entry.tanggal_selesai = $(this).find('[name="input_tanggal_selesai"]').val();
                     entry.createdAt = new Date().getTime();
                     entry.updatedAt = entry.createdAt;
                     entry.author = user.email;
