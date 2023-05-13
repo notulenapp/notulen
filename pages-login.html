@@ -158,7 +158,9 @@
 
 
     firebase.auth().onAuthStateChanged(function (user) {
-      if (user) { // if already logged in        
+      if (user) { // if already logged in    
+        console.log(user)
+        window.localStorage.setItem('email', user.email)
         window.location.href = 'index.html';
       }
     });

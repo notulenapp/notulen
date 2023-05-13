@@ -319,7 +319,7 @@
                     entry.views = 0;
                     entry.author = user.email;
 
-                    var Entry = firebase.database().ref('data_user');
+                    var Entry = firebase.database().ref('data_pegawai');
 
                     Entry.push(entry).then(function (data) {
                         window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
@@ -387,7 +387,7 @@
                     entry.views = 0;
                     entry.author = user.email;
 
-                    var Entry = ref('data_user');
+                    var Entry = ref('data_pegawai');
 
                     Entry.push(entry).then(function (data) {
                         window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
@@ -455,7 +455,7 @@
                     entry.views = 0;
                     entry.author = user.email;
 
-                    var Entry = ref(database, 'data_user');
+                    var Entry = ref(database, 'data_pegawai');
 
                     push(Entry, entry).then(function (data) {
                         window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
@@ -512,7 +512,7 @@
                 var url = new URL(window.location.href);
                 var entry_id = $_GET('id');
                 if (entry_id) {
-                    var userRef = ref(database, `data_user/${entry_id}`);
+                    var userRef = ref(database, `data_pegawai/${entry_id}`);
 
                     get(userRef).then((snapshot) => {
                         if (snapshot.exists()) {
@@ -542,7 +542,7 @@
                     entry.updatedAt = new Date().getTime();
                     entry.lastEditedBy = user.email;
 
-                    const tasksRef = ref(database, `data_user/${entry_id}`);
+                    const tasksRef = ref(database, `data_pegawai/${entry_id}`);
 
                     runTransaction(tasksRef, (entry) => {
                         if (!entry) {

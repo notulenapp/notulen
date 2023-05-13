@@ -319,7 +319,7 @@
                     entry.views = 0;
                     entry.author = user.email;
 
-                    var Entry = firebase.database().ref('data_user');
+                    var Entry = firebase.database().ref('data_pegawai');
 
                     Entry.push(entry).then(function (data) {
                         window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
@@ -387,7 +387,7 @@
                     entry.views = 0;
                     entry.author = user.email;
 
-                    var Entry = ref('data_user');
+                    var Entry = ref('data_pegawai');
 
                     Entry.push(entry).then(function (data) {
                         window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
@@ -455,7 +455,7 @@
                     entry.views = 0;
                     entry.author = user.email;
 
-                    var Entry = ref(database, 'data_user');
+                    var Entry = ref(database, 'data_pegawai');
 
                     push(Entry, entry).then(function (data) {
                         window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
@@ -499,7 +499,7 @@
         const app = firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        const myCollection = db.ref('data_user');
+        const myCollection = db.ref('data_pegawai');
 
         firebase.auth().onAuthStateChanged(function (user) {
             if (user) {
@@ -577,7 +577,7 @@
                     entry.views = 0;
                     entry.author = user.email;
 
-                    const tasksRef = ref(database, "data_user");
+                    const tasksRef = ref(database, "data_pegawai");
 
 
                     push(tasksRef, entry).then(function (data) {

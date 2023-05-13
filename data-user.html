@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Data User - NotulenApp</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="assets/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+  * Template Name: NiceAdmin
+  * Updated: Mar 09 2023 with Bootstrap v5.2.3
+  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="index.html" class="logo d-flex align-items-center">
+                <img src="assets/img/logo.png" alt="">
+                <span class="d-none d-lg-block">NotulenApp</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+
+
+        <!-- End Search Bar -->
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i>
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>Kevin Anderson</h6>
+                            <span>Web Designer</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-person"></i>
+                                <span>My Profile</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <i class="bi bi-gear"></i>
+                                <span>Account Settings</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
+
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="index.html">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+
+            <li class="nav-item">
+                <a class="nav-link " data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Data</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="tables-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="data-pegawai.html" class="active">
+                            <i class="bi bi-circle"></i><span>Data Pegawai</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="data-rapat.html">
+                            <i class="bi bi-circle"></i><span>Data Rapat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="data-hasil-rapat.html">
+                            <i class="bi bi-circle"></i><span>Data Hasil Rapat</span>
+                        </a>
+                    </li>
+                </ul>
+            </li><!-- End Tables Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="new-notulen.html">
+                    <i class="bi bi-plus-square"></i>
+                    <span>Buat Notulen Baru</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-heading">Pages</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="users-profile.html">
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="pages-login.html">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    <span>Logout</span>
+                </a>
+            </li><!-- End Login Page Nav -->
+
+        </ul>
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Data User</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Data User</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5 class="card-title">Datatables</h5>
+                                </div>
+                            </div>
+                            <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
+                            <p>Deskripsi table</p>
+
+                            <!-- Table with stripped rows -->
+                            <!-- <table class="table datatable"> -->
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="entries">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- End Table with stripped rows -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main><!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+        <div class="copyright">
+            &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="assets/vendor/echarts/echarts.min.js"></script>
+    <script src="assets/vendor/quill/quill.min.js"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+        import { getDatabase, get, set, child, ref, push, runTransaction } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+            authDomain: "notulen-app-7112c.firebaseapp.com",
+            projectId: "notulen-app-7112c",
+            storageBucket: "notulen-app-7112c.appspot.com",
+            messagingSenderId: "798198338684",
+            appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+            databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+        const tableBody = document.getElementById('entries');
+        tableBody.innerHTML = `<tr><td colspan=5 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                console.log("aman")
+
+                const userRef = ref(database, "data_user");
+                console.log(userRef)
+                get(userRef).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        console.log("ada")
+                        var temp = snapshot.val();
+                        console.log(temp);
+
+                        const data = snapshot.val();
+                        tableBody.innerHTML = ""
+                        var arrContent = []
+                        var container;
+                        var index = 1;
+                        for (const [key, value] of Object.entries(data)) {
+                            console.log(value)
+                            const row = document.createElement('tr');
+
+                            const indexCell = document.createElement('th');
+                            indexCell.setAttribute('scope', 'row');
+                            indexCell.innerText = index;
+
+                            const emailCell = document.createElement('td');
+                            emailCell.innerText = value.email;
+
+                            const roleCell = document.createElement('td');
+                            roleCell.innerText = value.role;
+
+                            const jabatanCell = document.createElement('td');
+                            jabatanCell.innerText = value.jabatan;
+
+                            const addAdminButton = document.createElement('button');
+                            addAdminButton.innerHTML = "Jadikan Admin"
+                            addAdminButton.setAttribute('class', 'btn btn-primary btn-sm')
+                            addAdminButton.addEventListener('click', () => {
+                                // window.location.href = `update-pegawai.html?id=${key}`;
+                                let text = `Anda yakin akan memberi akses ADMIN ke ${value.email} ?`;
+                                if (confirm(text) == true) {
+                                    text = "You pressed OK!";
+                                    update(key, value.email, 'ADMIN')
+                                } else {
+                                    text = "You canceled!";
+                                }
+                            });
+
+                            const removeAdminButton = document.createElement('button');
+                            removeAdminButton.innerHTML = "Hapus Admin"
+                            removeAdminButton.setAttribute('class', 'btn btn-danger btn-sm')
+                            removeAdminButton.addEventListener('click', () => {
+                                // window.location.href = `update-pegawai.html?id=${key}`;
+                                let text = `Anda yakin akan menghapus akses ADMIN dari ${value.email} ?`;
+                                if (confirm(text) == true) {
+                                    text = "You pressed OK!";
+                                    update(key, value.role, 'USER')
+                                } else {
+                                    text = "You canceled!";
+                                }
+                            });
+
+                            const actionsCell = document.createElement('td');
+                            if (value.role == "ADMIN") {
+                                actionsCell.appendChild(removeAdminButton);
+                            } else {
+                                actionsCell.appendChild(addAdminButton);
+                            }
+
+                            row.appendChild(indexCell);
+                            row.appendChild(emailCell);
+                            row.appendChild(roleCell);
+
+                            row.appendChild(actionsCell);
+
+                            console.log(row)
+                            tableBody.appendChild(row);
+                            index++
+                        }
+                    } else {
+                        console.log("No data available");
+                    }
+                }).catch((error) => {
+                    console.error(error);
+                });
+
+
+            } else {
+                console.log("ga aman")
+            }
+        })
+
+        function update(key, email, role) {
+
+            var entry = {}
+            entry.email = email;
+            entry.role = role;
+            entry.updatedAt = new Date().getTime();
+            entry.lastEditedBy = window.localStorage.getItem("email");
+
+            const tasksRef = ref(database, `data_user/${key}`);
+            runTransaction(tasksRef, (entry) => {
+                if (!entry) {
+                    return entry;
+                }
+
+                var entry = {}
+                entry.email = email;
+                entry.role = role;
+                entry.updatedAt = new Date().getTime();
+                entry.lastEditedBy = window.localStorage.getItem('email');
+                return entry;
+            }).then((result) => {
+                window.location.href = 'data-user.html' // 'entry.html?id=' + data.getKey()
+            }).catch(function (error) {
+                alert(error);
+                console.error(error);
+            })
+        }
+
+    </script>
+</body>
+
+</html>

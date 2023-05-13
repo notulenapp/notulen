@@ -349,7 +349,7 @@
       if (user) {
         console.log("aman")
 
-        const userRef = ref(database, "data_user");
+        const userRef = ref(database, "data_pegawai");
         console.log(userRef)
         get(userRef).then((snapshot) => {
           if (snapshot.exists()) {
@@ -434,7 +434,7 @@
 
     function deleteData(selectedId) {
       console.log(selectedId)
-      const dataRef = ref(database, `data_user/${selectedId}`);
+      const dataRef = ref(database, `data_pegawai/${selectedId}`);
 
       remove(dataRef)
         .then(() => {

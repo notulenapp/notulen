@@ -895,6 +895,53 @@
       }
     });
   </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getDatabase, set, ref, push, query, orderByChild, equalTo, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+      authDomain: "notulen-app-7112c.firebaseapp.com",
+      projectId: "notulen-app-7112c",
+      storageBucket: "notulen-app-7112c.appspot.com",
+      messagingSenderId: "798198338684",
+      appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+      databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    const usersRef = ref(database, "data_user");
+    const email = window.localStorage.getItem("email")
+    console.log(`2 ${email}`)
+    const usersQuery = query(usersRef,
+      orderByChild("email"),
+      equalTo(email)
+    );
+
+    // Listen for the result of the query
+    onValue(usersQuery, (snapshot) => {
+      const users = snapshot.val();
+      if (users) {
+        // Check if the user has the role "ADMIN"
+        Object.values(users).forEach((user) => {
+          if (user.role === "ADMIN") {
+            console.log("User with email 'bob@bob.com' has the role 'ADMIN'");
+          } else {
+            console.log("User with email 'bob@bob.com' does not have the role 'ADMIN'");
+          }
+        });
+      } else {
+        console.log("No user found with email 'bob@bob.com'");
+
+      }
+    }, (error) => {
+      console.error(error);
+    });
+  </script>
 </body>
 
 </html>
