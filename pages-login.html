@@ -144,10 +144,7 @@
 
   <script src="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.css" />
-  <script type="module">
-    // firebase config
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-    import { getDatabase, ref, query, orderByChild, get, equalTo } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+  <script>
 
     var config = {
       apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
@@ -158,25 +155,16 @@
       appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9"
     };
     firebase.initializeApp(config);
-    const app = initializeApp(config);
 
-    /////////////////////////////////////
-
-
-    /**********************\
-     * Check login status *
-    \**********************/
 
     firebase.auth().onAuthStateChanged(function (user) {
-      if (user) { // if already logged in
-
+      if (user) { // if already logged in        
+        window.location.href = 'index.html';
       }
     });
-
     /*******************\
      * init Login UI *
     \*******************/
-
     // FirebaseUI config.
     var uiConfig = {
       'signInSuccessUrl': false,
@@ -196,18 +184,6 @@
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
     // The start method will wait until the DOM is loaded.
     ui.start('#firebaseui-auth-container', uiConfig);
-
-    ////////////////////////////////////////
-
-
-    function openGooglePrompt() {
-      console.log("called")
-      var provider = new firebase.auth.GoogleAuthProvider();
-      provider.addScope('profile');
-      provider.addScope('email');
-      provider.addScope('https://www.googleapis.com/auth/plus.me');
-      firebase.auth().signInWithPopup(provider); // Opens a popup window and returns a promise to handle errors.
-    }
 
     $('#login-form').submit(function (e) {
       e.preventDefault();
@@ -230,28 +206,6 @@
           // Signed in
           var user = userCredential.user;
           console.log(userCredential)
-          const db = getDatabase();
-          const dataRef = ref(db, "data_user");
-          const roleQuery = query(dataRef, orderByChild("role"), equalTo("ADMIN"));
-
-          get(roleQuery).then((snapshot) => {
-            if (snapshot.exists()) {
-              console.log(snapshot.val());
-              window.localStorage.setItem("role", "ADMIN")
-              console.log("called 1")
-              window.location.href = 'index.html';
-            } else {
-              console.log("called 2")
-              window.localStorage.setItem("role", "USER")
-              window.location.href = 'index.html';
-              console.log("No matching documents.");
-            }
-          }).catch((error) => {
-            console.error(error);
-            console.log("called 3")
-            window.localStorage.setItem("role", "USER")
-            window.location.href = 'index.html';
-          });
           // ...
         })
         .catch((error) => {
