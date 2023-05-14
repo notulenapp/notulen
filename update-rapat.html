@@ -672,9 +672,10 @@
                         entry.telah = $(this).find('[name="input_telah"]').val();
                         entry.pelaksana = $(this).find('[name="input_pelaksana"]').val();
                         entry.tanggal_selesai = $(this).find('[name="input_tanggal_selesai"]').val();
-                        entry.createdAt = new Date().getTime();
-                        entry.updatedAt = entry.createdAt;
-                        entry.author = user.email;
+                        entry.createdAt = data.createdAt;
+                        entry.updatedAt = new Date().getTime();
+                        entry.updatedBy = user.email;
+                        entry.author = data.author;
                         return entry
                     }).then((result) => {
                         window.location.href = 'data-rapat.html'

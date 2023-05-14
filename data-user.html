@@ -336,7 +336,7 @@
                                 let text = `Anda yakin akan menghapus akses ADMIN dari ${value.email} ?`;
                                 if (confirm(text) == true) {
                                     text = "You pressed OK!";
-                                    update(key, value.role, 'USER')
+                                    update(key, value.email, 'USER')
                                 } else {
                                     text = "You canceled!";
                                 }
@@ -379,7 +379,7 @@
             entry.role = role;
             entry.updatedAt = new Date().getTime();
             entry.lastEditedBy = window.localStorage.getItem("email");
-
+            console.log(entry)
             const tasksRef = ref(database, `data_user/${key}`);
             runTransaction(tasksRef, (entry) => {
                 if (!entry) {
@@ -391,6 +391,7 @@
                 entry.role = role;
                 entry.updatedAt = new Date().getTime();
                 entry.lastEditedBy = window.localStorage.getItem('email');
+                console.log(entry)
                 return entry;
             }).then((result) => {
                 window.location.href = 'data-user.html' // 'entry.html?id=' + data.getKey()

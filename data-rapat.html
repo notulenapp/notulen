@@ -394,7 +394,7 @@
               notulenButton.setAttribute('title', 'Tambah Notulen');
               notulenButton.innerHTML = '<i class="bi bi-plus-square"></i>';
               notulenButton.addEventListener('click', () => {
-                window.location.href = `update-rapat.html?id=${key}`;
+                window.location.href = `new-notulen.html?id=${key}`;
               });
 
               const deleteButton = document.createElement('button');
@@ -413,9 +413,16 @@
 
               });
 
+              const space = document.createElement('span');
+              space.innerHTML = " ";
+              const space2 = document.createElement('span');
+              space2.innerHTML = " ";
+
               const actionsCell = document.createElement('td');
               actionsCell.appendChild(editButton);
+              actionsCell.appendChild(space);
               actionsCell.appendChild(notulenButton);
+              actionsCell.appendChild(space2);
               actionsCell.appendChild(deleteButton);
 
               // append table cells to row

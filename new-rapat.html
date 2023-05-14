@@ -229,13 +229,15 @@
                                 <div class="row mb-3">
                                     <label for="inputTime" class="col-sm-3 col-form-label">Waktu</label>
                                     <div class="col-sm-2">
-                                        <input type="time" class="form-control" id="input_jam_mulai" name="input_jam_mulai">
+                                        <input type="time" class="form-control" id="input_jam_mulai"
+                                            name="input_jam_mulai">
                                     </div>
                                     <div class="col-sm-1 col-form-label text-center">
                                         s/d
                                     </div>
                                     <div class="col-sm-2">
-                                        <input type="time" class="form-control" id="input_jam_selesai" name="input_jam_selesai">
+                                        <input type="time" class="form-control" id="input_jam_selesai"
+                                            name="input_jam_selesai">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -257,7 +259,8 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3 d-none">
-                                    <label for="inputText" class="col-sm-3 col-form-label">Telah disosialisasikan pada</label>
+                                    <label for="inputText" class="col-sm-3 col-form-label">Telah disosialisasikan
+                                        pada</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="input_telah" name="input_telah">
                                     </div>
@@ -265,13 +268,15 @@
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Pelaksana</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_pelaksana" name="input_pelaksana">
+                                        <input type="text" class="form-control" id="input_pelaksana"
+                                            name="input_pelaksana">
                                     </div>
                                 </div>
                                 <div class="row mb-3 d-none">
                                     <label for="inputDate" class="col-sm-3 col-form-label">Tanggal Selesai</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" id="input_tanggal_selesai" name="input_tanggal_selesai">
+                                        <input type="date" class="form-control" id="input_tanggal_selesai"
+                                            name="input_tanggal_selesai">
                                     </div>
                                 </div>
 
@@ -616,7 +621,23 @@
                 $('#new_entry').submit(function (e) {
                     e.preventDefault();
 
-                    var entry = {};
+                    var entry = {
+                        author: "",
+                        createdAt: "",
+                        dasar: "",
+                        hasil: "",
+                        jam_mulai: "",
+                        jam_selesai: "",
+                        nama: "",
+                        pelaksana: "",
+                        rencana: "",
+                        tanggal: "",
+                        tanggal_selesai: "",
+                        telah: "",
+                        tempat: "",
+                        updatedAt: "",
+                        updatedBy: ""
+                    }
                     entry.dasar = $(this).find('[name="input_dasar"]').val();
                     entry.tanggal = $(this).find('[name="input_tanggal"]').val();
                     entry.tempat = $(this).find('[name="input_tempat"]').val();
@@ -630,7 +651,8 @@
                     entry.tanggal_selesai = $(this).find('[name="input_tanggal_selesai"]').val();
                     entry.createdAt = new Date().getTime();
                     entry.updatedAt = entry.createdAt;
-                    entry.author = user.email;
+                    entry.updatedBy = user.email;
+                    entry.author = user.email;                    
 
                     const tasksRef = ref(database, "data_rapat");
 
