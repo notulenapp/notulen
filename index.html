@@ -63,18 +63,21 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <div id="photoUrl">
-              
+
             </div>
           </a>
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header" id="photoUrl2">
+
+            </li>
             <li class="dropdown-header">
               <h6 id="displayName">Kevin Anderson</h6>
               <span id="email">Web Designer</span>
             </li>
             <li>
               <hr class="dropdown-divider">
-            </li>            
+            </li>
 
             <li>
               <a class="dropdown-item d-flex align-items-center" href="#">
@@ -94,7 +97,10 @@
       var photoUrl = window.localStorage.getItem('photoUrl')
       document.getElementById('displayName').innerHTML = String(displayName) == 'null' ? tempEmail : displayName
       document.getElementById('email').innerHTML = tempEmail
-      document.getElementById('photoUrl').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` : `<i class="bi bi-person-circle"></i>`
+      document.getElementById('photoUrl').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
+        `<img src="${photoUrl}" alt="" style="width: 30px; height: 30px; border-radius: 50%;">`;
+      document.getElementById('photoUrl2').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
+        `<img src="${photoUrl}" alt="" style="width: 70px; height: 70px; border-radius: 50%;">`;
     </script>
 
   </header><!-- End Header -->
@@ -186,14 +192,14 @@
 
 
                 <div class="card-body">
-                  <h5 class="card-title">Agenda <span>| Hari Ini</span></h5>
+                  <h5 class="card-title">Agenda <span></span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-calendar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
+                      <h6 id="totalRapat"></h6>
                       <span class="text-muted small pt-2 ps-1">Rapat</span>
 
                     </div>
@@ -215,7 +221,7 @@
                       <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>20</h6>
+                      <h6 id="totalPegawai"></h6>
                       <span class="text-muted small pt-2 ps-1">Pegawai</span>
 
                     </div>
@@ -496,71 +502,11 @@
 
           <!-- Recent Activity -->
           <div class="card" style="height: 500px;">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-
-                <li><a class="dropdown-item" href="#">Today</a></li>
-                <li><a class="dropdown-item" href="#">This Month</a></li>
-                <li><a class="dropdown-item" href="#">This Year</a></li>
-              </ul>
-            </div>
 
             <div class="card-body">
-              <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+              <h5 class="card-title">Agenda Hari Ini <span></span></h5>
 
-              <div class="activity">
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">32 min</div>
-                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content">
-                    Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">56 min</div>
-                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                  <div class="activity-content">
-                    Voluptatem blanditiis blanditiis eveniet
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 hrs</div>
-                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                  <div class="activity-content">
-                    Voluptates corrupti molestias voluptatem
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">1 day</div>
-                  <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                  <div class="activity-content">
-                    Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 days</div>
-                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                  <div class="activity-content">
-                    Est sit eum reiciendis exercitationem
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">4 weeks</div>
-                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                  <div class="activity-content">
-                    Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                  </div>
-                </div><!-- End activity item-->
+              <div class="activity" id="todayActivity">
 
               </div>
 
@@ -798,7 +744,7 @@
   <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-    import { getDatabase, set, ref, push, query, orderByChild, equalTo, startAt, endAt, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getDatabase, set, get, ref, push, query, orderByChild, equalTo, startAt, endAt, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -906,10 +852,12 @@
 
     $('body').on('click', 'button.fc-prev-button', function () {
       //do something
+      previousMonth()
     });
 
     $('body').on('click', 'button.fc-next-button', function () {
       //do something
+      nextMonth()
     });
 
     function previousMonth() {
@@ -942,16 +890,74 @@
         initialView: 'dayGridMonth',
         height: '100%',
         events: montlyData,
-        header: {
-          left: 'title',
+        headerToolbar: {
+          start: 'title',
           center: '',
-          right: 'today '
-        }
+          end: ''
+        },
       });
 
       calendar.render();
     }
 
+    getStatistic()
+    function getStatistic() {
+      const total = ref(database, "total_pegawai");
+      get(total).then((snapshot) => {
+        console.log(snapshot.val())
+        document.getElementById('totalPegawai').innerHTML = snapshot.val()
+      })
+
+      const totalRapat = ref(database, "total_rapat");
+      get(totalRapat).then((snapshot) => {
+        console.log(snapshot.val())
+        document.getElementById('totalRapat').innerHTML = snapshot.val()
+      })
+    }
+
+    getTodayAgenda()
+    function getTodayAgenda() {
+      let color = ['success', 'danger', 'primary', 'dark', 'warning']
+      let dateNow = moment(new Date().getTime()).format("YYYY-MM-DD");
+      const dbRef = ref(db, 'data_rapat');
+
+      const q = query(dbRef, orderByChild('tanggal'), equalTo(dateNow));
+
+      // Mendapatkan data yang sesuai dengan query
+      onValue(q, (snapshot) => {
+        // snapshot.val() akan mengembalikan data yang sesuai dengan query
+        const dataRapat = snapshot.val();
+        console.log(dataRapat)
+        const todayActivity = document.getElementById('todayActivity')
+        // Membuat variabel baru dari data rapat dengan format yang diminta
+        if (dataRapat == null) {
+          todayActivity.innerHTML = "Tidak ada agenda hari ini"
+        } else {
+          for (const [key, value] of Object.entries(snapshot.val())) {
+            let el = `
+          <div class="activite-label">
+            ${value.jam_mulai}</div>
+          <i class='bi bi-circle-fill activity-badge text-${color[randomNumber()]} align-self-start'></i>
+          <div class="activity-content">
+            ${value.nama}
+          </div>`
+        var x = document.createElement('div')
+        x.setAttribute('class', 'activity-item d-flex')
+        x.innerHTML = el
+        todayActivity.appendChild(x)
+          }
+
+        }
+      });
+
+    }
+
+    function randomNumber() {
+      let max = 4
+      let min = 0
+      let temp = Math.floor(Math.random() * (max - min + 1)) + min;      
+      return temp
+    }
   </script>
 </body>
 
