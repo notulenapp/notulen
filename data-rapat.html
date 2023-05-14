@@ -320,7 +320,46 @@
       remove(dataRef)
         .then(() => {
           console.log('Data successfully deleted!');
-          window.location.reload();
+          const total = ref(database, "total_rapat");
+          get(total).then((snapshot) => {
+            console.log(snapshot)
+            if (snapshot.exists()) {
+              console.log("ada")
+              var temp = snapshot.val() - 1;
+              set(total, temp)
+                .then(() => {
+                  console.log('Data written to database successfully');
+                  window.location.reload()
+                })
+                .catch((error) => {
+                  console.error('Error writing to database: ', error);
+                  window.location.reload()
+                });
+
+            } else {
+              set(total, 1)
+                .then(() => {
+                  console.log('Data written to database successfully');
+                  window.location.reload()
+                })
+                .catch((error) => {
+                  console.error('Error writing to database: ', error);
+                  window.location.reload()
+                });
+              console.log("No data available");
+            }
+          }).catch((error) => {
+            console.error(error);
+            set(total, 1)
+              .then(() => {
+                console.log('Data written to database successfully');
+                window.location.reload()
+              })
+              .catch((error) => {
+                console.error('Error writing to database: ', error);
+                window.location.reload()
+              });
+          });
         })
         .catch((error) => {
           console.error('Error deleting data:', error);

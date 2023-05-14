@@ -598,7 +598,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-        import { getDatabase, set, ref, push } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+        import { getDatabase, set, get, ref, push } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -658,7 +658,46 @@
 
 
                     push(tasksRef, entry).then(function (data) {
-                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                        const total = ref(database, "total_rapat");
+                        get(total).then((snapshot) => {
+                            console.log(snapshot)
+                            if (snapshot.exists()) {
+                                console.log("ada")
+                                var temp = snapshot.val() + 1;
+                                set(total, temp)
+                                    .then(() => {
+                                        console.log('Data written to database successfully');
+                                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error writing to database: ', error);
+                                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                    });
+
+                            } else {
+                                set(total, 1)
+                                    .then(() => {
+                                        console.log('Data written to database successfully');
+                                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error writing to database: ', error);
+                                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                    });
+                                console.log("No data available");
+                            }
+                        }).catch((error) => {
+                            console.error(error);
+                            set(total, 1)
+                                .then(() => {
+                                    console.log('Data written to database successfully');
+                                    window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                })
+                                .catch((error) => {
+                                    console.error('Error writing to database: ', error);
+                                    window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                });
+                        });
                     }).catch(function (error) {
                         alert(error);
                         console.error(error);
