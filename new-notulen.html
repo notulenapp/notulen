@@ -886,6 +886,10 @@
             console.error(error);
           });
         }
+        else {
+          alert(`Pilih salah satu rapat lalu tekan tombol tambah berwarna biru '+'`)
+          window.location.href = 'data-rapat.html?show=1'
+        }
         $('#update_entry').submit(function (e) {
           e.preventDefault();
 

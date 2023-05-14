@@ -151,7 +151,7 @@
       </li><!-- End Tables Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="new-notulen.html">
+        <a class="nav-link collapsed" href="data-rapat.html?show=1">
           <i class="bi bi-plus-square"></i>
           <span>Buat Notulen Baru</span>
         </a>
@@ -173,7 +173,9 @@
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
+    <div id="alert">
 
+    </div>    
     <div class="pagetitle">
       <h1>Data Rapat</h1>
       <nav>
@@ -363,6 +365,12 @@
     $(document).ready(function () {
 
     })
+    if ($_GET('show') == 1){
+        document.getElementById('alert').innerHTML = `<div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" id="alert" role="alert">
+      Pilih salah satu rapat lalu tekan tombol tambah berwarna biru '+'      
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`
+      }
 
     auth.onAuthStateChanged(function (user) {
       if (user) {
@@ -487,6 +495,21 @@
       }
     })
 
+    function $_GET(key) {
+      var queries = window.location.href.split('?').pop().split('&');
+      var params = {};
+      queries.map(function (query) {
+        var set = query.split('=');
+        params[set[0]] = set[1];
+      });
+
+      if (key) {
+        return params[key] || null;
+      } else {
+        return params;
+      }
+
+    }
   </script>
   <script>
   </script>
