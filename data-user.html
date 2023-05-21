@@ -201,7 +201,8 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Email</th>
+                                            <th scope="col">Username</th>
+                                            <th scope="col">Password</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Aksi</th>
                                         </tr>
@@ -299,6 +300,9 @@
                             const emailCell = document.createElement('td');
                             emailCell.innerText = value.email;
 
+                            const passwordCell = document.createElement('td');
+                            passwordCell.innerText = value.password;
+
                             const roleCell = document.createElement('td');
                             roleCell.innerText = value.role;
 
@@ -313,7 +317,7 @@
                                 let text = `Anda yakin akan memberi akses ADMIN ke ${value.email} ?`;
                                 if (confirm(text) == true) {
                                     text = "You pressed OK!";
-                                    update(key, value.email, 'ADMIN')
+                                    update(key, value.email, 'ADMIN', value.password)
                                 } else {
                                     text = "You canceled!";
                                 }
@@ -327,7 +331,7 @@
                                 let text = `Anda yakin akan menghapus akses ADMIN dari ${value.email} ?`;
                                 if (confirm(text) == true) {
                                     text = "You pressed OK!";
-                                    update(key, value.email, 'USER')
+                                    update(key, value.email, 'USER', value.password)
                                 } else {
                                     text = "You canceled!";
                                 }
@@ -342,6 +346,7 @@
 
                             row.appendChild(indexCell);
                             row.appendChild(emailCell);
+                            row.appendChild(passwordCell);
                             row.appendChild(roleCell);
 
                             row.appendChild(actionsCell);
@@ -364,14 +369,16 @@
             }
         })
 
-        function update(key, email, role) {
+        function update(key, email, role, password) {
 
             var entry = {}
             entry.email = email;
             entry.role = role;
+            entry.password = password;
             entry.updatedAt = new Date().getTime();
             entry.lastEditedBy = window.localStorage.getItem("email");
             console.log(entry)
+            // alert(JSON.stringify(entry))
             const tasksRef = ref(database, `data_user/${key}`);
             runTransaction(tasksRef, (entry) => {
                 if (!entry) {
@@ -381,6 +388,7 @@
                 var entry = {}
                 entry.email = email;
                 entry.role = role;
+                entry.password = password;
                 entry.updatedAt = new Date().getTime();
                 entry.lastEditedBy = window.localStorage.getItem('email');
                 console.log(entry)

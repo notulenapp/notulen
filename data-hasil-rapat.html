@@ -15,7 +15,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -51,7 +53,7 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    
+
     <!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
@@ -277,7 +279,7 @@
                     </tr> -->
                   </tbody>
                 </table>
-              </div>              
+              </div>
               <!-- End Table with stripped rows -->
 
             </div>
@@ -303,7 +305,8 @@
     </div>
   </footer><!-- End Footer -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -340,7 +343,7 @@
     const database = getDatabase(app);
     const auth = getAuth();
     const tableBody = document.getElementById('entries');
-    tableBody.innerHTML = `<tr><td colspan=7 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
+    tableBody.innerHTML = `<tr><td colspan=9 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
 
     function deleteData() {
       console.log(selectedId)
@@ -377,100 +380,107 @@
             var container;
             var index = 1;
             for (const [key, value] of Object.entries(data)) {
-              console.log(value)
+              if (value.notulen_created) {
 
-              const tableBody = document.getElementById('entries');
+                console.log(value)
 
-              // create table row
-              const row = document.createElement('tr');
+                const tableBody = document.getElementById('entries');
 
-              // create table cells
-              const indexCell = document.createElement('th');
-              indexCell.setAttribute('scope', 'row');
-              indexCell.innerText = index;
+                // create table row
+                const row = document.createElement('tr');
 
-              const dasarCell = document.createElement('td');
-              dasarCell.innerText = value.dasar;
+                // create table cells
+                const indexCell = document.createElement('th');
+                indexCell.setAttribute('scope', 'row');
+                indexCell.innerText = index;
 
-              const tanggalCell = document.createElement('td');
-              tanggalCell.innerText = value.tanggal;
+                const dasarCell = document.createElement('td');
+                dasarCell.innerText = value.dasar;
 
-              const tempatCell = document.createElement('td');
-              tempatCell.innerText = value.tempat;
+                const tanggalCell = document.createElement('td');
+                tanggalCell.innerText = value.tanggal;
 
-              const jamCell = document.createElement('td');
-              jamCell.innerText = `${value.jam_mulai} - ${value.jam_selesai}`;
+                const tempatCell = document.createElement('td');
+                tempatCell.innerText = value.tempat;
 
-              const namaCell = document.createElement('td');
-              namaCell.innerText = value.nama;
+                const jamCell = document.createElement('td');
+                jamCell.innerText = `${value.jam_mulai} - ${value.jam_selesai}`;
 
-              const pelaksanaCell = document.createElement('td');
-              pelaksanaCell.innerText = value.pelaksana;
+                const namaCell = document.createElement('td');
+                namaCell.innerText = value.nama;
 
-              const tanggalSelesaiCell = document.createElement('td');
-              tanggalSelesaiCell.innerText = value.tanggal_selesai;
+                const pelaksanaCell = document.createElement('td');
+                pelaksanaCell.innerText = value.pelaksana;
 
-              const editButton = document.createElement('button');
-              editButton.setAttribute('type', 'button');
-              editButton.setAttribute('class', 'btn btn-warning btn-sm');
-              editButton.setAttribute('data-bs-toggle', 'tooltip');
-              editButton.setAttribute('data-bs-placement', 'top');
-              editButton.setAttribute('title', 'Edit Rapat');
-              editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
-              editButton.addEventListener('click', () => {
-                window.location.href = `new-notulen.html?id=${key}`;
-              });
+                const tanggalSelesaiCell = document.createElement('td');
+                tanggalSelesaiCell.innerText = value.tanggal_selesai;
 
-              // const notulenButton = document.createElement('button');
-              // notulenButton.setAttribute('type', 'button');
-              // notulenButton.setAttribute('class', 'btn btn-info btn-sm');
-              // notulenButton.setAttribute('data-bs-toggle', 'tooltip');
-              // notulenButton.setAttribute('data-bs-placement', 'top');
-              // notulenButton.setAttribute('title', 'Tambah Notulen');
-              // notulenButton.innerHTML = '<i class="bi bi-plus-square"></i>';
-              // notulenButton.addEventListener('click', () => {
-              //   window.location.href = `update-rapat.html?id=${key}`;
-              // });
+                const editButton = document.createElement('button');
+                editButton.setAttribute('type', 'button');
+                editButton.setAttribute('class', 'btn btn-warning btn-sm');
+                editButton.setAttribute('data-bs-toggle', 'tooltip');
+                editButton.setAttribute('data-bs-placement', 'top');
+                editButton.setAttribute('title', 'Edit Rapat');
+                editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
+                editButton.addEventListener('click', () => {
+                  window.location.href = `new-notulen.html?id=${key}`;
+                });
 
-              // const deleteButton = document.createElement('button');
-              // deleteButton.setAttribute('type', 'button');
-              // deleteButton.setAttribute('class', 'btn btn-danger btn-sm');
-              // deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-              // deleteButton.addEventListener('click', () => {
-              //   selectedId = key;
-              //   let text = `Anda yakin akan menghapus ${value.nama}?`;
-              //   if (confirm(text) == true) {
-              //     text = "You pressed OK!";
-              //     deleteData()
-              //   } else {
-              //     text = "You canceled!";
-              //   }
+                // const notulenButton = document.createElement('button');
+                // notulenButton.setAttribute('type', 'button');
+                // notulenButton.setAttribute('class', 'btn btn-info btn-sm');
+                // notulenButton.setAttribute('data-bs-toggle', 'tooltip');
+                // notulenButton.setAttribute('data-bs-placement', 'top');
+                // notulenButton.setAttribute('title', 'Tambah Notulen');
+                // notulenButton.innerHTML = '<i class="bi bi-plus-square"></i>';
+                // notulenButton.addEventListener('click', () => {
+                //   window.location.href = `update-rapat.html?id=${key}`;
+                // });
 
-              // });
+                // const deleteButton = document.createElement('button');
+                // deleteButton.setAttribute('type', 'button');
+                // deleteButton.setAttribute('class', 'btn btn-danger btn-sm');
+                // deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+                // deleteButton.addEventListener('click', () => {
+                //   selectedId = key;
+                //   let text = `Anda yakin akan menghapus ${value.nama}?`;
+                //   if (confirm(text) == true) {
+                //     text = "You pressed OK!";
+                //     deleteData()
+                //   } else {
+                //     text = "You canceled!";
+                //   }
 
-              const actionsCell = document.createElement('td');
-              actionsCell.appendChild(editButton);
-              // actionsCell.appendChild(notulenButton);
-              // actionsCell.appendChild(deleteButton);
+                // });
 
-              // append table cells to row
-              row.appendChild(indexCell);
-              row.appendChild(dasarCell);
-              row.appendChild(tanggalCell);
-              row.appendChild(tempatCell);
-              row.appendChild(jamCell);
-              row.appendChild(namaCell);
-              row.appendChild(pelaksanaCell);
-              row.appendChild(tanggalSelesaiCell);
-              row.appendChild(actionsCell);
+                const actionsCell = document.createElement('td');
+                actionsCell.appendChild(editButton);
+                // actionsCell.appendChild(notulenButton);
+                // actionsCell.appendChild(deleteButton);
 
-              // append row to table body
-              tableBody.appendChild(row);
+                // append table cells to row
+                row.appendChild(indexCell);
+                row.appendChild(dasarCell);
+                row.appendChild(tanggalCell);
+                row.appendChild(tempatCell);
+                row.appendChild(jamCell);
+                row.appendChild(namaCell);
+                row.appendChild(pelaksanaCell);
+                row.appendChild(tanggalSelesaiCell);
+                row.appendChild(actionsCell);
 
-              index++
+                // append row to table body
+                tableBody.appendChild(row);
+
+                index++
+              }
             }
-          } else {            
-            tableBody.innerHTML = `<tr><td colspan=7 class="text-center"r>Data Kosong</tr>`
+            if (index == 1){
+              tableBody.innerHTML = `<tr><td colspan=9 class="text-center"r>Data Kosong</tr>`
+                console.log("No data available");
+            }
+          } else {
+            tableBody.innerHTML = `<tr><td colspan=9 class="text-center"r>Data Kosong</tr>`
             console.log("No data available");
           }
         }).catch((error) => {

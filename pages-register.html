@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Register - NiceAdmin Bootstrap Template</title>
+  <title>Buat Akun</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -60,50 +60,50 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
-                    <p class="text-center small">Enter your personal details to create account</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Buat Akun</h5>
+                    <p class="text-center small">Masukkan Username dan Password untuk membuat akun</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
-                    <div class="col-12">
+                  <form class="row g-3 needs-validation" id="new_entry">
+                    <!-- <div class="col-12">
                       <label for="yourName" class="form-label">Your Name</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
                       <div class="invalid-feedback">Please, enter your name!</div>
-                    </div>
+                    </div> 
 
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Your Email</label>
                       <input type="email" name="email" class="form-control" id="yourEmail" required>
                       <div class="invalid-feedback">Please enter a valid Email adddress!</div>
-                    </div>
+                    </div> -->
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please choose a username.</div>
+                        <div class="invalid-feedback">Mohon masukkan Username.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <div class="invalid-feedback">Mohon masukkan Password.</div>
                     </div>
 
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
                         <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
                         <div class="invalid-feedback">You must agree before submitting.</div>
                       </div>
+                    </div> -->
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit">Buat Akun</button>
                     </div>
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Create Account</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="pages-login.html">Log in</a></p>
+                      <p class="small mb-0">Sudah punya akun? <a href="pages-login.html">Log in</a></p>
                     </div>
                   </form>
 
@@ -141,7 +141,56 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getDatabase, set, get, ref, push, query, orderByChild, equalTo, startAt, endAt, onValue } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
+    const firebaseConfig = {
+      apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+      authDomain: "notulen-app-7112c.firebaseapp.com",
+      projectId: "notulen-app-7112c",
+      storageBucket: "notulen-app-7112c.appspot.com",
+      messagingSenderId: "798198338684",
+      appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+      databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth()
+
+    $('#new_entry').submit(function (e) {
+      e.preventDefault();
+      var username = $(this).find('[name="username"]').val();
+      var password = $(this).find('[name="password"]').val();
+      alert(username)
+      register(username, password)
+    })
+    function register(username, password){
+      let tempEmail = `${username}@gmail.com`
+      createUserWithEmailAndPassword(auth, tempEmail, password).then(() => {
+        const usersRef = ref(database, "data_user");
+        var temp = {
+          username: username,
+          email: tempEmail,
+          password: password,
+          role: 'USER'
+        }
+        push(usersRef, temp).then(function (data) {
+          let msg = 'Silahkan Login'
+          window.location.href = 'pages-login.html?pesan='+msg
+        }).catch(function (error){
+          
+        })
+      }).catch((error) => { 
+        alert(error) 
+        console.log(error)
+      })
+    }
+
+  </script>
 </body>
 
 </html>

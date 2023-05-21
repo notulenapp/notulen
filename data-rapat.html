@@ -129,7 +129,7 @@
             </a>
           </li>
           <li>
-            <a href="tables-data.html" class="active">
+            <a href="#" class="active">
               <i class="bi bi-circle"></i><span>Data Rapat</span>
             </a>
           </li>
@@ -166,7 +166,7 @@
   <main id="main" class="main">
     <div id="alert">
 
-    </div>    
+    </div>
     <div class="pagetitle">
       <h1>Data Rapat</h1>
       <nav>
@@ -203,16 +203,35 @@
 
               <!-- Table with stripped rows -->
               <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" id="main-table">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Dasar Kegiatan</th>
-                      <th scope="col">Hari / Tanggal</th>
-                      <th scope="col">Tempat</th>
-                      <th scope="col">Waktu</th>
-                      <th scope="col">Nama Rapat</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(0)">#</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(1)">Judul Rapat</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(2)">Dasar Kegiatan</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(3)">Hari / Tanggal</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(4)">Tempat</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(5)">Waktu</th>
+                      <th scope="col">Notulen Terbuat</th>
                       <th scope="col">Aksi</th>
+                    </tr>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">
+                        <input type="text" id="input0" onkeyup="search(0)" placeholder="Cari Judul">
+                      </th>
+                      <th scope="col">
+                        <input type="text" id="input1" onkeyup="search(1)" placeholder="Cari Dasar">
+                      </th>
+                      <th scope="col">
+                        <input type="text" id="input2" onkeyup="search(2)" placeholder="Cari Tanggal">
+                      </th>
+                      <th scope="col">
+                        <input type="text" id="input3" onkeyup="search(3)" placeholder="Cari Tempat">
+                      </th>
+                      <th scope="col"> </th>
+                      <th scope="col"> </th>
+                      <th scope="col"> </th>
                     </tr>
                   </thead>
                   <tbody id="entries">
@@ -299,7 +318,7 @@
     const database = getDatabase(app);
     const auth = getAuth();
     const tableBody = document.getElementById('entries');
-    tableBody.innerHTML = `<tr><td colspan=7 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
+    tableBody.innerHTML = `<tr><td colspan=8 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
 
     function deleteData() {
       console.log(selectedId)
@@ -356,13 +375,14 @@
     $(document).ready(function () {
 
     })
-    if ($_GET('show') == 1){
-        document.getElementById('alert').innerHTML = `<div class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" id="alert" role="alert">
+    if ($_GET('show') == 1) {
+      document.getElementById('alert').innerHTML = `<div class="alert alert-warning bg-warning text-dark border-0 alert-dismissible fade show" id="alert" role="alert">
       Pilih salah satu rapat lalu tekan tombol tambah berwarna biru '+'      
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+      <button type="button" class="btn-close btn-close-black" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>`
-      }
+    }
 
+    var isAdmin = window.localStorage.getItem('role') == 'ADMIN'
     auth.onAuthStateChanged(function (user) {
       if (user) {
         console.log("aman")
@@ -404,9 +424,14 @@
 
               const jamCell = document.createElement('td');
               jamCell.innerText = `${value.jam_mulai} - ${value.jam_selesai}`;
+              
+              const notulenCell = document.createElement('td');
+              notulenCell.innerHTML = value.notulen_created ? `
+              <span class="badge rounded-pill bg-success">Sudah</span>`:`
+              <span class="badge rounded-pill bg-danger">Belum</span>`;
 
               const namaCell = document.createElement('td');
-              namaCell.innerText = value.nama;
+              namaCell.innerText = value.judul;
 
               const editButton = document.createElement('button');
               editButton.setAttribute('type', 'button');
@@ -452,19 +477,24 @@
               space2.innerHTML = " ";
 
               const actionsCell = document.createElement('td');
-              actionsCell.appendChild(editButton);
-              actionsCell.appendChild(space);
-              actionsCell.appendChild(notulenButton);
-              actionsCell.appendChild(space2);
-              actionsCell.appendChild(deleteButton);
+              if (isAdmin) {
+                actionsCell.appendChild(editButton);
+                actionsCell.appendChild(space);
+                actionsCell.appendChild(notulenButton);
+                actionsCell.appendChild(space2);
+                actionsCell.appendChild(deleteButton);
+              } else {
+                actionsCell.appendChild(notulenButton);
+              }
 
               // append table cells to row
               row.appendChild(indexCell);
+              row.appendChild(namaCell);
               row.appendChild(dasarCell);
               row.appendChild(tanggalCell);
               row.appendChild(tempatCell);
               row.appendChild(jamCell);
-              row.appendChild(namaCell);
+              row.appendChild(notulenCell);
               row.appendChild(actionsCell);
 
               // append row to table body
@@ -472,8 +502,8 @@
 
               index++
             }
-          } else {            
-            tableBody.innerHTML = `<tr><td colspan=7 class="text-center"r>Data Kosong</tr>`
+          } else {
+            tableBody.innerHTML = `<tr><td colspan=8 class="text-center"r>Data Kosong</tr>`
             console.log("No data available");
           }
         }).catch((error) => {
@@ -504,6 +534,80 @@
     }
   </script>
   <script>
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("main-table");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 2; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+
+    function search(index) {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById(`input${index}`);
+      filter = input.value.toUpperCase();
+      console.log(filter)
+      table = document.getElementById("main-table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[index];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
   </script>
 </body>
 

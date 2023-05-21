@@ -794,14 +794,24 @@
         // Check if the user has the role "ADMIN"
         Object.values(users).forEach((user) => {
           if (user.role === "ADMIN") {
-            console.log("User with email 'bob@bob.com' has the role 'ADMIN'");
+            console.log("User with email '"+email+"' has the role 'ADMIN'");
+            window.localStorage.setItem('role', 'ADMIN');
           } else {
-            console.log("User with email 'bob@bob.com' does not have the role 'ADMIN'");
+            console.log("User with email '"+email+"' does not have the role 'ADMIN'");
+            window.localStorage.setItem('role', 'USER');
           }
         });
       } else {
-        console.log("No user found with email 'bob@bob.com'");
-
+        console.log("No user found with email '"+email+"'");
+        var temp = {
+          email: email,
+          role: 'USER'
+        }
+        push(usersRef, temp).then(function (data) {
+          window.localStorage.setItem('role', "USER");
+        }).catch(function (error){
+          window.localStorage.setItem('role', "USER");
+        })
       }
     }, (error) => {
       console.error(error);

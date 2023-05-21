@@ -66,51 +66,51 @@
         <!-- End Search Bar -->
 
         <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
+            <ul class="d-flex align-items-center">
 
-        <li class="nav-item dropdown pe-3">
+                <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <div id="photoUrl">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <div id="photoUrl">
 
-            </div>
-          </a>
+                        </div>
+                    </a>
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header" id="photoUrl2">
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header" id="photoUrl2">
 
-            </li>
-            <li class="dropdown-header">
-              <h6 id="displayName">Kevin Anderson</h6>
-              <span id="email">Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+                        </li>
+                        <li class="dropdown-header">
+                            <h6 id="displayName">Kevin Anderson</h6>
+                            <span id="email">Web Designer</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
 
-      </ul>
-    </nav><!-- End Icons Navigation -->
-    <script>
-      var displayName = window.localStorage.getItem('displayName')
-      var tempEmail = window.localStorage.getItem('email')
-      var photoUrl = window.localStorage.getItem('photoUrl')
-      document.getElementById('displayName').innerHTML = String(displayName) == 'null' ? tempEmail : displayName
-      document.getElementById('email').innerHTML = tempEmail
-      document.getElementById('photoUrl').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
-        `<img src="${photoUrl}" alt="" style="width: 30px; height: 30px; border-radius: 50%;">`;
-      document.getElementById('photoUrl2').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
-        `<img src="${photoUrl}" alt="" style="width: 70px; height: 70px; border-radius: 50%;">`;
-    </script>
+            </ul>
+        </nav><!-- End Icons Navigation -->
+        <script>
+            var displayName = window.localStorage.getItem('displayName')
+            var tempEmail = window.localStorage.getItem('email')
+            var photoUrl = window.localStorage.getItem('photoUrl')
+            document.getElementById('displayName').innerHTML = String(displayName) == 'null' ? tempEmail : displayName
+            document.getElementById('email').innerHTML = tempEmail
+            document.getElementById('photoUrl').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
+                `<img src="${photoUrl}" alt="" style="width: 30px; height: 30px; border-radius: 50%;">`;
+            document.getElementById('photoUrl2').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
+                `<img src="${photoUrl}" alt="" style="width: 70px; height: 70px; border-radius: 50%;">`;
+        </script>
 
     </header><!-- End Header -->
 
@@ -199,6 +199,13 @@
 
                             <!-- General Form Elements -->
                             <form id="new_entry">
+
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Judul Rapat</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_judul" name="input_judul">
+                                    </div>
+                                </div>
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-3 col-form-label">Dasar Pelaksanaan</label>
                                     <div class="col-sm-9">
@@ -209,12 +216,6 @@
                                     <label for="inputDate" class="col-sm-3 col-form-label">Tanggal</label>
                                     <div class="col-sm-9">
                                         <input type="date" class="form-control" id="input_tanggal" name="input_tanggal">
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-3 col-form-label">Tempat Rapat</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_tempat" name="input_tempat">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -230,19 +231,43 @@
                                         <input type="time" class="form-control" id="input_jam_selesai"
                                             name="input_jam_selesai">
                                     </div>
-                                </div>
+                                </div>                                
                                 <div class="row mb-3">
-                                    <label for="inputText" class="col-sm-3 col-form-label">Nama Rapat</label>
+                                    <label for="inputText" class="col-sm-3 col-form-label">Tempat Rapat</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_nama" name="input_nama">
+                                        <input type="text" class="form-control" id="input_tempat" name="input_tempat">
                                     </div>
                                 </div>
+                                <div class="row mb-3">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Agenda Rapat</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_agenda" name="input_agenda">
+                                    </div>
+                                </div>
+                                <div class="row mb-3 d-none">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Peserta</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_peserta" name="input_peserta">
+                                    </div>
+                                </div>                          
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Hasil Rapat</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="input_hasil" name="input_hasil">
                                     </div>
                                 </div>
+                                <div class="row mb-3 d-none">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Atasan</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_atasan" name="input_atasan">
+                                    </div>
+                                </div>
+                                <div class="row mb-3 d-none">
+                                    <label for="inputText" class="col-sm-3 col-form-label">Notulis</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="input_notulis" name="input_notulis">
+                                    </div>
+                                </div>  
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Rencana Tindak Lanjut</label>
                                     <div class="col-sm-9">
@@ -613,37 +638,68 @@
                     e.preventDefault();
 
                     var entry = {
-                        author: "",
-                        createdAt: "",
-                        dasar: "",
-                        hasil: "",
-                        jam_mulai: "",
-                        jam_selesai: "",
-                        nama: "",
-                        pelaksana: "",
-                        rencana: "",
-                        tanggal: "",
-                        tanggal_selesai: "",
-                        telah: "",
-                        tempat: "",
-                        updatedAt: "",
-                        updatedBy: ""
+                        "agenda": "",
+                        "author": "",
+                        "createdAt": "",
+                        "atasan": "",
+                        "dasar": "",
+                        "judul": "",
+                        "notulis": "",
+                        "notulen_created": false,
+                        "pelaksanaan": [],
+                        "peserta": [],
+                        "pukul": "",
+                        "tempat": "",
+                        "updatedAt": "",
+                        "updatedBy": ""
                     }
+
+                    // var entry = {
+                    //     author: "",
+                    //     createdAt: "",
+                    //     dasar: "",
+                    //     hasil: "",
+                    //     jam_mulai: "",
+                    //     jam_selesai: "",
+                    //     nama: "",
+                    //     pelaksana: "",
+                    //     rencana: "",
+                    //     tanggal: "",
+                    //     tanggal_selesai: "",
+                    //     telah: "",
+                    //     tempat: "",
+                    //     updatedAt: "",
+                    //     updatedBy: ""
+                    // }
+                    
+                    // entry.dasar = $(this).find('[name="input_dasar"]').val();
+                    // entry.tanggal = $(this).find('[name="input_tanggal"]').val();
+                    // entry.tempat = $(this).find('[name="input_tempat"]').val();
+                    // entry.jam_mulai = $(this).find('[name="input_jam_mulai"]').val();
+                    // entry.jam_selesai = $(this).find('[name="input_jam_selesai"]').val();
+                    // entry.nama = $(this).find('[name="input_nama"]').val();
+                    // entry.hasil = $(this).find('[name="input_hasil"]').val();
+                    // entry.rencana = $(this).find('[name="input_rencana"]').val();
+                    // entry.telah = $(this).find('[name="input_telah"]').val();
+                    // entry.pelaksana = $(this).find('[name="input_pelaksana"]').val();
+                    // entry.tanggal_selesai = $(this).find('[name="input_tanggal_selesai"]').val();
+                    
+                    entry.judul = $(this).find('[name="input_judul"]').val();
                     entry.dasar = $(this).find('[name="input_dasar"]').val();
                     entry.tanggal = $(this).find('[name="input_tanggal"]').val();
-                    entry.tempat = $(this).find('[name="input_tempat"]').val();
                     entry.jam_mulai = $(this).find('[name="input_jam_mulai"]').val();
                     entry.jam_selesai = $(this).find('[name="input_jam_selesai"]').val();
-                    entry.nama = $(this).find('[name="input_nama"]').val();
-                    entry.hasil = $(this).find('[name="input_hasil"]').val();
-                    entry.rencana = $(this).find('[name="input_rencana"]').val();
-                    entry.telah = $(this).find('[name="input_telah"]').val();
-                    entry.pelaksana = $(this).find('[name="input_pelaksana"]').val();
-                    entry.tanggal_selesai = $(this).find('[name="input_tanggal_selesai"]').val();
+                    entry.tempat = $(this).find('[name="input_tempat"]').val();
+                    entry.agenda = $(this).find('[name="input_agenda"]').val();
+                    entry.peserta = [$(this).find('[name="input_peserta"]').val()];
+                    entry.hasil = [$(this).find('[name="input_hasil"]').val()];
+                    entry.atasan = $(this).find('[name="input_atasan"]').val();
+                    entry.notulis = $(this).find('[name="input_notulis"]').val();
+
                     entry.createdAt = new Date().getTime();
                     entry.updatedAt = entry.createdAt;
                     entry.updatedBy = user.email;
-                    entry.author = user.email;                    
+                    entry.author = user.email;
 
                     const tasksRef = ref(database, "data_rapat");
 
@@ -698,7 +754,7 @@
                 });
             } else {
                 console.log("ga aman")
-        window.location.href = 'pages-login.html'
+                window.location.href = 'pages-login.html'
             }
         })
     </script>

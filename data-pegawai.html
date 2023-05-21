@@ -204,72 +204,39 @@
               <!-- <table class="table datatable"> -->
               <table class="table table-striped">
                 <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">NIP</th>
-                    <th scope="col">Jabatan</th>
-                    <th scope="col">Aksi</th>
-                  </tr>
+
+
                 </thead>
-                <tbody id="entries">
-                  <!-- <tr>
-                    <th scope="row">1</th>
-                    <td>Ir. Joko Widodo</td>
-                    <td>12345</td>
-                    <td>Presiden</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>M.H. Yaqut Cholil Qoumas</td>
-                    <td>23456</td>
-                    <td>Menteri Agama</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Budi Gunawan</td>
-                    <td>34567</td>
-                    <td>Kapolri</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Retno L.P. Marsudi</td>
-                    <td>45678</td>
-                    <td>Menteri Luar Negeri</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Agus Harimurti Yudhoyono</td>
-                    <td>56789</td>
-                    <td>Menteri Pertahanan</td>
-                    <td>
-                      <button type="button" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-square"></i>
-                      </button>
-                    </td>
-                  </tr> -->
-                </tbody>
               </table>
+              <div id="divTable">
+                <table class="table table-striped" id="main-table">
+                  <thead>
+                    <tr>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(0)">#</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(1)">Nama</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(2)">NIP</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(3)">Jabatan</th>
+                      <th scope="col">Aksi</th>
+                    </tr>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">
+                        <input type="text" id="input0" onkeyup="search(0)" placeholder="Cari Nama">
+                      </th>
+                      <th scope="col">
+                        <input type="text" id="input1" onkeyup="search(1)" placeholder="Cari NIP">
+                      </th>
+                      <th scope="col">
+                        <input type="text" id="input2" onkeyup="search(2)" placeholder="Cari Jabatan">
+                      </th>
+                      <th scope="col"> </th>
+                    </tr>
+                  </thead>
+                  <tbody id="entries">
+
+                  </tbody>
+                </table>
+              </div>
               <!-- End Table with stripped rows -->
 
             </div>
@@ -348,6 +315,22 @@
             var arrContent = []
             var container;
             var index = 1;
+            const divTable = document.getElementById('divTable');
+            const table = document.createElement('table')
+            const thead = document.createElement('thead')
+            const tbody = document.createElement('tbody')
+            // divTable.innerHTML = ''
+            // table.setAttribute('class', 'table datatable')
+            // thead.innerHTML = `<tr>
+            //           <th scope="col">#</th>
+            //           <th scope="col">Name</th>
+            //           <th scope="col">NIP</th>
+            //           <th scope="col">Jabatan</th>
+            //           <th scope="col">Aksi</th>
+            //         </tr>`
+            // table.appendChild(thead)
+
+
             for (const [key, value] of Object.entries(data)) {
               console.log(value)
               const row = document.createElement('tr');
@@ -403,8 +386,11 @@
 
               console.log(row)
               tableBody.appendChild(row);
+              // tbody.appendChild(row)
               index++
             }
+            // table.appendChild(tbody)
+            // divTable.appendChild(table)
           } else {
             console.log("No data available");
           }
@@ -511,6 +497,82 @@
       }
     }
 
+  </script>
+  <script>
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("main-table");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;
+        console.log(rows)
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 2; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+
+    function search(index) {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById(`input${index}`);
+      filter = input.value.toUpperCase();
+      table = document.getElementById("main-table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[index];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
   </script>
 </body>
 

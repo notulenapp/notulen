@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Update Rapat - NotulenApp</title>
+    <title>Tambah Rapat - NotulenApp</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -66,51 +66,51 @@
         <!-- End Search Bar -->
 
         <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
+            <ul class="d-flex align-items-center">
 
-        <li class="nav-item dropdown pe-3">
+                <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <div id="photoUrl">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <div id="photoUrl">
 
-            </div>
-          </a>
+                        </div>
+                    </a>
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header" id="photoUrl2">
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header" id="photoUrl2">
 
-            </li>
-            <li class="dropdown-header">
-              <h6 id="displayName">Kevin Anderson</h6>
-              <span id="email">Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+                        </li>
+                        <li class="dropdown-header">
+                            <h6 id="displayName">Kevin Anderson</h6>
+                            <span id="email">Web Designer</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
 
-      </ul>
-    </nav><!-- End Icons Navigation -->
-    <script>
-      var displayName = window.localStorage.getItem('displayName')
-      var tempEmail = window.localStorage.getItem('email')
-      var photoUrl = window.localStorage.getItem('photoUrl')
-      document.getElementById('displayName').innerHTML = String(displayName) == 'null' ? tempEmail : displayName
-      document.getElementById('email').innerHTML = tempEmail
-      document.getElementById('photoUrl').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
-        `<img src="${photoUrl}" alt="" style="width: 30px; height: 30px; border-radius: 50%;">`;
-      document.getElementById('photoUrl2').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
-        `<img src="${photoUrl}" alt="" style="width: 70px; height: 70px; border-radius: 50%;">`;
-    </script>
+            </ul>
+        </nav><!-- End Icons Navigation -->
+        <script>
+            var displayName = window.localStorage.getItem('displayName')
+            var tempEmail = window.localStorage.getItem('email')
+            var photoUrl = window.localStorage.getItem('photoUrl')
+            document.getElementById('displayName').innerHTML = String(displayName) == 'null' ? tempEmail : displayName
+            document.getElementById('email').innerHTML = tempEmail
+            document.getElementById('photoUrl').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
+                `<img src="${photoUrl}" alt="" style="width: 30px; height: 30px; border-radius: 50%;">`;
+            document.getElementById('photoUrl2').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
+                `<img src="${photoUrl}" alt="" style="width: 70px; height: 70px; border-radius: 50%;">`;
+        </script>
 
     </header><!-- End Header -->
 
@@ -179,12 +179,12 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Update Rapat</h1>
+            <h1>Tambah Rapat</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item"><a href="data-rapat.html">Data Rapat</a></li>
-                    <li class="breadcrumb-item active">Update Rapat</li>
+                    <li class="breadcrumb-item active">Tambah Rapat</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -198,11 +198,12 @@
                             <h5 class="card-title">Mohon lengkapi formulir berikut:</h5>
 
                             <!-- General Form Elements -->
-                            <form id="update_entry">
+                            <form id="new_entry">
+
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-3 col-form-label">Judul Rapat</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_judul" name="input_judul">
+                                        <input type="text" class="form-control" id="input_nama" name="input_nama">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -230,7 +231,7 @@
                                         <input type="time" class="form-control" id="input_jam_selesai"
                                             name="input_jam_selesai">
                                     </div>
-                                </div>
+                                </div>                                
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-3 col-form-label">Tempat Rapat</label>
                                     <div class="col-sm-9">
@@ -243,31 +244,13 @@
                                         <input type="text" class="form-control" id="input_agenda" name="input_agenda">
                                     </div>
                                 </div>
-                                <div class="row mb-3 d-none">
-                                    <label for="inputText" class="col-sm-3 col-form-label">Peserta</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_peserta" name="input_peserta">
-                                    </div>
-                                </div>    
+                                                                
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Hasil Rapat</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="input_hasil" name="input_hasil">
                                     </div>
                                 </div>
-                                <div class="row mb-3 d-none">
-                                    <label for="inputText" class="col-sm-3 col-form-label">Atasan</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_atasan" name="input_atasan">
-                                    </div>
-                                </div>
-                                <div class="row mb-3 d-none">
-                                    <label for="inputText" class="col-sm-3 col-form-label">Notulis</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_notulis" name="input_notulis">
-                                    </div>
-                                </div>  
-                                
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Rencana Tindak Lanjut</label>
                                     <div class="col-sm-9">
@@ -284,13 +267,15 @@
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Pelaksana</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_pelaksana" name="input_pelaksana">
+                                        <input type="text" class="form-control" id="input_pelaksana"
+                                            name="input_pelaksana">
                                     </div>
                                 </div>
                                 <div class="row mb-3 d-none">
                                     <label for="inputDate" class="col-sm-3 col-form-label">Tanggal Selesai</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" id="input_tanggal_selesai" name="input_tanggal_selesai">
+                                        <input type="date" class="form-control" id="input_tanggal_selesai"
+                                            name="input_tanggal_selesai">
                                     </div>
                                 </div>
 
@@ -298,7 +283,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-3 col-form-label"></label>
                                     <div class="col-sm-9">
-                                        <button class="btn btn-primary" id="btn-save" disabled>Simpan</button>
+                                        <button class="btn btn-primary">Simpan</button>
                                     </div>
                                 </div>
 
@@ -374,7 +359,7 @@
                  * Process form data and save to Firebase database *
                 \***************************************************/
 
-                $('#update_entry').submit(function (e) {
+                $('#new_entry').submit(function (e) {
                     e.preventDefault();
 
                     var entry = {};
@@ -442,7 +427,7 @@
                  * Process form data and save to Firebase database *
                 \***************************************************/
 
-                $('#update_entry').submit(function (e) {
+                $('#new_entry').submit(function (e) {
                     e.preventDefault();
 
                     var entry = {};
@@ -510,7 +495,7 @@
                  * Process form data and save to Firebase database *
                 \***************************************************/
 
-                $('#update_entry').submit(function (e) {
+                $('#new_entry').submit(function (e) {
                     e.preventDefault();
 
                     var entry = {};
@@ -578,7 +563,7 @@
                  * Process form data and save to Firebase database *
                 \***************************************************/
 
-                $('#update_entry').submit(function (e) {
+                $('#new_entry').submit(function (e) {
                     e.preventDefault();
 
                     var entry = {};
@@ -612,7 +597,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-        import { getDatabase, set, get, ref, push, runTransaction } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+        import { getDatabase, set, get, ref, push } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
         import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -628,111 +613,120 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth();
-        var data = {};
 
         auth.onAuthStateChanged(function (user) {
             if (user) {
-                var entry_id = $_GET('id');
-                console.log(entry_id)
-                if (entry_id) {
-                    var userRef = ref(database, `data_rapat/${entry_id}`);
-
-                    get(userRef).then((snapshot) => {
-                        if (snapshot.exists()) {
-                            console.log("ada")
-                            var temp = snapshot.val();
-                            console.log(temp);
-                            data = temp;
-                            document.getElementById("btn-save").disabled = false;
-                            $('#update_entry [name="input_judul"]').val(temp.judul);
-                            $('#update_entry [name="input_dasar"]').val(temp.dasar);
-                            $('#update_entry [name="input_tanggal"]').val(temp.tanggal);
-                            $('#update_entry [name="input_jam_mulai"]').val(temp.jam_mulai);
-                            $('#update_entry [name="input_jam_selesai"]').val(temp.jam_selesai);
-                            $('#update_entry [name="input_tempat"]').val(temp.tempat);
-                            $('#update_entry [name="input_agenda"]').val(temp.agenda);                            
-                            $('#update_entry [name="input_peserta"]').val(temp.peserta);
-                            $('#update_entry [name="input_hasil"]').val(temp.hasil);
-                            $('#update_entry [name="input_atasan"]').val(temp.atasan);
-                            $('#update_entry [name="input_notulis"]').val(temp.notulis);
-                            $('#update_entry [name="input_rencana"]').val(temp.rencana);
-                            $('#update_entry [name="input_telah"]').val(temp.telah);
-                            $('#update_entry [name="input_pelaksana"]').val(temp.pelaksana);
-                            $('#update_entry [name="input_tanggal_selesai"]').val(temp.tanggal_selesai);
-
-                        } else {
-                            console.log("No data available");
-                        }
-                    }).catch((error) => {
-                        console.error(error);
-                    });
-                }
-
-                $('#update_entry').submit(function (e) {
+                console.log("aman")
+                $('#new_entry').submit(function (e) {
                     e.preventDefault();
 
+                    var entry = {
+                        "agenda": "",
+                        "author": "",
+                        "createdAt": "",
+                        "atasan": "",
+                        "dasar": "",
+                        "judul": "",
+                        "notulis": "",
+                        "notulen_created": true,
+                        "pelaksanaan": [],
+                        "peserta": [],
+                        "pukul": "",
+                        "tempat": "",
+                        "updatedAt": "",
+                        "updatedBy": ""
+                    }
+
+                    // var entry = {
+                    //     author: "",
+                    //     createdAt: "",
+                    //     dasar: "",
+                    //     hasil: "",
+                    //     jam_mulai: "",
+                    //     jam_selesai: "",
+                    //     nama: "",
+                    //     pelaksana: "",
+                    //     rencana: "",
+                    //     tanggal: "",
+                    //     tanggal_selesai: "",
+                    //     telah: "",
+                    //     tempat: "",
+                    //     updatedAt: "",
+                    //     updatedBy: ""
+                    // }
+                    
+                    entry.dasar = $(this).find('[name="input_dasar"]').val();
+                    entry.tanggal = $(this).find('[name="input_tanggal"]').val();
+                    entry.tempat = $(this).find('[name="input_tempat"]').val();
+                    entry.jam_mulai = $(this).find('[name="input_jam_mulai"]').val();
+                    entry.jam_selesai = $(this).find('[name="input_jam_selesai"]').val();
+                    entry.nama = $(this).find('[name="input_nama"]').val();
+                    entry.hasil = $(this).find('[name="input_hasil"]').val();
+                    entry.rencana = $(this).find('[name="input_rencana"]').val();
+                    entry.telah = $(this).find('[name="input_telah"]').val();
+                    entry.pelaksana = $(this).find('[name="input_pelaksana"]').val();
+                    entry.tanggal_selesai = $(this).find('[name="input_tanggal_selesai"]').val();
+                    entry.createdAt = new Date().getTime();
+                    entry.updatedAt = entry.createdAt;
+                    entry.updatedBy = user.email;
+                    entry.author = user.email;
+
+                    const tasksRef = ref(database, "data_rapat");
 
 
-                    console.log(entry_id)
-                    const tasksRef = ref(database, `data_rapat/${entry_id}`);
-                    console.log(data)
-                    runTransaction(tasksRef, (entry) => {
-                        if (!entry) {
-                            return entry;
-                        }
-                        var entry = data;
-                        entry.dasar = $(this).find('[name="input_dasar"]').val();
-                        entry.tanggal = $(this).find('[name="input_tanggal"]').val();
-                        entry.tempat = $(this).find('[name="input_tempat"]').val();
-                        entry.jam_mulai = $(this).find('[name="input_jam_mulai"]').val();
-                        entry.jam_selesai = $(this).find('[name="input_jam_selesai"]').val();
-                        entry.nama = $(this).find('[name="input_nama"]').val();
-                        entry.hasil = $(this).find('[name="input_hasil"]').val();
-                        entry.rencana = $(this).find('[name="input_rencana"]').val();
-                        entry.telah = $(this).find('[name="input_telah"]').val();
-                        entry.pelaksana = $(this).find('[name="input_pelaksana"]').val();
-                        entry.tanggal_selesai = $(this).find('[name="input_tanggal_selesai"]').val();
-                        entry.createdAt = data.createdAt;
-                        entry.updatedAt = new Date().getTime();
-                        entry.updatedBy = user.email;
-                        entry.author = data.author;
-                        return entry
-                    }).then((result) => {
-                        window.location.href = 'data-rapat.html'
+                    push(tasksRef, entry).then(function (data) {
+                        const total = ref(database, "total_rapat");
+                        get(total).then((snapshot) => {
+                            console.log(snapshot)
+                            if (snapshot.exists()) {
+                                console.log("ada")
+                                var temp = snapshot.val() + 1;
+                                set(total, temp)
+                                    .then(() => {
+                                        console.log('Data written to database successfully');
+                                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error writing to database: ', error);
+                                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                    });
+
+                            } else {
+                                set(total, 1)
+                                    .then(() => {
+                                        console.log('Data written to database successfully');
+                                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                    })
+                                    .catch((error) => {
+                                        console.error('Error writing to database: ', error);
+                                        window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                    });
+                                console.log("No data available");
+                            }
+                        }).catch((error) => {
+                            console.error(error);
+                            set(total, 1)
+                                .then(() => {
+                                    console.log('Data written to database successfully');
+                                    window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                })
+                                .catch((error) => {
+                                    console.error('Error writing to database: ', error);
+                                    window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
+                                });
+                        });
                     }).catch(function (error) {
                         alert(error);
                         console.error(error);
                     })
-                    // runTransaction(tasksRef, entry).then(function (data) {
-                    //     window.location.href = 'data-rapat.html' // 'entry.html?id=' + data.getKey()
-                    // }).catch(function (error) {
-                    //     alert(error);
-                    //     console.error(error);
-                    // })
 
                     return false;
                 });
             } else {
                 console.log("ga aman")
-        window.location.href = 'pages-login.html'
+                window.location.href = 'pages-login.html'
             }
         })
-        function $_GET(key) {
-            var queries = window.location.href.split('?').pop().split('&');
-            var params = {};
-            queries.map(function (query) {
-                var set = query.split('=');
-                params[set[0]] = set[1];
-            });
-
-            if (key) {
-                return params[key] || null;
-            } else {
-                return params;
-            }
-
-        }
-
     </script>
 </body>
 
