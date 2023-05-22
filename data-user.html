@@ -57,51 +57,51 @@
         <!-- End Search Bar -->
 
         <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
+            <ul class="d-flex align-items-center">
 
-        <li class="nav-item dropdown pe-3">
+                <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <div id="photoUrl">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <div id="photoUrl">
 
-            </div>
-          </a>
+                        </div>
+                    </a>
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header" id="photoUrl2">
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header" id="photoUrl2">
 
-            </li>
-            <li class="dropdown-header">
-              <h6 id="displayName">Kevin Anderson</h6>
-              <span id="email">Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+                        </li>
+                        <li class="dropdown-header">
+                            <h6 id="displayName">Kevin Anderson</h6>
+                            <span id="email">Web Designer</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
 
-      </ul>
-    </nav><!-- End Icons Navigation -->
-    <script>
-      var displayName = window.localStorage.getItem('displayName')
-      var tempEmail = window.localStorage.getItem('email')
-      var photoUrl = window.localStorage.getItem('photoUrl')
-      document.getElementById('displayName').innerHTML = String(displayName) == 'null' ? tempEmail : displayName
-      document.getElementById('email').innerHTML = tempEmail
-      document.getElementById('photoUrl').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
-        `<img src="${photoUrl}" alt="" style="width: 30px; height: 30px; border-radius: 50%;">`;
-      document.getElementById('photoUrl2').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
-        `<img src="${photoUrl}" alt="" style="width: 70px; height: 70px; border-radius: 50%;">`;
-    </script>
+            </ul>
+        </nav><!-- End Icons Navigation -->
+        <script>
+            var displayName = window.localStorage.getItem('displayName')
+            var tempEmail = window.localStorage.getItem('email')
+            var photoUrl = window.localStorage.getItem('photoUrl')
+            document.getElementById('displayName').innerHTML = String(displayName) == 'null' ? tempEmail : displayName
+            document.getElementById('email').innerHTML = tempEmail
+            document.getElementById('photoUrl').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
+                `<img src="${photoUrl}" alt="" style="width: 30px; height: 30px; border-radius: 50%;">`;
+            document.getElementById('photoUrl2').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
+                `<img src="${photoUrl}" alt="" style="width: 70px; height: 70px; border-radius: 50%;">`;
+        </script>
 
     </header><!-- End Header -->
 
@@ -117,6 +117,12 @@
                 </a>
             </li><!-- End Dashboard Nav -->
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="data-rapat.html?show=1">
+                  <i class="bi bi-plus-square"></i>
+                  <span>Buat Notulen Baru</span>
+                </a>
+              </li><!-- End Profile Page Nav -->
 
             <li class="nav-item">
                 <a class="nav-link " data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -124,7 +130,12 @@
                 </a>
                 <ul id="tables-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
                     <li>
-                        <a href="data-pegawai.html" class="active">
+                        <a href="data-user.html" class="active">
+                            <i class="bi bi-circle"></i><span>Data User</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="data-pegawai.html">
                             <i class="bi bi-circle"></i><span>Data Pegawai</span>
                         </a>
                     </li>
@@ -140,13 +151,6 @@
                     </li>
                 </ul>
             </li><!-- End Tables Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="data-rapat.html?show=1">
-                    <i class="bi bi-plus-square"></i>
-                    <span>Buat Notulen Baru</span>
-                </a>
-            </li><!-- End Profile Page Nav -->
 
             <li class="nav-heading">Pages</li>
 
@@ -275,7 +279,10 @@
         auth.onAuthStateChanged(function (user) {
             if (user) {
                 console.log("aman")
-
+                if (window.localStorage.getItem('role') != "ADMIN") {
+                    alert("Anda tidak memiliki akses ke halaman ini")
+                    window.location.href = "index.html"
+                }
                 const userRef = ref(database, "data_user");
                 console.log(userRef)
                 get(userRef).then((snapshot) => {
@@ -365,7 +372,7 @@
 
             } else {
                 console.log("ga aman")
-        window.location.href = 'pages-login.html'
+                window.location.href = 'pages-login.html'
             }
         })
 
@@ -402,6 +409,7 @@
         }
 
     </script>
+    <script src="./assets/js/nav.js"></script>
 </body>
 
 </html>

@@ -118,11 +118,23 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
+        <a class="nav-link collapsed" href="data-rapat.html?show=1">
+          <i class="bi bi-plus-square"></i>
+          <span>Buat Notulen Baru</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Data</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">          
+          <li id="nav-data-user">
+            <a href="data-user.html">
+              <i class="bi bi-circle"></i><span>Data User</span>
+            </a>
+          </li>
+          <li id="nav-data-pegawai">
             <a href="data-pegawai.html">
               <i class="bi bi-circle"></i><span>Data Pegawai</span>
             </a>
@@ -140,12 +152,6 @@
         </ul>
       </li><!-- End Components Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="data-rapat.html?show=1">
-          <i class="bi bi-plus-square"></i>
-          <span>Buat Notulen Baru</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
 
       <li class="nav-heading">Pages</li>
 
@@ -1026,6 +1032,7 @@
       return temp
     }
   </script>
+  <script src="./assets/js/nav.js"></script>
 </body>
 
 </html>
