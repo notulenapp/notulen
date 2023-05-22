@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NotulenApp</title>
+  <title>Dashboard - E-Notura</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -48,7 +48,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NotulenApp</span>
+        <span class="d-none d-lg-block">E-Notura</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -149,7 +149,7 @@
 
       <li class="nav-heading">Pages</li>
 
-      
+
       <!-- End Profile Page Nav -->
 
       <li class="nav-item">
@@ -341,78 +341,45 @@
             </div><!-- End Reports -->
 
             <!-- Recent Sales -->
-            <!-- <div class="col-12">
+            <div class="col-12">
               <div class="card recent-sales overflow-auto">
 
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Recent Sales <span>| Today</span></h5>
+                  <h5 class="card-title">Column Chart</h5>
 
-                  <table class="table table-borderless datatable">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#">#2457</a></th>
-                        <td>Brandon Jacob</td>
-                        <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                        <td>$64</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>Bridie Kessler</td>
-                        <td><a href="#" class="text-primary">Blanditiis dolor omnis similique</a></td>
-                        <td>$47</td>
-                        <td><span class="badge bg-warning">Pending</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2049</a></th>
-                        <td>Ashleigh Langosh</td>
-                        <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                        <td>$147</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Angus Grady</td>
-                        <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                        <td>$67</td>
-                        <td><span class="badge bg-danger">Rejected</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2644</a></th>
-                        <td>Raheem Lehner</td>
-                        <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                        <td>$165</td>
-                        <td><span class="badge bg-success">Approved</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <!-- Column Chart -->
+                  <div id="columnChart"></div>
+
+                  <script>
+                    var chart = {
+                      "2023": {
+                        "May": {
+                          "-NW1urMJ9DD0LIGrcUzb": false,
+                          "-NW1urMJ9DD0LIGrcUzc": false,
+                          "-NW1urMJ9DD0LIGrcUza": false
+                        },
+                        "Jun": {
+                          "-NW1urMJ9DD0LIGrcUzb": true,
+                          "-NW1urMJ9DD0LIGrcUzc": false,
+                          "-NW1urMJ9DD0LIGrcUza": true
+                        },
+                        "Jul": {
+                          "-NW1urMJ9DD0LIGrcUzb": false,
+                          "-NW1urMJ9DD0LIGrcUzc": true,
+                          "-NW1urMJ9DD0LIGrcUza": false
+                        }
+                      }
+                    }
+
+
+                  </script>
+                  <!-- End Column Chart -->
 
                 </div>
 
               </div>
-            </div> -->
+            </div>
             <!-- End Recent Sales -->
 
             <!-- Top Selling -->
@@ -517,9 +484,9 @@
             align-items: center;">
 
               <div style="text-align: center;" class="echart">
-                <img src="./assets/img/logo-solo.png" style="width: 150px;" alt="">
-                <h4>NotulenApp</h4>
-                <h5>Versi 0.0.1</h5>
+                <img src="./assets/img/logo-puskesmas.png" style="width: 150px;" alt="">
+                <h4>Puskesmas Purwosari Surakarta</h4>
+                <!-- <h5>Versi 0.0.1</h5> -->
               </div>
 
 
@@ -794,22 +761,22 @@
         // Check if the user has the role "ADMIN"
         Object.values(users).forEach((user) => {
           if (user.role === "ADMIN") {
-            console.log("User with email '"+email+"' has the role 'ADMIN'");
+            console.log("User with email '" + email + "' has the role 'ADMIN'");
             window.localStorage.setItem('role', 'ADMIN');
           } else {
-            console.log("User with email '"+email+"' does not have the role 'ADMIN'");
+            console.log("User with email '" + email + "' does not have the role 'ADMIN'");
             window.localStorage.setItem('role', 'USER');
           }
         });
       } else {
-        console.log("No user found with email '"+email+"'");
+        console.log("No user found with email '" + email + "'");
         var temp = {
           email: email,
           role: 'USER'
         }
         push(usersRef, temp).then(function (data) {
           window.localStorage.setItem('role', "USER");
-        }).catch(function (error){
+        }).catch(function (error) {
           window.localStorage.setItem('role', "USER");
         })
       }
@@ -845,8 +812,8 @@
         } else {
           const events = Object.entries(dataRapat).map(([key, value]) => ({
             start: value.tanggal,
-            title: value.nama,
-            url: `new-notulen.html?id=${key}`
+            title: value.judul,
+            // url: `new-notulen.html?id=${key}`
           }));
 
           console.log(events);
@@ -947,10 +914,10 @@
           <div class="activity-content">
             ${value.nama}
           </div>`
-        var x = document.createElement('div')
-        x.setAttribute('class', 'activity-item d-flex')
-        x.innerHTML = el
-        todayActivity.appendChild(x)
+            var x = document.createElement('div')
+            x.setAttribute('class', 'activity-item d-flex')
+            x.innerHTML = el
+            todayActivity.appendChild(x)
           }
 
         }
@@ -958,10 +925,104 @@
 
     }
 
+
+
+    function fillVariables(chart) {
+      let year = moment().format("YYYY")
+      var months = Object.keys(chart[year]);
+      var rapat = [];
+      var notulen = [];
+
+      months.forEach(function (month) {
+        var meetings = chart["2023"][month];
+        var meetingIds = Object.keys(meetings);
+        var rapatCount = meetingIds.length;
+        var notulenCount = 0;
+
+        meetingIds.forEach(function (id) {
+          if (meetings[id]) {
+            notulenCount++;
+          }
+        });
+
+        rapat.push(rapatCount);
+        notulen.push(notulenCount);
+      });
+
+      return {
+        months: months,
+        rapat: rapat,
+        notulen: notulen
+      };
+    }
+
+    getChart()
+
+    function getChart() {
+      const totalRapat = ref(database, `chart`);
+      get(totalRapat).then((snapshot) => {
+        console.log("asd")
+        console.log(snapshot.val())
+        renderChart(fillVariables(snapshot.val()))
+      })
+    }
+
+    function renderChart(value) {
+
+      new ApexCharts(document.querySelector("#columnChart"), {
+            series: [{
+              name: 'Rapat',
+              data: value.rapat
+            }, {
+              name: 'Notulen',
+              data: value.notulen
+            }],
+            chart: {
+              type: 'bar',
+              height: 350
+            },
+            plotOptions: {
+              bar: {
+                horizontal: false,
+                columnWidth: '55%',
+                endingShape: 'rounded'
+              },
+            },
+            dataLabels: {
+              enabled: false
+            },
+            stroke: {
+              show: true,
+              width: 2,
+              colors: ['transparent']
+            },
+            xaxis: {
+              categories: value.months,
+            },
+            yaxis: {
+              title: {
+                text: ' '
+              }
+            },
+            fill: {
+              opacity: 1
+            },
+            tooltip: {
+              y: {
+                formatter: function (val) {
+                  return val + " Rapat"
+                }
+              }
+            }
+          }).render();
+      // document.addEventListener("DOMContentLoaded", () => {        
+
+      // });
+    }
     function randomNumber() {
       let max = 4
       let min = 0
-      let temp = Math.floor(Math.random() * (max - min + 1)) + min;      
+      let temp = Math.floor(Math.random() * (max - min + 1)) + min;
       return temp
     }
   </script>

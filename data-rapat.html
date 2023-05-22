@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Data Rapat - NotulenApp</title>
+  <title>Data Rapat - E-Notura</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -48,7 +48,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NotulenApp</span>
+        <span class="d-none d-lg-block">E-Notura</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -218,16 +218,16 @@
                     <tr>
                       <th scope="col"></th>
                       <th scope="col">
-                        <input type="text" id="input0" onkeyup="search(0)" placeholder="Cari Judul">
+                        <input type="text" id="input1" onkeyup="search(1)" placeholder="Cari Judul">
                       </th>
                       <th scope="col">
-                        <input type="text" id="input1" onkeyup="search(1)" placeholder="Cari Dasar">
+                        <input type="text" id="input2" onkeyup="search(2)" placeholder="Cari Dasar">
                       </th>
                       <th scope="col">
-                        <input type="text" id="input2" onkeyup="search(2)" placeholder="Cari Tanggal">
+                        <input type="text" id="input3" onkeyup="search(3)" placeholder="Cari Tanggal">
                       </th>
                       <th scope="col">
-                        <input type="text" id="input3" onkeyup="search(3)" placeholder="Cari Tempat">
+                        <input type="text" id="input4" onkeyup="search(4)" placeholder="Cari Tempat">
                       </th>
                       <th scope="col"> </th>
                       <th scope="col"> </th>
@@ -296,6 +296,7 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
     import { getDatabase, get, set, child, ref, push, remove } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
@@ -312,6 +313,7 @@
     };
 
     var selectedId = "";
+    var selectedTanggal
     var selectedName = "";
 
     const app = initializeApp(firebaseConfig);
@@ -328,6 +330,10 @@
         .then(() => {
           console.log('Data successfully deleted!');
           const total = ref(database, "total_rapat");
+          let month = moment(selectedTanggal).locale('id').format("MMM")
+          let year = moment(selectedTanggal).format("YYYY")
+          const chart = ref(database, `chart/${year}/${month}/${selectedId}`);
+          remove(chart)
           get(total).then((snapshot) => {
             console.log(snapshot)
             if (snapshot.exists()) {
@@ -409,7 +415,7 @@
               const row = document.createElement('tr');
 
               // create table cells
-              const indexCell = document.createElement('th');
+              const indexCell = document.createElement('td');
               indexCell.setAttribute('scope', 'row');
               indexCell.innerText = index;
 
@@ -461,7 +467,8 @@
               deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
               deleteButton.addEventListener('click', () => {
                 selectedId = key;
-                let text = `Anda yakin akan menghapus ${value.nama}?`;
+                selectedTanggal = value.tanggal
+                let text = `Anda yakin akan menghapus ${value.judul}?`;
                 if (confirm(text) == true) {
                   text = "You pressed OK!";
                   deleteData()
@@ -534,7 +541,7 @@
     }
   </script>
   <script>
-    function sortTable(n) {
+    function oldsortTable(n) {
       var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
       table = document.getElementById("main-table");
       switching = true;
@@ -589,6 +596,86 @@
       }
     }
 
+    function sortTable(n) {      
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("main-table");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;        
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 2; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from the current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (isGreaterThan(x.innerHTML, y.innerHTML)) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (isLessThan(x.innerHTML, y.innerHTML)) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+
+    function isGreaterThan(a, b) {
+      // Compare strings, including 'yyyy-mm-dd' format
+      if (isDateString(a) && isDateString(b)) {
+        return a > b;
+      }
+
+      // Compare other strings normally
+      return a.toLowerCase() > b.toLowerCase();
+    }
+
+    function isLessThan(a, b) {
+      // Compare strings, including 'yyyy-mm-dd' format
+      if (isDateString(a) && isDateString(b)) {
+        return a < b;
+      }
+
+      // Compare other strings normally
+      return a.toLowerCase() < b.toLowerCase();
+    }
+
+    function isDateString(str) {
+      // Check if the string matches the 'yyyy-mm-dd' format
+      var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+      return dateRegex.test(str);
+    }
     function search(index) {
       var input, filter, table, tr, td, i, txtValue;
       input = document.getElementById(`input${index}`);

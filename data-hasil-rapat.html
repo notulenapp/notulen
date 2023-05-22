@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Data Hasil Rapat - NotulenApp</title>
+  <title>Data Hasil Rapat - E-Notura</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -48,7 +48,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NotulenApp</span>
+        <span class="d-none d-lg-block">E-Notura</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -190,15 +190,36 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Dasar Kegiatan</th>
-                      <th scope="col">Hari / Tanggal</th>
-                      <th scope="col">Tempat</th>
-                      <th scope="col">Waktu</th>
-                      <th scope="col">Nama Rapat</th>
-                      <th scope="col">Pelaksana</th>
-                      <th scope="col">Tanggal Selesai</th>
-                      <th scope="col">Aksi</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(0)">#</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(1)">Dasar Kegiatan</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(2)">Hari / Tanggal</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(3)">Tempat</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(4)">Waktu</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(5)">Nama Rapat</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(6)">Pelaksana</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(7)">Tanggal Selesai</th>
+                      <th scope="col" style="cursor: pointer;" onclick="sortTable(8)">Aksi</th>
+                    </tr>
+                    <tr>
+                      <th scope="col"></th>
+                      <th scope="col">
+                        <input type="text" id="input1" onkeyup="search(1)" placeholder="Cari Dasar">
+                      </th>
+                      <th scope="col">
+                        <input type="text" id="input2" onkeyup="search(2)" placeholder="Cari Tanggal">
+                      </th>
+                      <th scope="col">
+                        <input type="text" id="input3" onkeyup="search(3)" placeholder="Cari Tempat">
+                      </th>
+                      <th scope="col"></th>
+                      <th scope="col">
+                        <input type="text" id="input5" onkeyup="search(5)" placeholder="Cari Nama">
+                      </th>
+                      <th scope="col">
+                        <input type="text" id="input6" onkeyup="search(6)" placeholder="Cari Pelaksana">
+                      </th>
+                      <th scope="col"></th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody id="entries">
@@ -494,6 +515,109 @@
       }
     })
 
+  </script>
+  <script>
+    
+    function sortTable(n) {      
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("main-table");
+      switching = true;
+      // Set the sorting direction to ascending:
+      dir = "asc";
+      /* Make a loop that will continue until
+      no switching has been done: */
+      while (switching) {
+        // Start by saying: no switching is done:
+        switching = false;
+        rows = table.rows;        
+        /* Loop through all table rows (except the
+        first, which contains table headers): */
+        for (i = 2; i < (rows.length - 1); i++) {
+          // Start by saying there should be no switching:
+          shouldSwitch = false;
+          /* Get the two elements you want to compare,
+          one from the current row and one from the next: */
+          x = rows[i].getElementsByTagName("TD")[n];
+          y = rows[i + 1].getElementsByTagName("TD")[n];
+          /* Check if the two rows should switch place,
+          based on the direction, asc or desc: */
+          if (dir == "asc") {
+            if (isGreaterThan(x.innerHTML, y.innerHTML)) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (isLessThan(x.innerHTML, y.innerHTML)) {
+              // If so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          /* If a switch has been marked, make the switch
+          and mark that a switch has been done: */
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          // Each time a switch is done, increase this count by 1:
+          switchcount++;
+        } else {
+          /* If no switching has been done AND the direction is "asc",
+          set the direction to "desc" and run the while loop again. */
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+
+    function isGreaterThan(a, b) {
+      // Compare strings, including 'yyyy-mm-dd' format
+      if (isDateString(a) && isDateString(b)) {
+        return a > b;
+      }
+
+      // Compare other strings normally
+      return a.toLowerCase() > b.toLowerCase();
+    }
+
+    function isLessThan(a, b) {
+      // Compare strings, including 'yyyy-mm-dd' format
+      if (isDateString(a) && isDateString(b)) {
+        return a < b;
+      }
+
+      // Compare other strings normally
+      return a.toLowerCase() < b.toLowerCase();
+    }
+
+    function isDateString(str) {
+      // Check if the string matches the 'yyyy-mm-dd' format
+      var dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+      return dateRegex.test(str);
+    }
+    function search(index) {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById(`input${index}`);
+      filter = input.value.toUpperCase();
+      console.log(filter)
+      table = document.getElementById("main-table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[index];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  
   </script>
 </body>
 

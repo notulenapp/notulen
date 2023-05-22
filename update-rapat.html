@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Update Rapat - NotulenApp</title>
+    <title>Update Rapat - E-Notura</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -57,7 +57,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">NotulenApp</span>
+                <span class="d-none d-lg-block">E-Notura</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -66,51 +66,51 @@
         <!-- End Search Bar -->
 
         <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
+            <ul class="d-flex align-items-center">
 
-        <li class="nav-item dropdown pe-3">
+                <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <div id="photoUrl">
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <div id="photoUrl">
 
-            </div>
-          </a>
+                        </div>
+                    </a>
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header" id="photoUrl2">
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header" id="photoUrl2">
 
-            </li>
-            <li class="dropdown-header">
-              <h6 id="displayName">Kevin Anderson</h6>
-              <span id="email">Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+                        </li>
+                        <li class="dropdown-header">
+                            <h6 id="displayName">Kevin Anderson</h6>
+                            <span id="email">Web Designer</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="#">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </a>
+                        </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
 
-      </ul>
-    </nav><!-- End Icons Navigation -->
-    <script>
-      var displayName = window.localStorage.getItem('displayName')
-      var tempEmail = window.localStorage.getItem('email')
-      var photoUrl = window.localStorage.getItem('photoUrl')
-      document.getElementById('displayName').innerHTML = String(displayName) == 'null' ? tempEmail : displayName
-      document.getElementById('email').innerHTML = tempEmail
-      document.getElementById('photoUrl').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
-        `<img src="${photoUrl}" alt="" style="width: 30px; height: 30px; border-radius: 50%;">`;
-      document.getElementById('photoUrl2').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
-        `<img src="${photoUrl}" alt="" style="width: 70px; height: 70px; border-radius: 50%;">`;
-    </script>
+            </ul>
+        </nav><!-- End Icons Navigation -->
+        <script>
+            var displayName = window.localStorage.getItem('displayName')
+            var tempEmail = window.localStorage.getItem('email')
+            var photoUrl = window.localStorage.getItem('photoUrl')
+            document.getElementById('displayName').innerHTML = String(displayName) == 'null' ? tempEmail : displayName
+            document.getElementById('email').innerHTML = tempEmail
+            document.getElementById('photoUrl').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
+                `<img src="${photoUrl}" alt="" style="width: 30px; height: 30px; border-radius: 50%;">`;
+            document.getElementById('photoUrl2').innerHTML = String(photoUrl) == 'undefined' ? `<i class="bi bi-person-circle"></i>` :
+                `<img src="${photoUrl}" alt="" style="width: 70px; height: 70px; border-radius: 50%;">`;
+        </script>
 
     </header><!-- End Header -->
 
@@ -248,7 +248,7 @@
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="input_peserta" name="input_peserta">
                                     </div>
-                                </div>    
+                                </div>
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Hasil Rapat</label>
                                     <div class="col-sm-9">
@@ -266,8 +266,8 @@
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="input_notulis" name="input_notulis">
                                     </div>
-                                </div>  
-                                
+                                </div>
+
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Rencana Tindak Lanjut</label>
                                     <div class="col-sm-9">
@@ -284,13 +284,15 @@
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Pelaksana</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="input_pelaksana" name="input_pelaksana">
+                                        <input type="text" class="form-control" id="input_pelaksana"
+                                            name="input_pelaksana">
                                     </div>
                                 </div>
                                 <div class="row mb-3 d-none">
                                     <label for="inputDate" class="col-sm-3 col-form-label">Tanggal Selesai</label>
                                     <div class="col-sm-9">
-                                        <input type="date" class="form-control" id="input_tanggal_selesai" name="input_tanggal_selesai">
+                                        <input type="date" class="form-control" id="input_tanggal_selesai"
+                                            name="input_tanggal_selesai">
                                     </div>
                                 </div>
 
@@ -632,6 +634,10 @@
 
         auth.onAuthStateChanged(function (user) {
             if (user) {
+                if (window.localStorage.getItem('role') != "ADMIN") {
+                    alert("Anda tidak memiliki akses ke halaman ini")
+                    window.location.href = "index.html"
+                }
                 var entry_id = $_GET('id');
                 console.log(entry_id)
                 if (entry_id) {
@@ -650,7 +656,7 @@
                             $('#update_entry [name="input_jam_mulai"]').val(temp.jam_mulai);
                             $('#update_entry [name="input_jam_selesai"]').val(temp.jam_selesai);
                             $('#update_entry [name="input_tempat"]').val(temp.tempat);
-                            $('#update_entry [name="input_agenda"]').val(temp.agenda);                            
+                            $('#update_entry [name="input_agenda"]').val(temp.agenda);
                             $('#update_entry [name="input_peserta"]').val(temp.peserta);
                             $('#update_entry [name="input_hasil"]').val(temp.hasil);
                             $('#update_entry [name="input_atasan"]').val(temp.atasan);
@@ -714,7 +720,7 @@
                 });
             } else {
                 console.log("ga aman")
-        window.location.href = 'pages-login.html'
+                window.location.href = 'pages-login.html'
             }
         })
         function $_GET(key) {

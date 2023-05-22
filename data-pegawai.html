@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Data Pegawai - NotulenApp</title>
+  <title>Data Pegawai - E-Notura</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -48,7 +48,7 @@
     <div class="d-flex align-items-center justify-content-between">
       <a href="index.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">NotulenApp</span>
+        <span class="d-none d-lg-block">E-Notura</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -221,13 +221,13 @@
                     <tr>
                       <th scope="col"></th>
                       <th scope="col">
-                        <input type="text" id="input0" onkeyup="search(0)" placeholder="Cari Nama">
+                        <input type="text" id="input1" onkeyup="search(1)" placeholder="Cari Nama">
                       </th>
                       <th scope="col">
-                        <input type="text" id="input1" onkeyup="search(1)" placeholder="Cari NIP">
+                        <input type="text" id="input2" onkeyup="search(2)" placeholder="Cari NIP">
                       </th>
                       <th scope="col">
-                        <input type="text" id="input2" onkeyup="search(2)" placeholder="Cari Jabatan">
+                        <input type="text" id="input3" onkeyup="search(3)" placeholder="Cari Jabatan">
                       </th>
                       <th scope="col"> </th>
                     </tr>
@@ -302,6 +302,10 @@
       if (user) {
         console.log("aman")
 
+        if(window.localStorage.getItem('role') != "ADMIN"){
+          alert("Anda tidak memiliki akses ke halaman ini")
+          window.location.href = "index.html"
+        }
         const userRef = ref(database, "data_pegawai");
         console.log(userRef)
         get(userRef).then((snapshot) => {
@@ -335,7 +339,7 @@
               console.log(value)
               const row = document.createElement('tr');
 
-              const indexCell = document.createElement('th');
+              const indexCell = document.createElement('td');
               indexCell.setAttribute('scope', 'row');
               indexCell.innerText = index;
 
@@ -511,7 +515,6 @@
         // Start by saying: no switching is done:
         switching = false;
         rows = table.rows;
-        console.log(rows)
         /* Loop through all table rows (except the
         first, which contains table headers): */
         for (i = 2; i < (rows.length - 1); i++) {

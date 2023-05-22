@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Tambah Rapat - NotulenApp</title>
+    <title>Tambah Rapat - E-Notura</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -57,7 +57,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">NotulenApp</span>
+                <span class="d-none d-lg-block">E-Notura</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -231,7 +231,7 @@
                                         <input type="time" class="form-control" id="input_jam_selesai"
                                             name="input_jam_selesai">
                                     </div>
-                                </div>                                
+                                </div>
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-3 col-form-label">Tempat Rapat</label>
                                     <div class="col-sm-9">
@@ -249,7 +249,7 @@
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="input_peserta" name="input_peserta">
                                     </div>
-                                </div>                          
+                                </div>
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Hasil Rapat</label>
                                     <div class="col-sm-9">
@@ -267,7 +267,7 @@
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="input_notulis" name="input_notulis">
                                     </div>
-                                </div>  
+                                </div>
                                 <div class="row mb-3 d-none">
                                     <label for="inputText" class="col-sm-3 col-form-label">Rencana Tindak Lanjut</label>
                                     <div class="col-sm-9">
@@ -633,6 +633,10 @@
 
         auth.onAuthStateChanged(function (user) {
             if (user) {
+                if (window.localStorage.getItem('role') != "ADMIN") {
+                    alert("Anda tidak memiliki akses ke halaman ini")
+                    window.location.href = "index.html"
+                }
                 console.log("aman")
                 $('#new_entry').submit(function (e) {
                     e.preventDefault();
@@ -671,7 +675,7 @@
                     //     updatedAt: "",
                     //     updatedBy: ""
                     // }
-                    
+
                     // entry.dasar = $(this).find('[name="input_dasar"]').val();
                     // entry.tanggal = $(this).find('[name="input_tanggal"]').val();
                     // entry.tempat = $(this).find('[name="input_tempat"]').val();
@@ -683,7 +687,7 @@
                     // entry.telah = $(this).find('[name="input_telah"]').val();
                     // entry.pelaksana = $(this).find('[name="input_pelaksana"]').val();
                     // entry.tanggal_selesai = $(this).find('[name="input_tanggal_selesai"]').val();
-                    
+
                     entry.judul = $(this).find('[name="input_judul"]').val();
                     entry.dasar = $(this).find('[name="input_dasar"]').val();
                     entry.tanggal = $(this).find('[name="input_tanggal"]').val();
@@ -706,6 +710,11 @@
 
                     push(tasksRef, entry).then(function (data) {
                         const total = ref(database, "total_rapat");
+                        let month = moment(entry.tanggal).locale('id').format("MMM")
+                        let year = moment(entry.tanggal).format("YYYY")
+                        const chart = ref(database, `chart/${year}/${month}/${data.key}`);
+                        set(chart, false)
+
                         get(total).then((snapshot) => {
                             console.log(snapshot)
                             if (snapshot.exists()) {
