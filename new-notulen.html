@@ -610,7 +610,7 @@
         if (targetName != "") {
           for (var i = 0; i < list_pegawai.length; i++) {
             if (list_pegawai[i].nama === targetName) {
-              document.getElementById("input_nip_atasan").innerHTML = list_pegawai[i].nip;
+              document.getElementById("input_nip_atasan").innerText = list_pegawai[i].nip;
               document.getElementById("output_nip_atasan").innerHTML = list_pegawai[i].nip;
               break
             }
@@ -876,7 +876,7 @@
             let year = moment(entry.tanggal).format("YYYY")
             const chart = ref(database, `chart/${year}/${month}/${entry_id}`);
             set(chart, true)
-            window.location.href = 'data-rapat.html'
+            window.location.href = 'data-hasil-rapat.html'
           }).catch(function (error) {
             alert(error);
             console.error(error);
@@ -989,6 +989,7 @@
           autocomplete(document.getElementById("input_atasan"), temp)
           autocomplete(document.getElementById("input_notulis"), temp)
           autocomplete(document.getElementById("input_peserta[]"), temp)
+          preview()
         })
       } else {
 

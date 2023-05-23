@@ -41,7 +41,50 @@
 </head>
 
 <body>
+  <style>
+    .loading-active {
+      display: flex;
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
 
+    .loading-inactive {
+      display: none;
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <div id="loading-overlay" class="loading-inactive">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <script>
+    function showHideLoading() {
+      const loadingOverlay = document.getElementById("loading-overlay");      
+      if (loadingOverlay.classList.contains("loading-inactive")){
+        loadingOverlay.classList.add("loading-active");
+        loadingOverlay.classList.remove("loading-inactive");
+      } else {
+        loadingOverlay.classList.remove("loading-active");
+        loadingOverlay.classList.add("loading-inactive");
+      }
+    }
+  </script>
   <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -786,6 +829,7 @@
           window.localStorage.setItem('role', "USER");
         })
       }
+      recheckRole()
     }, (error) => {
       console.error(error);
     });
@@ -882,9 +926,14 @@
     getStatistic()
     function getStatistic() {
       const total = ref(database, "total_pegawai");
+      showHideLoading()
       get(total).then((snapshot) => {
+        showHideLoading()
         console.log(snapshot.val())
         document.getElementById('totalPegawai').innerHTML = snapshot.val()
+      }).catch((error) => {
+        showHideLoading()
+        alert(error)
       })
 
       const totalRapat = ref(database, "total_rapat");

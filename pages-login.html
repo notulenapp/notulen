@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Pages / Login - NiceAdmin Bootstrap Template</title>
+  <title>Login - E-Notura</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -42,6 +42,50 @@
 
 <body>
 
+  <style>
+    .loading-active {
+      display: flex;
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading-inactive {
+      display: none;
+      background: rgba(0, 0, 0, 0.6);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: 0;
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <div id="loading-overlay" class="loading-inactive">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <script>
+    function showHideLoading() {
+      const loadingOverlay = document.getElementById("loading-overlay");      
+      if (loadingOverlay.classList.contains("loading-inactive")){
+        loadingOverlay.classList.add("loading-active");
+        loadingOverlay.classList.remove("loading-inactive");
+      } else {
+        loadingOverlay.classList.remove("loading-active");
+        loadingOverlay.classList.add("loading-inactive");
+      }
+    }
+  </script>
   <main>
     <div class="container">
 
@@ -53,7 +97,7 @@
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
                   <img src="assets/img/logo.png" alt="">
-                  <span class="d-none d-lg-block">NiceAdmin</span>
+                  <span class="d-none d-lg-block">E-Notura</span>
                 </a>
               </div><!-- End Logo -->
 
@@ -62,8 +106,8 @@
                 <div class="card-body">
 
                   <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
+                    <h5 class="card-title text-center pb-0 fs-4">Login</h5>
+                    <p class="text-center small">Masukkan Username dan password untuk login</p>
                   </div>
                   <div class="alert alert-warning bg-primary text-light border-0 alert-dismissible fade show"
                     role="alert">
@@ -74,17 +118,17 @@
                   <form class="row g-3 needs-validation" novalidate id="login-form">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Email</label>
+                      <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                        <div class="invalid-feedback">Mohon masukkan username anda.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <div class="invalid-feedback">Mohon masukkan password anda.</div>
                     </div>
 
                     <!-- <div class="col-12">
@@ -115,7 +159,7 @@
                     </div>
                     <!-- <div id="firebaseui-auth-container"></div> -->
                     <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
+                      <p class="small mb-0">Belum punya akun? <a href="pages-register.html">Daftar disini</a></p>
                     </div>
                   </form>
 
@@ -157,9 +201,9 @@
     firebase.initializeApp(config);
 
 
-    if(String($_GET('pesan')) != "null"){        
+    if (String($_GET('pesan')) != "null") {
       var msg = String($_GET('pesan')).replace('%20', ' ')
-      document.getElementById('message-alert').innerHTML = msg 
+      document.getElementById('message-alert').innerHTML = msg
     } else {
       document.getElementById('message-alert').innerHTML = "Mohon login dahulu"
     }
@@ -201,7 +245,7 @@
 
       var email = $(this).find('[name="username"]').val();
       var password = $(this).find('[name="password"]').val();
-      if(!email.includes("@")){
+      if (!email.includes("@")) {
         email = `${email}@gmail.com`
       }
 
@@ -215,9 +259,11 @@
 
       // var Entry = firebase.database().ref('Entry');
 
+      showHideLoading()
       firebase.auth().signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
           // Signed in
+          showHideLoading()
           var user = userCredential.user;
           console.log(userCredential)
           // ...
@@ -225,6 +271,7 @@
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
+          showHideLoading()
           alert(`${errorCode}-${errorMessage}`)
         });
 
