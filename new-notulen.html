@@ -176,7 +176,7 @@
           <span>Buat Notulen Baru</span>
         </a>
       </li><!-- End Profile Page Nav -->
-      
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Data</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -285,18 +285,35 @@
                     <input type="text" class="form-control" oninput="preview()" id="input_agenda">
                   </div>
                 </div>
-                <div class="row mb-3">
-                  <label for="inputText" class="col-sm-3 col-form-label">Peserta</label>
-                  <div class="col-sm-9">
-                    <input type="text" class="form-control" oninput="preview()" id="input_peserta">
+                <div id="input_peserta_div">
+                  <div class="row mb-3">
+                    <label for="inputText" class="col-sm-3 col-form-label">Peserta</label>
+                    <div class="col-sm-7">
+                      <div>
+                        <div>
+                          <input type="text" class="form-control" oninput="preview()" name="input_peserta[]"
+                            id="input_peserta[]">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <button type="button" id="add_peserta_btn" class="btn btn-primary"><i
+                          class="bi bi-plus-lg"></i></button>
+                    </div>
                   </div>
                 </div>
-                <div class="row mb-3">
-                  <label for="inputText" class="col-sm-3 col-form-label">Hasil Rapat</label>
-                  <div class="col-sm-9">
-                    <textarea class="form-control" maxlength="1000" oninput="preview()" style="height: 100px"
-                      id="input_hasil"></textarea>
-                  </div>
+
+                <div id="input_hasil_div">
+                  <div class="row mb-3">
+                    <label for="inputText" class="col-sm-3 col-form-label">Hasil Rapat</label>
+                    <div class="col-sm-7">
+                      <textarea class="form-control" maxlength="1000" oninput="preview()" style="height: 100px"
+                        id="input_hasil"></textarea>
+                    </div>
+                    <div class="col-sm-2">
+                      <button type="button" id="add_hasil_btn" class="btn btn-primary"><i class="bi bi-plus-lg"></i></button>
+                    </div>
+                  </div>                  
                 </div>
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-3 col-form-label">Atasan</label>
@@ -514,7 +531,7 @@
       var input_tempat = document.getElementById("input_tempat").value;
 
       var input_agenda = document.getElementById("input_agenda").value;
-      var input_peserta = document.getElementById("input_peserta").value;
+      // var input_peserta = document.getElementById("input_peserta").value;
       var input_hasil = document.getElementById("input_hasil").value;
       var input_atasan = document.getElementById("input_atasan").value;
       var input_nip_atasan = document.getElementById("input_nip_atasan").value;
@@ -529,7 +546,7 @@
       document.getElementById("output_tempat").innerHTML = input_tempat;
 
       document.getElementById("output_agenda").innerHTML = input_agenda;
-      document.getElementById("output_peserta").innerHTML = input_peserta;
+      // document.getElementById("output_peserta").innerHTML = input_peserta;
       document.getElementById("output_hasil").innerHTML = input_hasil;
       document.getElementById("output_atasan").innerHTML = input_atasan;
       document.getElementById("output_nip_atasan").innerHTML = input_nip_atasan;
@@ -541,8 +558,8 @@
         if (targetName != "") {
           for (var i = 0; i < list_pegawai.length; i++) {
             if (list_pegawai[i].nama === targetName) {
-              document.getElementById("input_nip_atasan").innerHTML = list_pegawai[i].nip;  
-              document.getElementById("output_nip_atasan").innerHTML = list_pegawai[i].nip;              
+              document.getElementById("input_nip_atasan").innerHTML = list_pegawai[i].nip;
+              document.getElementById("output_nip_atasan").innerHTML = list_pegawai[i].nip;
               break
             }
           }
@@ -551,8 +568,8 @@
         if (targetName != "") {
           for (var i = 0; i < list_pegawai.length; i++) {
             if (list_pegawai[i].nama === targetName) {
-              document.getElementById("input_nip_notulis").innerHTML = list_pegawai[i].nip;  
-              document.getElementById("output_nip_notulis").innerHTML = list_pegawai[i].nip;              
+              document.getElementById("input_nip_notulis").innerHTML = list_pegawai[i].nip;
+              document.getElementById("output_nip_notulis").innerHTML = list_pegawai[i].nip;
               break
             }
           }
@@ -803,6 +820,7 @@
           list_pegawai = temp
           autocomplete(document.getElementById("input_atasan"), temp)
           autocomplete(document.getElementById("input_notulis"), temp)
+          autocomplete(document.getElementById("input_peserta[]"), temp)
         })
       } else {
 
@@ -812,6 +830,7 @@
     function autocomplete(inp, arr) {
       var currentFocus;
 
+      console.log(inp)
       inp.addEventListener("input", function (e) {
         var a, b, i, val = this.value;
         closeAllLists();
@@ -894,6 +913,80 @@
       });
     }
 
+    $(document).ready(function () {
+
+      var wrapper = $("#input_peserta_div");
+      var add_button = $("#add_peserta_btn");
+
+      $(add_button).click(function (e) {
+        e.preventDefault();
+        $(wrapper).append(`
+          <div class="row mb-3">
+            <label for="inputText" class="col-sm-3 col-form-label"></label>
+            <div class="col-sm-7">
+              <div>
+                <div>
+                  <input type="text" class="form-control" oninput="preview()" name="input_peserta[]" id="input_peserta[]">
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <button type="button" id="delete_peserta_btn" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+            </div>
+          </div>
+        `); //add input                      
+        // var inputs = $("input[id='input_peserta[]']");
+        var elements = document.querySelectorAll("input[name='input_peserta[]']");
+
+        for (var i = 0; i < elements.length; i++) {
+          var element = elements[i];
+          autocomplete(element, list_pegawai)
+          element.addEventListener("click", function () {
+            // Your event handling code here
+            console.log("Element clicked: " + this.id);
+          });
+        }
+
+      });
+
+      $(wrapper).on("click", "#delete_peserta_btn", function (e) {
+        e.preventDefault();
+        $(this).parent('div').parent('div').remove();
+
+      });
+
+    });
+
+    // textarea hasil
+    $(document).ready(function () {
+
+      var wrapper = $("#input_hasil_div");
+      var add_button = $("#add_hasil_btn");
+
+      $(add_button).click(function (e) {
+        e.preventDefault();
+        $(wrapper).append(`
+        <div class="row mb-3">
+          <label for="inputText" class="col-sm-3 col-form-label"></label>
+          <div class="col-sm-7">
+            <textarea class="form-control" maxlength="1000" oninput="preview()" style="height: 100px"
+              id="input_hasil"></textarea>
+          </div>
+          <div class="col-sm-2">
+            <button type="button" id="delete_hasil_btn" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+          </div>
+        </div>
+        `); //add input                      
+
+      });
+
+      $(wrapper).on("click", "#delete_hasil_btn", function (e) {
+        e.preventDefault();
+        $(this).parent('div').parent('div').remove();
+
+      });
+
+    });
 
     function $_GET(key) {
       var queries = window.location.href.split('?').pop().split('&');
@@ -910,6 +1003,9 @@
       }
 
     }
+  </script>
+  <script>
+
   </script>
   <script src="./assets/js/nav.js"></script>
 </body>
