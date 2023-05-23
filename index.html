@@ -977,10 +977,10 @@
 
       new ApexCharts(document.querySelector("#columnChart"), {
             series: [{
-              name: 'Rapat',
+              name: 'Jumlah Rapat',
               data: value.rapat
             }, {
-              name: 'Notulen',
+              name: 'Notulen Terbuat',
               data: value.notulen
             }],
             chart: {
@@ -1016,7 +1016,7 @@
             tooltip: {
               y: {
                 formatter: function (val) {
-                  return val + " Rapat"
+                  return val + ""
                 }
               }
             }

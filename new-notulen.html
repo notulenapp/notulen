@@ -308,12 +308,13 @@
                     <label for="inputText" class="col-sm-3 col-form-label">Hasil Rapat</label>
                     <div class="col-sm-7">
                       <textarea class="form-control" maxlength="1000" oninput="preview()" style="height: 100px"
-                        id="input_hasil"></textarea>
+                        id="input_hasil[]"></textarea>
                     </div>
                     <div class="col-sm-2">
-                      <button type="button" id="add_hasil_btn" class="btn btn-primary"><i class="bi bi-plus-lg"></i></button>
+                      <button type="button" id="add_hasil_btn" class="btn btn-primary"><i
+                          class="bi bi-plus-lg"></i></button>
                     </div>
-                  </div>                  
+                  </div>
                 </div>
                 <div class="row mb-3">
                   <label for="inputText" class="col-sm-3 col-form-label">Atasan</label>
@@ -333,7 +334,7 @@
                     <input type="text" class="form-control" id="input_notulis" name="input_notulis">
                   </div>
                 </div>
-                <div class="row mb-3">
+                <div class="row mb-3 d-none">
                   <label for="inputText" class="col-sm-3 col-form-label">NIP Notulis</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control" id="input_nip_notulis" name="input_nip_notulis">
@@ -390,7 +391,7 @@
                 <div class="col-sm-6" style="display: flex;
                 justify-content: flex-end;
                 align-items: center;">
-                  <button class="btn btn-outline-primary" onclick="download3()">
+                  <button class="btn btn-outline-primary" onclick="download4()">
                     <i class="bi bi-print"></i>
                     Unduh PDF
                   </button>
@@ -404,14 +405,11 @@
                 <table style="font-family: Arial;font-size: 16px;width: 100%;">
                   <tr>
                     <td colspan="4" style="text-align: center;">
-                      Notula <br>
+                      <b>NOTULA</b> <br>
                       <span id="output_judul"></span>
                     </td>
                   </tr>
-                  <tr>
-                    <td></td>
-                  </tr>
-                  <tr>
+                  <tr style="height: 57px;">
                     <td></td>
                   </tr>
                   <tr>
@@ -440,9 +438,19 @@
                     <td colspan="2" id="output_agenda"></td>
                   </tr>
                   <tr>
-                    <td>Peserta</td>
-                    <td>:</td>
-                    <td colspan="2" id="output_peserta"></td>
+                    <td style="vertical-align: top;">Peserta</td>
+                    <td style="vertical-align: top;">:</td>
+                    <td colspan="2" id="output_peserta">
+                      <table id="output_peserta_arr">
+                        <!-- <tr>
+                          <td>1. asdasd</td>
+                        </tr> -->
+
+                      </table>
+                    </td>
+                  </tr>
+                  <tr style="height: 57px;">
+                    <td></td>
                   </tr>
                   <tr>
                     <td>Pelaksanaan</td>
@@ -450,30 +458,28 @@
                   </tr>
                   <tr>
                     <td></td>
-                    <td>1.</td>
-                    <td colspan="2" id="output_hasil"></td>
+                    <td colspan="3">
+                      <table id="output_hasil_arr">
+                      </table>
+                    </td>
                   </tr>
-
-                  <tr>
-                    <td colspan="2">Mengetahui,</td>
-                    <td colspan="2">Notulis</td>
-                  </tr>
-                  <tr>
+                  <tr style="height: 57px;">
                     <td></td>
                   </tr>
                   <tr>
+                    <td colspan="2" style="text-align: center;">Mengetahui,</td>
+                    <td colspan="2" style="text-align: center;">Notulis</td>
+                  </tr>
+                  <tr style="height: 57px;">
                     <td></td>
                   </tr>
                   <tr>
-                    <td></td>
+                    <td colspan="2" style="text-align: center;" id="output_atasan"></td>
+                    <td colspan="2" style="text-align: center;" id="output_notulis"></td>
                   </tr>
                   <tr>
-                    <td colspan="2" id="output_atasan"></td>
-                    <td colspan="2" id="output_notulis"></td>
-                  </tr>
-                  <tr>
-                    <td colspan="2" id="output_nip_atasan"></td>
-                    <td colspan="2" id="output_nip_notulis"></td>
+                    <td colspan="2" style="text-align: center;" id="output_nip_atasan"></td>
+                    <td colspan="2" style="text-align: center;" id="output_nip_notulis"></td>
                   </tr>
                 </table>
               </div>
@@ -522,6 +528,10 @@
 
   <script>
     var list_pegawai = []
+    var list_peserta = []
+    var list_hasil = []
+    var isFirstLoad = false
+
     function preview() {
       var input_judul = document.getElementById("input_judul").value;
       var input_dasar = document.getElementById("input_dasar").value;
@@ -531,8 +541,7 @@
       var input_tempat = document.getElementById("input_tempat").value;
 
       var input_agenda = document.getElementById("input_agenda").value;
-      // var input_peserta = document.getElementById("input_peserta").value;
-      var input_hasil = document.getElementById("input_hasil").value;
+      // var input_hasil = document.getElementById("input_hasil").value;
       var input_atasan = document.getElementById("input_atasan").value;
       var input_nip_atasan = document.getElementById("input_nip_atasan").value;
       var input_notulis = document.getElementById("input_notulis").value;
@@ -546,12 +555,55 @@
       document.getElementById("output_tempat").innerHTML = input_tempat;
 
       document.getElementById("output_agenda").innerHTML = input_agenda;
-      // document.getElementById("output_peserta").innerHTML = input_peserta;
-      document.getElementById("output_hasil").innerHTML = input_hasil;
+      // document.getElementById("output_hasil").innerHTML = input_hasil;
       document.getElementById("output_atasan").innerHTML = input_atasan;
       document.getElementById("output_nip_atasan").innerHTML = input_nip_atasan;
       document.getElementById("output_notulis").innerHTML = input_notulis;
-      // document.getElementById("output_pelaksana").innerHTML = `( ${input_pelaksana} )`;
+
+      if (!isFirstLoad) {
+        list_peserta = $("input[name='input_peserta[]']").map(function () {
+          return $(this).val();
+        }).get();
+
+        list_hasil = $("textarea[id='input_hasil[]']").map(function () {
+          return $(this).val();
+        }).get();
+      }
+      isFirstLoad = false
+
+      var index = 1
+      const output_peserta_arr = document.getElementById('output_peserta_arr');
+      output_peserta_arr.innerHTML = ""
+      list_peserta.forEach(e => {
+        if (e == "") return
+        const row = document.createElement('tr');
+        const pesertaCell = document.createElement('td');
+        pesertaCell.innerText = `${index}. ${e}`;
+        row.appendChild(pesertaCell)
+        output_peserta_arr.appendChild(row)
+        index++
+      });
+
+      index = 1
+      const output_hasil_arr = document.getElementById('output_hasil_arr');
+      output_hasil_arr.innerHTML = ""
+      list_hasil.forEach(e => {
+        if (e == "") return
+        const row = document.createElement('tr');
+        const firstCell = document.createElement('td');
+        const secondCell = document.createElement('td');
+        secondCell.innerText = `${index}.`;
+        secondCell.setAttribute('style', "vertical-align: top;")
+        const thirdCell = document.createElement('td');
+        thirdCell.innerText = `${e}`;
+        thirdCell.setAttribute("colspan", "2")
+        row.appendChild(firstCell)
+        row.appendChild(secondCell)
+        row.appendChild(thirdCell)
+        output_hasil_arr.appendChild(row)
+        index++
+      });
+
 
       if (list_pegawai != null) {
         var targetName = document.getElementById("input_atasan").value
@@ -676,6 +728,25 @@
       console.log(xx)
       html2pdf().set(opt).from(element).toImg().save();
     }
+
+    function download4() {
+      var printWindow = window.open('', '', 'width=800,height=600');
+
+      var htmlContent = '<html><head><title>Print</title></head><body style="margin: 3cm 2.5cm;">';
+      htmlContent += document.getElementById("print-preview").innerHTML;
+      htmlContent += '</body></html>';
+
+      printWindow.document.open();
+      printWindow.document.write(htmlContent);
+      printWindow.document.close();
+
+      printWindow.print();
+
+      printWindow.onafterprint = function () {
+        printWindow.close();
+      };
+    }
+
   </script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
@@ -719,11 +790,17 @@
               $('#update_entry [id="input_jam_selesai"]').val(temp.jam_selesai);
               $('#update_entry [id="input_tempat"]').val(temp.tempat);
               $('#update_entry [id="input_agenda"]').val(temp.agenda);
-              $('#update_entry [id="input_peserta"]').val(temp.peserta);
-              $('#update_entry [id="input_hasil"]').val(temp.hasil);
+              // $('#update_entry [id="input_peserta"]').val(temp.peserta);
+              // $('#update_entry [id="input_hasil"]').val(temp.hasil);
               $('#update_entry [id="input_atasan"]').val(temp.atasan);
               $('#update_entry [id="input_notulis"]').val(temp.notulis);
 
+
+              list_peserta = temp.peserta;
+              list_hasil = temp.hasil;
+              isFirstLoad = true
+
+              initPeserta()
 
               preview()
 
@@ -749,11 +826,16 @@
           entry.tempat = $(this).find('[id="input_tempat"]').val();
           entry.jam_mulai = $(this).find('[id="input_jam_mulai"]').val();
           entry.jam_selesai = $(this).find('[id="input_jam_selesai"]').val();
+          entry.agenda = $(this).find('[id="input_agenda"]').val();
           // entry.nama = $(this).find('[id="input_nama"]').val();
-          entry.hasil = $(this).find('[id="input_hasil"]').val();
-          entry.rencana = $(this).find('[id="input_rencana"]').val();
-          entry.telah = $(this).find('[id="input_telah"]').val();
-          entry.pelaksana = $(this).find('[id="input_pelaksana"]').val();
+          entry.peserta = list_peserta;
+          entry.hasil = list_hasil;
+          entry.atasan = $(this).find('[id="input_atasan"]').val();
+          entry.notulis = $(this).find('[id="input_notulis"]').val();
+          // entry.rencana = $(this).find('[id="input_rencana"]').val();
+          // entry.telah = $(this).find('[id="input_telah"]').val();
+          // entry.pelaksana = $(this).find('[id="input_pelaksana"]').val();
+          entry.notulen_created = true
           entry.createdAt = new Date().getTime();
           entry.updatedAt = entry.createdAt;
           entry.author = user.email;
@@ -767,27 +849,32 @@
             if (!entry) {
               return entry;
             }
-            var entry = data;
+            entry = data
+            entry.judul = $(this).find('[id="input_judul"]').val();
             entry.dasar = $(this).find('[id="input_dasar"]').val();
             entry.tanggal = $(this).find('[id="input_tanggal"]').val();
             entry.tempat = $(this).find('[id="input_tempat"]').val();
             entry.jam_mulai = $(this).find('[id="input_jam_mulai"]').val();
             entry.jam_selesai = $(this).find('[id="input_jam_selesai"]').val();
-            entry.nama = $(this).find('[id="input_nama"]').val();
-            entry.hasil = $(this).find('[id="input_hasil"]').val();
-            entry.rencana = $(this).find('[id="input_rencana"]').val();
-            entry.telah = $(this).find('[id="input_telah"]').val();
-            entry.pelaksana = $(this).find('[id="input_pelaksana"]').val();
-            entry.tanggal_selesai = $(this).find('[id="input_tanggal_selesai"]').val();
-            entry.createdAt = data.createdAt;
-            entry.updatedAt = new Date().getTime();
-            entry.updatedBy = user.email;
-            entry.author = data.author;
+            entry.agenda = $(this).find('[id="input_agenda"]').val();
+            // entry.nama = $(this).find('[id="input_nama"]').val();
+            entry.peserta = list_peserta;
+            entry.hasil = list_hasil;
+            entry.atasan = $(this).find('[id="input_atasan"]').val();
+            entry.notulis = $(this).find('[id="input_notulis"]').val();
+            // entry.rencana = $(this).find('[id="input_rencana"]').val();
+            // entry.telah = $(this).find('[id="input_telah"]').val();
+            // entry.pelaksana = $(this).find('[id="input_pelaksana"]').val();
+            entry.notulen_created = true
+            entry.createdAt = new Date().getTime();
+            entry.updatedAt = entry.createdAt;
+            entry.author = user.email;
+
             return entry
           }).then((result) => {
             let month = moment(entry.tanggal).locale('id').format("MMM")
             let year = moment(entry.tanggal).format("YYYY")
-            const chart = ref(database, `chart/${year}/${month}/${data.key}`);
+            const chart = ref(database, `chart/${year}/${month}/${entry_id}`);
             set(chart, true)
             window.location.href = 'data-rapat.html'
           }).catch(function (error) {
@@ -802,6 +889,87 @@
         window.location.href = 'pages-login.html'
       }
     })
+
+    function initPeserta() {
+      $(document).ready(function () {
+
+        var wrapper = $("#input_peserta_div");
+        var add_button = $("#add_peserta_btn");
+
+        var index = 0
+        list_peserta.forEach(e => {
+          if (index == 0) {
+            $('#update_entry [id="input_peserta[]"]').val(e);
+          } else {
+            $(wrapper).append(`
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-7">
+                  <div>
+                    <div>
+                      <input type="text" value="${e}" class="form-control" oninput="preview()" name="input_peserta[]" id="input_peserta[]">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" id="delete_peserta_btn" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                </div>
+              </div>
+            `); //add input 
+          }
+          index++
+        });
+        var elements = document.querySelectorAll("input[name='input_peserta[]']");
+
+        for (var i = 0; i < elements.length; i++) {
+          var element = elements[i];
+          autocomplete(element, list_pegawai)
+          element.addEventListener("click", function () {
+            // Your event handling code here
+            console.log("Element clicked: " + this.id);
+          });
+        }
+        $(wrapper).on("click", "#delete_peserta_btn", function (e) {
+          e.preventDefault();
+          $(this).parent('div').parent('div').remove();
+          preview()
+        });
+
+        // finish peserta
+
+        var wrapper = $("#input_hasil_div");
+        var add_button = $("#add_hasil_btn");
+
+        index = 0
+
+        list_hasil.forEach(e => {
+          if (index == 0) {
+            $('#update_entry [id="input_hasil[]"]').val(e);
+          } else {
+            $(wrapper).append(`
+              <div class="row mb-3">
+                <label for="inputText" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-7">
+                  <textarea class="form-control" maxlength="1000" oninput="preview()" style="height: 100px"
+                    id="input_hasil[]">${e}</textarea>
+                </div>
+                <div class="col-sm-2">
+                  <button type="button" id="delete_hasil_btn" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                </div>
+              </div>
+              `); //add input          
+          }
+          index++
+        })
+        $(wrapper).on("click", "#delete_hasil_btn", function (e) {
+          e.preventDefault();
+          $(this).parent('div').parent('div').remove();
+          preview()
+        });
+
+      });
+
+    }
 
     function initAutoComplete() {
       list_pegawai = window.localStorage.getItem("list_pegawai")
@@ -830,7 +998,7 @@
     function autocomplete(inp, arr) {
       var currentFocus;
 
-      console.log(inp)
+      // console.log(inp)
       inp.addEventListener("input", function (e) {
         var a, b, i, val = this.value;
         closeAllLists();
@@ -913,6 +1081,7 @@
       });
     }
 
+    // peserta
     $(document).ready(function () {
 
       var wrapper = $("#input_peserta_div");
@@ -952,7 +1121,7 @@
       $(wrapper).on("click", "#delete_peserta_btn", function (e) {
         e.preventDefault();
         $(this).parent('div').parent('div').remove();
-
+        preview()
       });
 
     });
@@ -970,7 +1139,7 @@
           <label for="inputText" class="col-sm-3 col-form-label"></label>
           <div class="col-sm-7">
             <textarea class="form-control" maxlength="1000" oninput="preview()" style="height: 100px"
-              id="input_hasil"></textarea>
+              id="input_hasil[]"></textarea>
           </div>
           <div class="col-sm-2">
             <button type="button" id="delete_hasil_btn" class="btn btn-danger"><i class="bi bi-trash"></i></button>
@@ -983,7 +1152,7 @@
       $(wrapper).on("click", "#delete_hasil_btn", function (e) {
         e.preventDefault();
         $(this).parent('div').parent('div').remove();
-
+        preview()
       });
 
     });
