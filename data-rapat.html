@@ -203,7 +203,48 @@
                 </div>
               </div>
               <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p> -->
-              <p>Deskripsi table</p>
+              <p>Filter</p>
+              <div class="row mb-3">
+                <div class="col-sm-4">
+                  <select class="form-select" id="select_filter"
+                    aria-label="Default select example">
+                    <option value="month" selected>Per Bulan</option>
+                    <option value="year">Per Tahun</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-2" id="monthFilter">
+                  <select class="form-select" id="select_month"
+                    aria-label="Default select example">
+                    <option value="01" selected>Januari</option>
+                    <option value="02">Februari</option>
+                    <option value="03">Maret</option>
+                    <option value="04">April</option>
+                    <option value="05">Mei</option>
+                    <option value="06">Juni</option>
+                    <option value="07">Juli</option>
+                    <option value="08">Agustus</option>
+                    <option value="09">September</option>
+                    <option value="10">Oktober</option>
+                    <option value="11">November</option>
+                    <option value="12">Desember</option>
+                  </select>
+                </div>
+                <div class="col-sm-2" id="yearFilter">
+                  <select class="form-select" id="select_year"
+                    aria-label="Default select example">
+                    <option value="2023" selected>2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                  </select>
+                </div>
+              </div>
 
               <!-- Table with stripped rows -->
               <div class="table-responsive">
@@ -303,7 +344,7 @@
   <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-    import { getDatabase, get, set, child, ref, push, remove } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    import { getDatabase, get, set, child, ref, push, remove, query, orderByChild, startAt, endAt } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -397,129 +438,9 @@
       if (user) {
         console.log("aman")
 
-        const userRef = ref(database, "data_rapat");
-        console.log(userRef)
-        get(userRef).then((snapshot) => {
-          if (snapshot.exists()) {
-            console.log("ada")
-            var temp = snapshot.val();
-            console.log(temp);
-
-            const data = snapshot.val();
-            tableBody.innerHTML = ""
-            var arrContent = []
-            var container;
-            var index = 1;
-            for (const [key, value] of Object.entries(data)) {
-              console.log(value)
-
-              const tableBody = document.getElementById('entries');
-
-              // create table row
-              const row = document.createElement('tr');
-
-              // create table cells
-              const indexCell = document.createElement('td');
-              indexCell.setAttribute('scope', 'row');
-              indexCell.innerText = index;
-
-              const dasarCell = document.createElement('td');
-              dasarCell.innerText = value.dasar;
-
-              const tanggalCell = document.createElement('td');
-              tanggalCell.innerText = value.tanggal;
-
-              const tempatCell = document.createElement('td');
-              tempatCell.innerText = value.tempat;
-
-              const jamCell = document.createElement('td');
-              jamCell.innerText = `${value.jam_mulai} - ${value.jam_selesai}`;
-              
-              const notulenCell = document.createElement('td');
-              notulenCell.innerHTML = value.notulen_created ? `
-              <span class="badge rounded-pill bg-success">Sudah</span>`:`
-              <span class="badge rounded-pill bg-danger">Belum</span>`;
-
-              const namaCell = document.createElement('td');
-              namaCell.innerText = value.judul;
-
-              const editButton = document.createElement('button');
-              editButton.setAttribute('type', 'button');
-              editButton.setAttribute('class', 'btn btn-warning btn-sm');
-              editButton.setAttribute('data-bs-toggle', 'tooltip');
-              editButton.setAttribute('data-bs-placement', 'top');
-              editButton.setAttribute('title', 'Edit Rapat');
-              editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
-              editButton.addEventListener('click', () => {
-                window.location.href = `update-rapat.html?id=${key}`;
-              });
-
-              const notulenButton = document.createElement('button');
-              notulenButton.setAttribute('type', 'button');
-              notulenButton.setAttribute('class', 'btn btn-info btn-sm');
-              notulenButton.setAttribute('data-bs-toggle', 'tooltip');
-              notulenButton.setAttribute('data-bs-placement', 'top');
-              notulenButton.setAttribute('title', 'Tambah Notulen');
-              notulenButton.innerHTML = '<i class="bi bi-plus-square"></i>';
-              notulenButton.addEventListener('click', () => {
-                window.location.href = `new-notulen.html?id=${key}`;
-              });
-
-              const deleteButton = document.createElement('button');
-              deleteButton.setAttribute('type', 'button');
-              deleteButton.setAttribute('class', 'btn btn-danger btn-sm');
-              deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-              deleteButton.addEventListener('click', () => {
-                selectedId = key;
-                selectedTanggal = value.tanggal
-                let text = `Anda yakin akan menghapus ${value.judul}?`;
-                if (confirm(text) == true) {
-                  text = "You pressed OK!";
-                  deleteData()
-                } else {
-                  text = "You canceled!";
-                }
-
-              });
-
-              const space = document.createElement('span');
-              space.innerHTML = " ";
-              const space2 = document.createElement('span');
-              space2.innerHTML = " ";
-
-              const actionsCell = document.createElement('td');
-              if (isAdmin) {
-                actionsCell.appendChild(editButton);
-                actionsCell.appendChild(space);
-                actionsCell.appendChild(notulenButton);
-                actionsCell.appendChild(space2);
-                actionsCell.appendChild(deleteButton);
-              } else {
-                actionsCell.appendChild(notulenButton);
-              }
-
-              // append table cells to row
-              row.appendChild(indexCell);
-              row.appendChild(namaCell);
-              row.appendChild(dasarCell);
-              row.appendChild(tanggalCell);
-              row.appendChild(tempatCell);
-              row.appendChild(jamCell);
-              row.appendChild(notulenCell);
-              row.appendChild(actionsCell);
-
-              // append row to table body
-              tableBody.appendChild(row);
-
-              index++
-            }
-          } else {
-            tableBody.innerHTML = `<tr><td colspan=8 class="text-center"r>Data Kosong</tr>`
-            console.log("No data available");
-          }
-        }).catch((error) => {
-          console.error(error);
-        });
+        const startDate = moment().startOf('month').format('YYYY-MM-DD');
+        const endDate = moment().endOf('month').format('YYYY-MM-DD');
+        getData(startDate, endDate)
 
 
       } else {
@@ -543,6 +464,164 @@
       }
 
     }
+    function getData(startDate, endDate) {
+      const userRef = ref(database, "data_rapat");
+      console.log(userRef)
+      const q = query(userRef, orderByChild('tanggal'), startAt(startDate), endAt(endDate));
+
+      get(q).then((snapshot) => {
+        if (snapshot.exists()) {
+          console.log("ada")
+          var temp = snapshot.val();
+          console.log(temp);
+
+          const data = snapshot.val();
+          tableBody.innerHTML = ""
+          var arrContent = []
+          var container;
+          var index = 1;
+          for (const [key, value] of Object.entries(data)) {
+            console.log(value)
+
+            const tableBody = document.getElementById('entries');
+
+            // create table row
+            const row = document.createElement('tr');
+
+            // create table cells
+            const indexCell = document.createElement('td');
+            indexCell.setAttribute('scope', 'row');
+            indexCell.innerText = index;
+
+            const dasarCell = document.createElement('td');
+            dasarCell.innerText = value.dasar;
+
+            const tanggalCell = document.createElement('td');
+            tanggalCell.innerText = value.tanggal;
+
+            const tempatCell = document.createElement('td');
+            tempatCell.innerText = value.tempat;
+
+            const jamCell = document.createElement('td');
+            jamCell.innerText = `${value.jam_mulai} - ${value.jam_selesai}`;
+
+            const notulenCell = document.createElement('td');
+            notulenCell.innerHTML = value.notulen_created ? `
+              <span class="badge rounded-pill bg-success">Sudah</span>`: `
+              <span class="badge rounded-pill bg-danger">Belum</span>`;
+
+            const namaCell = document.createElement('td');
+            namaCell.innerText = value.judul;
+
+            const editButton = document.createElement('button');
+            editButton.setAttribute('type', 'button');
+            editButton.setAttribute('class', 'btn btn-warning btn-sm');
+            editButton.setAttribute('data-bs-toggle', 'tooltip');
+            editButton.setAttribute('data-bs-placement', 'top');
+            editButton.setAttribute('title', 'Edit Rapat');
+            editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
+            editButton.addEventListener('click', () => {
+              window.location.href = `update-rapat.html?id=${key}`;
+            });
+
+            const notulenButton = document.createElement('button');
+            notulenButton.setAttribute('type', 'button');
+            notulenButton.setAttribute('class', 'btn btn-info btn-sm');
+            notulenButton.setAttribute('data-bs-toggle', 'tooltip');
+            notulenButton.setAttribute('data-bs-placement', 'top');
+            notulenButton.setAttribute('title', 'Tambah Notulen');
+            notulenButton.innerHTML = '<i class="bi bi-plus-square"></i>';
+            notulenButton.addEventListener('click', () => {
+              window.location.href = `new-notulen.html?id=${key}`;
+            });
+
+            const deleteButton = document.createElement('button');
+            deleteButton.setAttribute('type', 'button');
+            deleteButton.setAttribute('class', 'btn btn-danger btn-sm');
+            deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+            deleteButton.addEventListener('click', () => {
+              selectedId = key;
+              selectedTanggal = value.tanggal
+              let text = `Anda yakin akan menghapus ${value.judul}?`;
+              if (confirm(text) == true) {
+                text = "You pressed OK!";
+                deleteData()
+              } else {
+                text = "You canceled!";
+              }
+
+            });
+
+            const space = document.createElement('span');
+            space.innerHTML = " ";
+            const space2 = document.createElement('span');
+            space2.innerHTML = " ";
+
+            const actionsCell = document.createElement('td');
+            if (isAdmin) {
+              actionsCell.appendChild(editButton);
+              actionsCell.appendChild(space);
+              actionsCell.appendChild(notulenButton);
+              actionsCell.appendChild(space2);
+              actionsCell.appendChild(deleteButton);
+            } else {
+              actionsCell.appendChild(notulenButton);
+            }
+
+            // append table cells to row
+            row.appendChild(indexCell);
+            row.appendChild(namaCell);
+            row.appendChild(dasarCell);
+            row.appendChild(tanggalCell);
+            row.appendChild(tempatCell);
+            row.appendChild(jamCell);
+            row.appendChild(notulenCell);
+            row.appendChild(actionsCell);
+
+            // append row to table body
+            tableBody.appendChild(row);
+
+            index++
+          }
+        } else {
+          tableBody.innerHTML = `<tr><td colspan=8 class="text-center"r>Data Kosong</tr>`
+          console.log("No data available");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
+
+
+    function onFilterChange() {
+      var type = document.getElementById("select_filter").value;
+      var monthFilter = document.getElementById("select_month")
+      var yearFilter = document.getElementById("select_year")
+      if (type == "month") {
+        document.getElementById("monthFilter").classList.remove("d-none");
+        document.getElementById("yearFilter").classList.add("col-sm-2");
+        document.getElementById("yearFilter").classList.remove("col-sm-4");
+        const startDate = moment(`${yearFilter.value}-${monthFilter.value}`).startOf('month').format('YYYY-MM-DD');
+        const endDate = moment(`${yearFilter.value}-${monthFilter.value}`).endOf('month').format('YYYY-MM-DD');
+        getData(startDate, endDate)
+      } else {
+        document.getElementById("monthFilter").classList.add("d-none");
+        document.getElementById("yearFilter").classList.remove("col-sm-2");
+        document.getElementById("yearFilter").classList.add("col-sm-4");
+        getData(`${yearFilter.value}-01-01`, `${yearFilter.value}-12-31`)
+      }
+
+    }
+
+    
+    const selectFilter = document.getElementById('select_filter');
+    selectFilter.addEventListener('change', onFilterChange);
+    const monthFilter = document.getElementById('select_month');
+    monthFilter.addEventListener('change', onFilterChange);
+    const yearFilter = document.getElementById('select_year');
+    yearFilter.addEventListener('change', onFilterChange);
+
+
   </script>
   <script>
     function oldsortTable(n) {
@@ -600,7 +679,7 @@
       }
     }
 
-    function sortTable(n) {      
+    function sortTable(n) {
       var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
       table = document.getElementById("main-table");
       switching = true;
@@ -611,7 +690,7 @@
       while (switching) {
         // Start by saying: no switching is done:
         switching = false;
-        rows = table.rows;        
+        rows = table.rows;
         /* Loop through all table rows (except the
         first, which contains table headers): */
         for (i = 2; i < (rows.length - 1); i++) {
