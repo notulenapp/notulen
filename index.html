@@ -75,8 +75,8 @@
   </div>
   <script>
     function showHideLoading() {
-      const loadingOverlay = document.getElementById("loading-overlay");      
-      if (loadingOverlay.classList.contains("loading-inactive")){
+      const loadingOverlay = document.getElementById("loading-overlay");
+      if (loadingOverlay.classList.contains("loading-inactive")) {
         loadingOverlay.classList.add("loading-active");
         loadingOverlay.classList.remove("loading-inactive");
       } else {
@@ -171,7 +171,7 @@
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-menu-button-wide"></i><span>Data</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">          
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li id="nav-data-user">
             <a href="data-user.html">
               <i class="bi bi-circle"></i><span>Data User</span>
@@ -980,16 +980,26 @@
 
     }
 
+    function sortMonths(array) {
+      const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sep", "Okt", "Nov", "Des"];
+
+      return array.sort((a, b) => {
+        const aIndex = months.indexOf(a);
+        const bIndex = months.indexOf(b);
+
+        return aIndex - bIndex;
+      });
+    }
 
 
     function fillVariables(chart) {
       let year = moment().format("YYYY")
-      var months = Object.keys(chart[year]);
+      var months = sortMonths(Object.keys(chart[year]));
       var rapat = [];
       var notulen = [];
 
       months.forEach(function (month) {
-        var meetings = chart["2023"][month];
+        var meetings = chart[year][month];
         var meetingIds = Object.keys(meetings);
         var rapatCount = meetingIds.length;
         var notulenCount = 0;
@@ -1025,51 +1035,51 @@
     function renderChart(value) {
 
       new ApexCharts(document.querySelector("#columnChart"), {
-            series: [{
-              name: 'Jumlah Rapat',
-              data: value.rapat
-            }, {
-              name: 'Notulen Terbuat',
-              data: value.notulen
-            }],
-            chart: {
-              type: 'bar',
-              height: 350
-            },
-            plotOptions: {
-              bar: {
-                horizontal: false,
-                columnWidth: '55%',
-                endingShape: 'rounded'
-              },
-            },
-            dataLabels: {
-              enabled: false
-            },
-            stroke: {
-              show: true,
-              width: 2,
-              colors: ['transparent']
-            },
-            xaxis: {
-              categories: value.months,
-            },
-            yaxis: {
-              title: {
-                text: ' '
-              }
-            },
-            fill: {
-              opacity: 1
-            },
-            tooltip: {
-              y: {
-                formatter: function (val) {
-                  return val + ""
-                }
-              }
+        series: [{
+          name: 'Jumlah Rapat',
+          data: value.rapat
+        }, {
+          name: 'Notulen Terbuat',
+          data: value.notulen
+        }],
+        chart: {
+          type: 'bar',
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%',
+            endingShape: 'rounded'
+          },
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: value.months,
+        },
+        yaxis: {
+          title: {
+            text: ' '
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val + ""
             }
-          }).render();
+          }
+        }
+      }).render();
       // document.addEventListener("DOMContentLoaded", () => {        
 
       // });
