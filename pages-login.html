@@ -76,8 +76,8 @@
   </div>
   <script>
     function showHideLoading() {
-      const loadingOverlay = document.getElementById("loading-overlay");      
-      if (loadingOverlay.classList.contains("loading-inactive")){
+      const loadingOverlay = document.getElementById("loading-overlay");
+      if (loadingOverlay.classList.contains("loading-inactive")) {
         loadingOverlay.classList.add("loading-active");
         loadingOverlay.classList.remove("loading-inactive");
       } else {
@@ -186,7 +186,7 @@
   <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
-  <script src="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.js"></script>
+  <!-- <script src="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.js"></script> -->
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.css" />
   <script>
 
@@ -196,13 +196,16 @@
       projectId: "notulen-app-7112c",
       storageBucket: "notulen-app-7112c.appspot.com",
       messagingSenderId: "798198338684",
-      appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9"
+      appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+      databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
     };
     firebase.initializeApp(config);
 
 
     if (String($_GET('pesan')) != "null") {
-      var msg = String($_GET('pesan')).replace('%20', ' ')
+      console.log($_GET('pesan'))
+      var msg = String($_GET('pesan')).replace(/%20/g, ' ')
+      console.log(msg)
       document.getElementById('message-alert').innerHTML = msg
     } else {
       document.getElementById('message-alert').innerHTML = "Mohon login dahulu"
@@ -211,10 +214,11 @@
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) { // if already logged in    
         console.log(user)
-        window.localStorage.setItem('email', user.email)
-        window.localStorage.setItem('displayName', user.displayName)
-        window.localStorage.setItem('photoUrl', user.photoUrl)
-        window.location.href = 'index.html';
+        // checkDeleted(user)
+        // window.localStorage.setItem('email', user.email)
+        // window.localStorage.setItem('displayName', user.displayName)
+        // window.localStorage.setItem('photoUrl', user.photoUrl)
+        window.location.href = 'user-check.html';
       }
     });
     /*******************\
@@ -236,9 +240,9 @@
     };
 
     // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // var ui = new firebaseui.auth.AuthUI(firebase.auth());
     // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
+    // ui.start('#firebaseui-auth-container', uiConfig);
 
     $('#login-form').submit(function (e) {
       e.preventDefault();
@@ -300,6 +304,59 @@
       }
 
     }
+  </script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+    import { getDatabase, get, set, child, ref, push, runTransaction } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+      authDomain: "notulen-app-7112c.firebaseapp.com",
+      projectId: "notulen-app-7112c",
+      storageBucket: "notulen-app-7112c.appspot.com",
+      messagingSenderId: "798198338684",
+      appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+      databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    };
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    function checkDeleted(user) {
+      console.log("checkDeleted start")
+
+      const userRef = ref(database, "data_user");
+      get(userRef).then((snapshot) => {
+        let data = snapshot.val()
+        console.log(data)
+        for (const [key, value] of Object.entries(data)) {
+
+        }
+
+      })
+
+
+      // var database = firebase.database();
+      // console.log(database)
+      // console.log("checkDeleted process")
+      // var ref = database.ref('data_user');
+      // console.log("checkDeleted proses")
+      // ref
+      //   .orderByChild('email')
+      //   .equalTo(user.email)
+      //   .once('value')
+      //   .then(function (snapshot) {
+      //     snapshot.forEach(function (childSnapshot) {
+      //       var childData = childSnapshot.val();
+      //       // Process the data here
+      //       console.log("orderByChild")
+      //       console.log(childData);
+      //     });
+      //   })
+      //   .catch(function (error) {
+      //     // Handle any errors that occur during the data retrieval
+      //     console.error(error);
+      //   })
+    }
+
   </script>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
       class="bi bi-arrow-up-short"></i></a>

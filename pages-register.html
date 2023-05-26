@@ -221,6 +221,7 @@
           username: username,
           email: tempEmail,
           password: password,
+          isDeleted: false,
           role: 'USER'
         }
         push(usersRef, temp).then(function (data) {

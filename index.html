@@ -395,34 +395,11 @@
 
 
                 <div class="card-body">
-                  <h5 class="card-title">Column Chart</h5>
+                  <h5 class="card-title">Grafik</h5>
 
                   <!-- Column Chart -->
                   <div id="columnChart"></div>
 
-                  <script>
-                    var chart = {
-                      "2023": {
-                        "May": {
-                          "-NW1urMJ9DD0LIGrcUzb": false,
-                          "-NW1urMJ9DD0LIGrcUzc": false,
-                          "-NW1urMJ9DD0LIGrcUza": false
-                        },
-                        "Jun": {
-                          "-NW1urMJ9DD0LIGrcUzb": true,
-                          "-NW1urMJ9DD0LIGrcUzc": false,
-                          "-NW1urMJ9DD0LIGrcUza": true
-                        },
-                        "Jul": {
-                          "-NW1urMJ9DD0LIGrcUzb": false,
-                          "-NW1urMJ9DD0LIGrcUzc": true,
-                          "-NW1urMJ9DD0LIGrcUza": false
-                        }
-                      }
-                    }
-
-
-                  </script>
                   <!-- End Column Chart -->
 
                 </div>
@@ -842,9 +819,9 @@
     function getDataRapat(bulan, tahun) {
       // Menghitung tanggal awal dan akhir untuk bulan dan tahun yang diberikan
       const db = getDatabase(app);
-      const dbRef = ref(db, 'data_rapat');
-      const start = moment(new Date(tahun, (bulan + 1) - 1, 1).getTime()).format("YYYY-MM-DD");
-      const end = moment(new Date(tahun, (bulan + 1), 0).getTime()).format("YYYY-MM-DD");
+      const dbRef = ref(db, 'data_rapat');      
+      const start = moment(`${tahun}-${bulan}`).startOf('year').format('YYYY-MM-DD');// moment(new Date(tahun, (bulan + 1) - 1, 1).getTime()).format("YYYY-MM-DD");
+      const end = moment(`${tahun}-${bulan}`).endOf('year').format('YYYY-MM-DD'); moment(new Date(tahun, (bulan + 1), 0).getTime()).format("YYYY-MM-DD");
 
       // Membuat query dengan filter tanggal
       console.log(`${start} ${end}`)
@@ -873,50 +850,18 @@
       });
     }
 
-    $('body').on('click', 'button.fc-prev-button', function () {
-      //do something
-      previousMonth()
-    });
-
-    $('body').on('click', 'button.fc-next-button', function () {
-      //do something
-      nextMonth()
-    });
-
-    function previousMonth() {
-      console.log(`${month} ${year}`)
-      if (month == 0) {
-        month = 12;
-        year -= 1;
-      } else {
-        month -= 1;
-      }
-      console.log(`${month} ${year}`)
-      getDataRapat(month, year);
-    }
-
-    function nextMonth() {
-      if (month == 11) {
-        month -= 1;
-        year += 1;
-      } else {
-        month += 1;
-      }
-      getDataRapat(month, year);
-    }
-
     function renderCalendar(montlyData) {
       var calendarEl = document.getElementById('calendar');
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
-        timeZone: 'UTC',
+        locale: 'id',
         initialView: 'dayGridMonth',
         height: '100%',
         events: montlyData,
         headerToolbar: {
           start: 'title',
           center: '',
-          end: ''
+          end: 'prev,next'
         },
       });
 

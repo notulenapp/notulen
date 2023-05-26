@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        .loading-active {
+            display: flex;
+            background: rgba(0, 0, 0, 0.6);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-inactive {
+            display: none;
+            background: rgba(0, 0, 0, 0.6);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+    <div id="loading-overlay" class="loading-active">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+        import { getDatabase, get, set, child, ref, push, runTransaction } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
+            authDomain: "notulen-app-7112c.firebaseapp.com",
+            projectId: "notulen-app-7112c",
+            storageBucket: "notulen-app-7112c.appspot.com",
+            messagingSenderId: "798198338684",
+            appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
+            databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+
+        auth.onAuthStateChanged(function (user) {
+            if (user) {
+                const userRef = ref(database, "data_user");
+                console.log(userRef)
+                get(userRef).then((snapshot) => {
+                    const data = snapshot.val();
+                    var found = false
+                    for (const [key, value] of Object.entries(data)) {
+                        if (user.email == value.email && value.isDeleted == false) {
+                            console.log(`
+                            ${user.email} 
+                            ${value.email} 
+                            ${value.isDeleted}
+                            `)
+                            window.localStorage.setItem('email', user.email)
+                            window.localStorage.setItem('displayName', user.displayName)
+                            window.localStorage.setItem('photoUrl', user.photoUrl)
+                            found = true                            
+                        }
+                    }
+                    if (found){
+                        window.location.href = 'index.html';
+                    } else {
+                        let pesan = 'User anda telah terhapus'                        
+                        window.location.href = `pages-login.html?pesan=${pesan}`;
+                        auth.signOut();
+                    }
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

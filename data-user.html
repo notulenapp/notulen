@@ -326,7 +326,7 @@
                                     let text = `Anda yakin akan memberi akses ADMIN ke ${value.email} ?`;
                                     if (confirm(text) == true) {
                                         text = "You pressed OK!";
-                                        update(key, value.email, 'ADMIN', value.password)
+                                        update(key, value, 'ADMIN')
                                     } else {
                                         text = "You canceled!";
                                     }
@@ -337,7 +337,7 @@
                                 removeAdminButton.setAttribute('class', 'btn btn-danger btn-sm')
                                 removeAdminButton.addEventListener('click', () => {
                                     // window.location.href = `update-pegawai.html?id=${key}`;
-                                    let text = `Anda yakin akan menghapus akses ADMIN dari ${value.email} ?`;
+                                    let text = `Anda yakin akan menghapus akses ADMIN dari ${String(value.email).replace("@gmail.com","")} ?`;
                                     if (confirm(text) == true) {
                                         text = "You pressed OK!";
                                         update(key, value.email, 'USER', value.password)
@@ -353,10 +353,10 @@
                                 removeAccess.setAttribute('class', 'btn btn-danger btn-sm')
                                 removeAccess.addEventListener('click', () => {
                                     // window.location.href = `update-pegawai.html?id=${key}`;
-                                    let text = `Anda yakin akan menghapus akses ADMIN dari ${value.email} ?`;
+                                    let text = `Anda yakin akan menghapus akun ${value.email} ?`;
                                     if (confirm(text) == true) {
                                         text = "You pressed OK!";
-                                        // update(key, value.email, 'USER', value.password)
+                                        updateAccount(key, value)
                                     } else {
                                         text = "You canceled!";
                                     }
@@ -398,12 +398,10 @@
             }
         })
 
-        function update(key, email, role, password) {
+        function update(key, value, role) {
 
-            var entry = {}
-            entry.email = email;
+            var entry = value
             entry.role = role;
-            entry.password = password;
             entry.updatedAt = new Date().getTime();
             entry.lastEditedBy = window.localStorage.getItem("email");
             console.log(entry)
@@ -414,10 +412,36 @@
                     return entry;
                 }
 
-                var entry = {}
-                entry.email = email;
+                var entry = value;
                 entry.role = role;
-                entry.password = password;
+                entry.updatedAt = new Date().getTime();
+                entry.lastEditedBy = window.localStorage.getItem('email');
+                console.log(entry)
+                return entry;
+            }).then((result) => {
+                window.location.href = 'data-user.html' // 'entry.html?id=' + data.getKey()
+            }).catch(function (error) {
+                alert(error);
+                console.error(error);
+            })
+        }
+        function updateAccount(key, value) {
+            console.log(JSON.stringify(value))            
+
+            var entry = value
+            entry.isDeleted = true            
+            entry.updatedAt = new Date().getTime();
+            entry.lastEditedBy = window.localStorage.getItem("email");
+            console.log(entry)
+            // alert(JSON.stringify(entry))
+            const tasksRef = ref(database, `data_user/${key}`);
+            runTransaction(tasksRef, (entry) => {
+                if (!entry) {
+                    return entry;
+                }
+
+                var entry = value
+                entry.isDeleted = true
                 entry.updatedAt = new Date().getTime();
                 entry.lastEditedBy = window.localStorage.getItem('email');
                 console.log(entry)
