@@ -157,7 +157,7 @@
       <!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="#" id="logout">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>Logout</span>
         </a>
@@ -304,6 +304,15 @@
     tableBody.innerHTML = `<tr><td colspan=5 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
     auth.onAuthStateChanged(function (user) {
       if (user) {
+        document.getElementById('logout').onclick = function () {
+          let text = `Anda yakin akan logout?`;
+          if (confirm(text) == true) {
+            text = "You pressed OK!";
+            auth.signOut(); // This will trigger onAuthStateChanged again, immediately.            
+          } else {
+            text = "You canceled!";
+          }
+        };
         console.log("aman")
 
         if(window.localStorage.getItem('role') != "ADMIN"){
@@ -327,16 +336,6 @@
             const table = document.createElement('table')
             const thead = document.createElement('thead')
             const tbody = document.createElement('tbody')
-            // divTable.innerHTML = ''
-            // table.setAttribute('class', 'table datatable')
-            // thead.innerHTML = `<tr>
-            //           <th scope="col">#</th>
-            //           <th scope="col">Name</th>
-            //           <th scope="col">NIP</th>
-            //           <th scope="col">Jabatan</th>
-            //           <th scope="col">Aksi</th>
-            //         </tr>`
-            // table.appendChild(thead)
 
 
             for (const [key, value] of Object.entries(data)) {

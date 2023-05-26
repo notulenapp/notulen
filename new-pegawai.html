@@ -166,7 +166,7 @@
             </li> --><!-- End Profile Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-login.html">
+                <a class="nav-link collapsed" href="#" id="logout">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Logout</span>
                 </a>
@@ -267,272 +267,12 @@
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
 
-    <!-- <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
-    <script>
-        // firebase config
-        var config = {
-            apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
-            authDomain: "notulen-app-7112c.firebaseapp.com",
-            projectId: "notulen-app-7112c",
-            storageBucket: "notulen-app-7112c.appspot.com",
-            messagingSenderId: "798198338684",
-            appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
-            databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
-        };
-        firebase.initializeApp(config);
-
-        /////////////////////////////////////
-
-
-        /**********************\
-         * login status check *
-        \**********************/
-
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-
-                // init CKEditor
-                // CKEDITOR.replace('content');
-
-                /***************************************************\
-                 * Process form data and save to Firebase database *
-                \***************************************************/
-
-                $('#new_entry').submit(function (e) {
-                    e.preventDefault();
-
-                    var entry = {};
-                    entry.nama = $(this).find('[name="input_nama"]').val();
-                    entry.nip = $(this).find('[name="input_nip"]').val();
-                    entry.jabatan = $(this).find('[name="input_jabatan"]').val();
-                    entry.createdAt = new Date().getTime();
-                    entry.updatedAt = entry.createdAt;
-                    entry.views = 0;
-                    entry.author = user.email;
-
-                    var Entry = firebase.database().ref('data_pegawai');
-
-                    Entry.push(entry).then(function (data) {
-                        window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
-                    }).catch(function (error) {
-                        alert(error);
-                        console.error(error);
-                    })
-
-                    return false;
-                });
-
-
-            } else {
-                // if not logged in
-                alert('Please login first')
-                window.location.href = 'pages-login.html';
-
-            }
-        });
-
-    </script> -->
-
-    <!-- <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
-    <script type="module">
-        
-        /////////////////////////////////////
-        import { initializeApp } from "firebase/app";
-        import { getAuth, onAuthStateChanged } from "firebase/auth";
-        import { getDatabase, ref, push } from "firebase/database";
-
-        const firebaseConfig = {
-        apiKey: "AIzaSyBqxEP00IKEgI163DnTRluzxIHwesx_QLQ",
-        authDomain: "example-crud-blog-d4912.firebaseapp.com",
-        databaseURL: "https://example-crud-blog-d4912.firebaseio.com",
-        storageBucket: "",
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const database = getDatabase(app);
-
-        /**********************\
-         * login status check *
-        \**********************/
-
-        onAuthStateChanged(function (user) {
-            if (user) {
-
-                // init CKEditor
-                // CKEDITOR.replace('content');
-
-                /***************************************************\
-                 * Process form data and save to Firebase database *
-                \***************************************************/
-
-                $('#new_entry').submit(function (e) {
-                    e.preventDefault();
-
-                    var entry = {};
-                    entry.nama = $(this).find('[name="input_nama"]').val();
-                    entry.nip = $(this).find('[name="input_nip"]').val();
-                    entry.jabatan = $(this).find('[name="input_jabatan"]').val();
-                    entry.createdAt = new Date().getTime();
-                    entry.updatedAt = entry.createdAt;
-                    entry.views = 0;
-                    entry.author = user.email;
-
-                    var Entry = ref('data_pegawai');
-
-                    Entry.push(entry).then(function (data) {
-                        window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
-                    }).catch(function (error) {
-                        alert(error);
-                        console.error(error);
-                    })
-
-                    return false;
-                });
-
-
-            } else {
-                // if not logged in
-                alert('Please login first')
-                window.location.href = 'pages-login.html';
-
-            }
-        });
-    </script> -->
-
-    <!-- <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js" type="module" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js" type="module" defer></script>
-    <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js" type="module" defer></script>
-
-    <script type="module">
-        import { initializeApp } from "firebase/app";
-        import { getAuth, onAuthStateChanged } from "firebase/auth";
-        import { getDatabase, ref, push } from "firebase/database";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyBqxEP00IKEgI163DnTRluzxIHwesx_QLQ",
-            authDomain: "example-crud-blog-d4912.firebaseapp.com",
-            databaseURL: "https://example-crud-blog-d4912.firebaseio.com",
-            storageBucket: "",
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const database = getDatabase(app);
-
-        /**********************\
-         * login status check *
-        \**********************/
-
-        onAuthStateChanged(auth, function (user) {
-            if (user) {
-
-                // init CKEditor
-                // CKEDITOR.replace('content');
-
-                /***************************************************\
-                 * Process form data and save to Firebase database *
-                \***************************************************/
-
-                $('#new_entry').submit(function (e) {
-                    e.preventDefault();
-
-                    var entry = {};
-                    entry.nama = $(this).find('[name="input_nama"]').val();
-                    entry.nip = $(this).find('[name="input_nip"]').val();
-                    entry.jabatan = $(this).find('[name="input_jabatan"]').val();
-                    entry.createdAt = new Date().getTime();
-                    entry.updatedAt = entry.createdAt;
-                    entry.views = 0;
-                    entry.author = user.email;
-
-                    var Entry = ref(database, 'data_pegawai');
-
-                    push(Entry, entry).then(function (data) {
-                        window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
-                    }).catch(function (error) {
-                        alert(error);
-                        console.error(error);
-                    })
-
-                    return false;
-                });
-
-
-            } else {
-                // if not logged in
-                alert('Please login first')
-                window.location.href = 'pages-login.html';
-
-            }
-        });
-    </script> -->
-
-
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js"></script>
 
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js"></script>
-    <!-- <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyCpwogqkUd2va3aHyUIM3Q9r_Y_u_L04t0",
-            authDomain: "notulen-app-7112c.firebaseapp.com",
-            projectId: "notulen-app-7112c",
-            storageBucket: "notulen-app-7112c.appspot.com",
-            messagingSenderId: "798198338684",
-            appId: "1:798198338684:web:c2fc0bb710b691eb6e65f9",
-            databaseURL: "https://notulen-app-7112c-default-rtdb.asia-southeast1.firebasedatabase.app/"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        const myCollection = db.ref('data_pegawai');
-
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-
-                // init CKEditor
-                // CKEDITOR.replace('content');
-
-                /***************************************************\
-                 * Process form data and save to Firebase database *
-                \***************************************************/
-
-                $('#new_entry').submit(function (e) {
-                    e.preventDefault();
-
-                    var entry = {};
-                    entry.nama = $(this).find('[name="input_nama"]').val();
-                    entry.nip = $(this).find('[name="input_nip"]').val();
-                    entry.jabatan = $(this).find('[name="input_jabatan"]').val();
-                    entry.createdAt = new Date().getTime();
-                    entry.updatedAt = entry.createdAt;
-                    entry.views = 0;
-                    entry.author = user.email;
-
-                    myCollection.push(entry).then(function (data) {
-                        window.location.href = 'data-pegawai.html' // 'entry.html?id=' + data.getKey()
-                    }).catch(function (error) {
-                        alert(error);
-                        console.error(error);
-                    })
-
-                    return false;
-                });
-
-
-            } else {
-                // if not logged in
-                alert('Please login first')
-                window.location.href = 'pages-login.html';
-
-            }
-        })
-    </script> -->
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
@@ -555,6 +295,15 @@
 
         auth.onAuthStateChanged(function (user) {
             if (user) {
+                document.getElementById('logout').onclick = function () {
+                    let text = `Anda yakin akan logout?`;
+                    if (confirm(text) == true) {
+                        text = "You pressed OK!";
+                        auth.signOut(); // This will trigger onAuthStateChanged again, immediately.            
+                    } else {
+                        text = "You canceled!";
+                    }
+                };
                 console.log("aman")
                 $('#new_entry').submit(function (e) {
                     e.preventDefault();

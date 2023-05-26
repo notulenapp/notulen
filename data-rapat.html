@@ -157,7 +157,7 @@
       <!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="#" id="logout">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>Logout</span>
         </a>
@@ -206,8 +206,7 @@
               <p>Filter</p>
               <div class="row mb-3">
                 <div class="col-sm-4">
-                  <select class="form-select" id="select_filter"
-                    aria-label="Default select example">
+                  <select class="form-select" id="select_filter" aria-label="Default select example">
                     <option value="month" selected>Per Bulan</option>
                     <option value="year">Per Tahun</option>
                   </select>
@@ -215,8 +214,7 @@
               </div>
               <div class="row mb-3">
                 <div class="col-sm-2" id="monthFilter">
-                  <select class="form-select" id="select_month"
-                    aria-label="Default select example">
+                  <select class="form-select" id="select_month" aria-label="Default select example">
                     <option value="01" selected>Januari</option>
                     <option value="02">Februari</option>
                     <option value="03">Maret</option>
@@ -232,8 +230,7 @@
                   </select>
                 </div>
                 <div class="col-sm-2" id="yearFilter">
-                  <select class="form-select" id="select_year"
-                    aria-label="Default select example">
+                  <select class="form-select" id="select_year" aria-label="Default select example">
                     <option value="2023" selected>2023</option>
                     <option value="2024">2024</option>
                     <option value="2025">2025</option>
@@ -437,7 +434,15 @@
     auth.onAuthStateChanged(function (user) {
       if (user) {
         console.log("aman")
-
+        document.getElementById('logout').onclick = function () {
+          let text = `Anda yakin akan logout?`;
+          if (confirm(text) == true) {
+            text = "You pressed OK!";
+            auth.signOut(); // This will trigger onAuthStateChanged again, immediately.            
+          } else {
+            text = "You canceled!";
+          }
+        };
         const startDate = moment().startOf('month').format('YYYY-MM-DD');
         const endDate = moment().endOf('month').format('YYYY-MM-DD');
         document.getElementById("select_month").value = moment().format("MM")
@@ -615,7 +620,7 @@
 
     }
 
-    
+
     const selectFilter = document.getElementById('select_filter');
     selectFilter.addEventListener('change', onFilterChange);
     const monthFilter = document.getElementById('select_month');

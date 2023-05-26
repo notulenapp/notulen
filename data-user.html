@@ -163,7 +163,7 @@
             <!-- End Profile Page Nav -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-login.html">
+                <a class="nav-link collapsed" href="#" id="logout">
                     <i class="bi bi-box-arrow-in-right"></i>
                     <span>Logout</span>
                 </a>
@@ -279,6 +279,15 @@
         tableBody.innerHTML = `<tr><td colspan=5 class="text-center"r><div class="spinner-border text-primary" role="status"><span class="visually-hidden"> Loading...</span></tr>`
         auth.onAuthStateChanged(function (user) {
             if (user) {
+                document.getElementById('logout').onclick = function () {
+                    let text = `Anda yakin akan logout?`;
+                    if (confirm(text) == true) {
+                        text = "You pressed OK!";
+                        auth.signOut(); // This will trigger onAuthStateChanged again, immediately.            
+                    } else {
+                        text = "You canceled!";
+                    }
+                };
                 console.log("aman")
                 if (window.localStorage.getItem('role') != "ADMIN") {
                     alert("Anda tidak memiliki akses ke halaman ini")
@@ -337,7 +346,7 @@
                                 removeAdminButton.setAttribute('class', 'btn btn-danger btn-sm')
                                 removeAdminButton.addEventListener('click', () => {
                                     // window.location.href = `update-pegawai.html?id=${key}`;
-                                    let text = `Anda yakin akan menghapus akses ADMIN dari ${String(value.email).replace("@gmail.com","")} ?`;
+                                    let text = `Anda yakin akan menghapus akses ADMIN dari ${String(value.email).replace("@gmail.com", "")} ?`;
                                     if (confirm(text) == true) {
                                         text = "You pressed OK!";
                                         update(key, value.email, 'USER', value.password)
@@ -426,10 +435,10 @@
             })
         }
         function updateAccount(key, value) {
-            console.log(JSON.stringify(value))            
+            console.log(JSON.stringify(value))
 
             var entry = value
-            entry.isDeleted = true            
+            entry.isDeleted = true
             entry.updatedAt = new Date().getTime();
             entry.lastEditedBy = window.localStorage.getItem("email");
             console.log(entry)

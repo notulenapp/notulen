@@ -158,7 +158,7 @@
       <!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-login.html">
+        <a class="nav-link collapsed" href="#" id="logout">
           <i class="bi bi-box-arrow-in-right"></i>
           <span>Logout</span>
         </a>
@@ -434,6 +434,15 @@
 
     auth.onAuthStateChanged(function (user) {
       if (user) {
+        document.getElementById('logout').onclick = function () {
+          let text = `Anda yakin akan logout?`;
+          if (confirm(text) == true) {
+            text = "You pressed OK!";
+            auth.signOut(); // This will trigger onAuthStateChanged again, immediately.            
+          } else {
+            text = "You canceled!";
+          }
+        };
         console.log("aman")
 
         const startDate = moment().startOf('month').format('YYYY-MM-DD');
