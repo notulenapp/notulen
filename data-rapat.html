@@ -440,6 +440,8 @@
 
         const startDate = moment().startOf('month').format('YYYY-MM-DD');
         const endDate = moment().endOf('month').format('YYYY-MM-DD');
+        document.getElementById("select_month").value = moment().format("MM")
+        document.getElementById("select_year").value = moment().format("YYYY")
         getData(startDate, endDate)
 
 

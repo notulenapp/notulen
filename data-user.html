@@ -119,10 +119,10 @@
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="data-rapat.html?show=1">
-                  <i class="bi bi-plus-square"></i>
-                  <span>Buat Notulen Baru</span>
+                    <i class="bi bi-plus-square"></i>
+                    <span>Buat Notulen Baru</span>
                 </a>
-              </li><!-- End Profile Page Nav -->
+            </li><!-- End Profile Page Nav -->
 
             <li class="nav-item">
                 <a class="nav-link " data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
@@ -154,12 +154,13 @@
 
             <li class="nav-heading">Pages</li>
 
-            <li class="nav-item">
+            <!-- <li class="nav-item">
                 <a class="nav-link collapsed" href="users-profile.html">
                     <i class="bi bi-person"></i>
                     <span>Profile</span>
                 </a>
-            </li><!-- End Profile Page Nav -->
+            </li> -->
+            <!-- End Profile Page Nav -->
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="pages-login.html">
@@ -297,70 +298,90 @@
                         var container;
                         var index = 1;
                         for (const [key, value] of Object.entries(data)) {
-                            console.log(value)
-                            const row = document.createElement('tr');
+                            if (!value.isDeleted) {
+                                console.log(value)
+                                const row = document.createElement('tr');
 
-                            const indexCell = document.createElement('th');
-                            indexCell.setAttribute('scope', 'row');
-                            indexCell.innerText = index;
+                                const indexCell = document.createElement('th');
+                                indexCell.setAttribute('scope', 'row');
+                                indexCell.innerText = index;
 
-                            const emailCell = document.createElement('td');
-                            emailCell.innerText = value.email;
+                                const emailCell = document.createElement('td');
+                                emailCell.innerText = String(value.email).replace('@gmail.com', '');
 
-                            const passwordCell = document.createElement('td');
-                            passwordCell.innerText = value.password;
+                                const passwordCell = document.createElement('td');
+                                passwordCell.innerText = value.password;
 
-                            const roleCell = document.createElement('td');
-                            roleCell.innerText = value.role;
+                                const roleCell = document.createElement('td');
+                                roleCell.innerText = value.role;
 
-                            const jabatanCell = document.createElement('td');
-                            jabatanCell.innerText = value.jabatan;
+                                const jabatanCell = document.createElement('td');
+                                jabatanCell.innerText = value.jabatan;
 
-                            const addAdminButton = document.createElement('button');
-                            addAdminButton.innerHTML = "Jadikan Admin"
-                            addAdminButton.setAttribute('class', 'btn btn-primary btn-sm')
-                            addAdminButton.addEventListener('click', () => {
-                                // window.location.href = `update-pegawai.html?id=${key}`;
-                                let text = `Anda yakin akan memberi akses ADMIN ke ${value.email} ?`;
-                                if (confirm(text) == true) {
-                                    text = "You pressed OK!";
-                                    update(key, value.email, 'ADMIN', value.password)
+                                const addAdminButton = document.createElement('button');
+                                addAdminButton.innerHTML = "Jadikan Admin"
+                                addAdminButton.setAttribute('class', 'btn btn-primary btn-sm')
+                                addAdminButton.addEventListener('click', () => {
+                                    // window.location.href = `update-pegawai.html?id=${key}`;
+                                    let text = `Anda yakin akan memberi akses ADMIN ke ${value.email} ?`;
+                                    if (confirm(text) == true) {
+                                        text = "You pressed OK!";
+                                        update(key, value.email, 'ADMIN', value.password)
+                                    } else {
+                                        text = "You canceled!";
+                                    }
+                                });
+
+                                const removeAdminButton = document.createElement('button');
+                                removeAdminButton.innerHTML = "Hapus Admin"
+                                removeAdminButton.setAttribute('class', 'btn btn-danger btn-sm')
+                                removeAdminButton.addEventListener('click', () => {
+                                    // window.location.href = `update-pegawai.html?id=${key}`;
+                                    let text = `Anda yakin akan menghapus akses ADMIN dari ${value.email} ?`;
+                                    if (confirm(text) == true) {
+                                        text = "You pressed OK!";
+                                        update(key, value.email, 'USER', value.password)
+                                    } else {
+                                        text = "You canceled!";
+                                    }
+                                });
+
+                                const space = document.createElement('span');
+                                space.innerHTML = " "
+                                const removeAccess = document.createElement('button');
+                                removeAccess.innerHTML = "Hapus User"
+                                removeAccess.setAttribute('class', 'btn btn-danger btn-sm')
+                                removeAccess.addEventListener('click', () => {
+                                    // window.location.href = `update-pegawai.html?id=${key}`;
+                                    let text = `Anda yakin akan menghapus akses ADMIN dari ${value.email} ?`;
+                                    if (confirm(text) == true) {
+                                        text = "You pressed OK!";
+                                        // update(key, value.email, 'USER', value.password)
+                                    } else {
+                                        text = "You canceled!";
+                                    }
+                                });
+
+                                const actionsCell = document.createElement('td');
+                                if (value.role == "ADMIN") {
+                                    actionsCell.appendChild(removeAdminButton);
                                 } else {
-                                    text = "You canceled!";
+                                    actionsCell.appendChild(addAdminButton);
+                                    actionsCell.appendChild(space)
+                                    actionsCell.appendChild(removeAccess);
                                 }
-                            });
 
-                            const removeAdminButton = document.createElement('button');
-                            removeAdminButton.innerHTML = "Hapus Admin"
-                            removeAdminButton.setAttribute('class', 'btn btn-danger btn-sm')
-                            removeAdminButton.addEventListener('click', () => {
-                                // window.location.href = `update-pegawai.html?id=${key}`;
-                                let text = `Anda yakin akan menghapus akses ADMIN dari ${value.email} ?`;
-                                if (confirm(text) == true) {
-                                    text = "You pressed OK!";
-                                    update(key, value.email, 'USER', value.password)
-                                } else {
-                                    text = "You canceled!";
-                                }
-                            });
+                                row.appendChild(indexCell);
+                                row.appendChild(emailCell);
+                                row.appendChild(passwordCell);
+                                row.appendChild(roleCell);
 
-                            const actionsCell = document.createElement('td');
-                            if (value.role == "ADMIN") {
-                                actionsCell.appendChild(removeAdminButton);
-                            } else {
-                                actionsCell.appendChild(addAdminButton);
+                                row.appendChild(actionsCell);
+
+                                console.log(row)
+                                tableBody.appendChild(row);
+                                index++
                             }
-
-                            row.appendChild(indexCell);
-                            row.appendChild(emailCell);
-                            row.appendChild(passwordCell);
-                            row.appendChild(roleCell);
-
-                            row.appendChild(actionsCell);
-
-                            console.log(row)
-                            tableBody.appendChild(row);
-                            index++
                         }
                     } else {
                         console.log("No data available");
