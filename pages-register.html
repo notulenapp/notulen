@@ -206,7 +206,7 @@
 
     $('#new_entry').submit(function (e) {
       e.preventDefault();
-      var username = $(this).find('[name="username"]').val();
+      var username = String($(this).find('[name="username"]').val()).toLowerCase();
       var password = $(this).find('[name="password"]').val();
       // alert(username)
       register(username, password)

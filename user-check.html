@@ -71,7 +71,7 @@
                     const data = snapshot.val();
                     var found = false
                     for (const [key, value] of Object.entries(data)) {
-                        if (user.email == value.email && value.isDeleted == false) {
+                        if (String(user.email).toLowerCase() == String(value.email).toLowerCase() && value.isDeleted == false) {
                             console.log(`
                             ${user.email} 
                             ${value.email} 

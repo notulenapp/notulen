@@ -214,7 +214,7 @@
     $('#login-form').submit(function (e) {
       e.preventDefault();
 
-      var email = $(this).find('[name="username"]').val();
+      var email = String($(this).find('[name="username"]').val()).toLowerCase();
       var password = $(this).find('[name="password"]').val();
       if (!email.includes("@")) {
         email = `${email}@gmail.com`
