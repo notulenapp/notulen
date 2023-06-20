@@ -79,7 +79,7 @@
                             <hr class="dropdown-divider">
                         </li>
 
-                        <li>
+                        <li id="signout">
                             <a class="dropdown-item d-flex align-items-center" href="#">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
@@ -280,6 +280,15 @@
         auth.onAuthStateChanged(function (user) {
             if (user) {
                 document.getElementById('logout').onclick = function () {
+                    let text = `Anda yakin akan logout?`;
+                    if (confirm(text) == true) {
+                        text = "You pressed OK!";
+                        auth.signOut(); // This will trigger onAuthStateChanged again, immediately.            
+                    } else {
+                        text = "You canceled!";
+                    }
+                };
+                document.getElementById('signout').onclick = function () {
                     let text = `Anda yakin akan logout?`;
                     if (confirm(text) == true) {
                         text = "You pressed OK!";
