@@ -193,7 +193,7 @@
                 </div>
                 <div class="col-md-6" style="display: flex;
                 justify-content: flex-end;
-                align-items: center;">
+                align-items: center;" id="btn-new-rapat">
                   <a href="new-rapat.html">
                     <button class="btn btn-primary">
                       <i class="bi bi-print"></i>
@@ -793,6 +793,13 @@
           }
         }
       }
+    }
+  </script>
+  <script>
+    if (window.localStorage.getItem('role') != "ADMIN") {
+        document.getElementById("btn-new-rapat").setAttribute('class', 'd-none')
+    } else {
+        document.getElementById("nav-data-user").setAttribute('class', '')
     }
   </script>
   <script src="./assets/js/nav.js"></script>
