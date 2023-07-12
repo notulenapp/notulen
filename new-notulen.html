@@ -466,6 +466,8 @@
                   <tr style="height: 57px;">
                     <td></td>
                   </tr>
+                </table>
+                <table style="font-family: Arial;font-size: 16px;width: 100%;">
                   <tr>
                     <td colspan="2" style="text-align: center;">Mengetahui,</td>
                     <td colspan="2" style="text-align: center;">Notulis</td>
@@ -474,8 +476,8 @@
                     <td></td>
                   </tr>
                   <tr>
-                    <td colspan="2" style="text-align: center;" id="output_atasan"></td>
-                    <td colspan="2" style="text-align: center;" id="output_notulis"></td>
+                    <td colspan="2" style="text-align: center; text-decoration: underline;" id="output_atasan"></td>
+                    <td colspan="2" style="text-align: center; text-decoration: underline;" id="output_notulis"></td>
                   </tr>
                   <tr>
                     <td colspan="2" style="text-align: center;" id="output_nip_atasan"></td>
@@ -560,6 +562,15 @@
       document.getElementById("output_nip_atasan").innerHTML = input_nip_atasan;
       document.getElementById("output_notulis").innerHTML = input_notulis;
 
+      function getFormattedNip(inputString){
+        const x = inputString.slice(0, 8);
+        const y = inputString.slice(8, 14);
+        const z = inputString.slice(14, 15);
+        const zz = inputString.slice(15, 18);
+
+        return `NIP. ${x} ${y} ${z} ${zz}`;
+      }
+
       if (!isFirstLoad) {
         list_peserta = $("input[name='input_peserta[]']").map(function () {
           return $(this).val();
@@ -611,7 +622,7 @@
           for (var i = 0; i < list_pegawai.length; i++) {
             if (list_pegawai[i].nama === targetName) {
               document.getElementById("input_nip_atasan").innerText = list_pegawai[i].nip;
-              document.getElementById("output_nip_atasan").innerHTML = list_pegawai[i].nip;
+              document.getElementById("output_nip_atasan").innerHTML = getFormattedNip(list_pegawai[i].nip);
               break
             }
           }
@@ -621,7 +632,7 @@
           for (var i = 0; i < list_pegawai.length; i++) {
             if (list_pegawai[i].nama === targetName) {
               document.getElementById("input_nip_notulis").innerHTML = list_pegawai[i].nip;
-              document.getElementById("output_nip_notulis").innerHTML = list_pegawai[i].nip;
+              document.getElementById("output_nip_notulis").innerHTML = getFormattedNip(list_pegawai[i].nip);
               break
             }
           }
