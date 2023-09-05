@@ -548,6 +548,11 @@
             notulenButton.setAttribute('title', 'Tambah Notulen');
             notulenButton.innerHTML = '<i class="bi bi-plus-square"></i>';
             notulenButton.addEventListener('click', () => {
+              let dateNow = String(moment().format("YYYY-MM-DD"))
+              if(value.tanggal != dateNow){
+                alert("Notulen hanya bisa dibuat pada tanggal pelaksanaan");
+                return
+              }
               window.location.href = `new-notulen.html?id=${key}`;
             });
 

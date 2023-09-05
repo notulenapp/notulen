@@ -526,6 +526,11 @@
                 editButton.setAttribute('title', 'Edit Rapat');
                 editButton.innerHTML = '<i class="bi bi-pencil-square"></i>';
                 editButton.addEventListener('click', () => {
+                  let dateNow = String(moment().format("YYYY-MM-DD"))
+                  if(value.tanggal != dateNow){
+                    alert("Notulen hanya bisa dibuat pada tanggal pelaksanaan");
+                    return
+                  }
                   window.location.href = `new-notulen.html?id=${key}`;
                 });
 
